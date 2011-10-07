@@ -9,7 +9,7 @@ class Medication
     :permanent => true, # Don't change slug in the future
     :index => true
 
-  search_in :name, :generic_name, :secondary_effects
+  search_in :name, :generic_name
     
   field :name, :type => String
   field :generic_name, :type => String

@@ -1,3 +1,21 @@
 $(document).ready(function () {
+    /**
+    * Autocomplete the secondary effects in edit form
+    */
     $("#medication_secondary_effects").tagsInput({autocomplete_url:"/secondary_effects", defaultText:"Choose  or enter a secondary effect, seperated by commas"});
+
+    /**
+    * Search in the background for similiar exisiting medications
+    */
+    $('form.new_medication #medication_name, form.new_medication #medication_generic_name').change(function() {  
+      
+      $.ajax({
+        url: "/medications/search.json?q=" + $("form.new_medication #medication_name").val(),
+        success: function(data) {     
+          $.each(data, function(index, value) {                                                                                                                   
+          $('#search_result').append("<div>There is already a medication called " + value.name + " ("+  value.generic_name + "), you can visit it here: " + '<a href="/medications/' + value.name.toLowerCase() + '">' + value.name + "</a></div>" );  
+          });                                                                                      
+        }
+      });
+    });
 });
