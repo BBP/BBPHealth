@@ -9,6 +9,19 @@ class MedicationsController < ApplicationController
       format.json { render json: @medications }
     end
   end
+     
+  def search
+    @medications = Medication.search(params[:q])
+    
+    puts "PLIPITI"
+    puts  @medications.inspect
+    
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json: @medications }
+    end
+  end
+
 
   # GET /medications/1
   # GET /medications/1.json

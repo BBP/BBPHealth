@@ -1,0 +1,21 @@
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Generic name</th>
+    <th>Secondary effects</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @medications.each do |medication| %>
+  <tr>
+    <td><%= medication.name %></td>
+    <td><%= medication.generic_name %></td>
+    <td><%= medication.secondary_effects %></td>
+    <td><%= link_to 'Show', medication %></td>
+    <td><%= link_to 'Edit', edit_medication_path(medication) %></td>
+    <td><%= link_to 'Destroy', medication, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>

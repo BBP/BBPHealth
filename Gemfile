@@ -65,3 +65,4 @@ gem "devise", ">= 1.4.5"
 gem 'mongoid_slug', :require => 'mongoid/slug'
 gem "mongoid_taggable"
 gem "mongoid_taggable_with_context", "~> 0.7.2"
+gem 'mongoid_search'
