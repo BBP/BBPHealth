@@ -1,6 +1,7 @@
 BBPHealth::Application.routes.draw do
   resources :medications
   root :to => "medications#index"
+  match "secondary_effects" =>"secondary_effects#index" 
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
