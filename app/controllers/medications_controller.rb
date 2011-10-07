@@ -13,7 +13,7 @@ class MedicationsController < ApplicationController
   # GET /medications/1
   # GET /medications/1.json
   def show
-    @medication = Medication.find(params[:id])
+    @medication = Medication.find_by_slug(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -34,7 +34,7 @@ class MedicationsController < ApplicationController
 
   # GET /medications/1/edit
   def edit
-    @medication = Medication.find(params[:id])
+    @medication = Medication.find_by_slug(params[:id])
   end
 
   # POST /medications
@@ -56,7 +56,7 @@ class MedicationsController < ApplicationController
   # PUT /medications/1
   # PUT /medications/1.json
   def update
-    @medication = Medication.find(params[:id])
+    @medication = Medication.find_by_slug(params[:id])
 
     respond_to do |format|
       if @medication.update_attributes(params[:medication])
@@ -72,7 +72,7 @@ class MedicationsController < ApplicationController
   # DELETE /medications/1
   # DELETE /medications/1.json
   def destroy
-    @medication = Medication.find(params[:id])
+    @medication = Medication.find_by_slug(params[:id])
     @medication.destroy
 
     respond_to do |format|

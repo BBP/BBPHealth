@@ -62,3 +62,4 @@ gem "guard-cucumber", ">= 0.6.1", :group => :development
 gem "bson_ext", ">= 1.3.1"
 gem "mongoid", ">= 2.2.0"
 gem "devise", ">= 1.4.5"
+gem 'mongoid_slug', :require => 'mongoid/slug'
