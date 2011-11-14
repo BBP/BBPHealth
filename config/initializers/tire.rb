@@ -1,3 +1,5 @@
 Tire.configure do
-  #logger STDERR
+   logger STDERR
+   url(YAML::load(File.open(Rails.root.join("./config/tire.yml")))[Rails.env]["url"])
 end
+Tire::Model::Search.index_prefix "BBPHealth-#{Rails.env}".downcase

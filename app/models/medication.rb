@@ -9,7 +9,6 @@ class Medication
   validates_presence_of :name   
   validates_uniqueness_of :name
   
-  index_name ENV['RAILS_ENV'] + "medications"    
   slug :name, :permanent => true, :index => true
   
   # These Mongo guys sure do some funky stuff with their IDs

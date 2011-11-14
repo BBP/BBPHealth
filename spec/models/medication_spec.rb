@@ -1,8 +1,7 @@
 require 'spec_helper'
 ##Fixme must be a cleaner way to do this in spec_helper.rb (is there a before (:models..?) ) We should probably contribute something to https://github.com/bmabey/database_cleaner
-index = Tire::Index.new(ENV['RAILS_ENV'] + "medications")
-index.delete
-index.create
+Medication.tire.index.delete
+Medication.tire.index.create
 ##
 describe Medication do
   
