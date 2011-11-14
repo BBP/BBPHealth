@@ -1,0 +1,11 @@
+<h3>Secondary Effects</h3>
+<ul>
+<% @facets.each do |term| %>   
+   <li><%= link_to term["term"], :controller => "medications", :action => "elastic_search",  :q => params[:q],  :terms => term["add_facet"] %> (<%= term["count"] %>) 
+<strong>
+<%= if  term["selected"] 
+	  link_to "X", :controller => "medications", :action => "elastic_search",  :q => params[:q], :terms => term["remove_facet"] 
+    end
+%> </strong></li>
+<% end %>               
+</ul>
