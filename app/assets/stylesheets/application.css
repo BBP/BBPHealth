@@ -5,3 +5,5 @@
  *= require_self
  *= require_tree . 
 */
+body,p,div, table, label, input, select, textarea ,button {font-family: 'Open Sans', sans-serif;}
+h1,h2,h3,h4,h5 {font-family: 'Convergence', sans-serif;}
