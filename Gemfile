@@ -66,14 +66,12 @@ gem 'mongoid_slug', :require => 'mongoid/slug'
 gem "mongoid_taggable"
 gem "mongoid_taggable_with_context", "~> 0.7.2"
 gem 'mongoid_search'
-<<<<<<< HEAD
 
-group :production do
-  gem 'therubyracer-heroku', '0.8.1.pre3'
-end
-=======
+#group :production do
+#  gem 'therubyracer-heroku', '0.8.1.pre3'
+#end
+
 gem "tire"
 gem "will_paginate", "~> 3.0"
 gem "rcov"
 gem 'spork', '~> 0.9.0.rc'
->>>>>>> adf3a714a6dbc54ce8b2e3d9a38848f6c8c9d2f2
