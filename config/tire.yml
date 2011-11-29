@@ -1,0 +1,7 @@
+development:
+  url: 'http://localhost:9200'
+test:
+  url: 'http://localhost:9200'
+# set these environment variables on your prod server
+production:
+  url: 'http://localhost:9200'

@@ -13,9 +13,15 @@
     <td><%= medication.name %></td>
     <td><%= medication.generic_name %></td>
     <td><%= medication.secondary_effects %></td>
+<<<<<<< HEAD
     <td><%#= link_to 'Show', medication %></td>
     <td><%#= link_to 'Edit', edit_medication_path(medication) %></td>
     <td><%#= link_to 'Destroy', medication, confirm: 'Are you sure?', method: :delete %></td>
+=======
+    <td><%= link_to 'Show', medication_path(medication.slug) %></td>
+    <td><%= link_to 'Edit', edit_medication_path(medication.slug) %></td>
+    <td><%= link_to 'Destroy', medication.slug, confirm: 'Are you sure?', method: :delete %></td>
+>>>>>>> adf3a714a6dbc54ce8b2e3d9a38848f6c8c9d2f2
   </tr>
 <% end %>
 </table>

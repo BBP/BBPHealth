@@ -1,7 +1,16 @@
 <h1>Listing medications</h1>
+                               
+<%= form_tag ("/medications/elastic_search"), :method => 'get' do %>
+<div class="clearfix">  <%= label_tag :elastic_query %>
+<div class="input">  <%= text_field_tag :q, params[:q] %>
+  <%= submit_tag :search %>
+</div>
+</div>
+<% end %>
+
 
 <%= render 'list' %>      
 
 <br />
 
-<%= link_to 'New Medication', new_medication_path %>
+<%= link_to 'New Medication', new_medication_path, :class=>"btn" %>

@@ -1,9 +1,6 @@
 class SecondaryEffectsController < ApplicationController
   def index                          
     @se = Medication.secondary_effects
-    puts "BLEIP"
-    puts @se.inspect
-    
     respond_to do |format|
       format.html            
       format.json { render json: @se.map {|se|  
