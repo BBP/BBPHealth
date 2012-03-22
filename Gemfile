@@ -73,5 +73,4 @@ gem 'mongoid_search'
 
 gem "tire"
 gem "will_paginate", "~> 3.0"
-gem "rcov"
 gem 'spork', '~> 0.9.0.rc'
