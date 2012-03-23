@@ -43,9 +43,7 @@ class MedicationsController < ApplicationController
      
   def search
     @medications = Medication.search(params[:q])
-    
-    puts  @medications.inspect
-    
+        
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @medications }

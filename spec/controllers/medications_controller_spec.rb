@@ -29,7 +29,7 @@ describe MedicationsController do
   # Medication. As you add validations to Medication, be sure to
   # update the return value of this method accordingly.
   def valid_attributes
-    {      :name=> "Aspergel"}
+    { :name=> "Aspergel" }
   end
 
   describe "GET index" do

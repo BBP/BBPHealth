@@ -1,65 +1,63 @@
 require 'spec_helper'
-##Fixme must be a cleaner way to do this in spec_helper.rb (is there a before (:models..?) ) We should probably contribute something to https://github.com/bmabey/database_cleaner
-Medication.tire.index.delete
-Medication.tire.index.create
-##
 describe Medication do
-  
-   it "should have no records in the beginning" do       
+  ##Fixme must be a cleaner way to do this in spec_helper.rb (is there a before (:models..?) ) We should probably contribute something to https://github.com/bmabey/database_cleaner
+  before :each do
+    Medication.tire.index.delete
+    Medication.tire.index.create
+  end
+
+  it "should have no records in the beginning" do       
      Medication.all.length.should == 0
   end
 
- 
-   it "should have no records in the search engine" do  
-     medications = Medication.tire.search() do
-       query { string "*" }
-     end           
-     medications.length.should == 0
+  it "should validate there is a name" do                  
+    medication = Medication.create()                        
+    medication.save.should == false
+  end
+
+  it "should have no records in the search engine" do  
+    medications = Medication.tire.search() do
+      query { string "*" }
+    end           
+    medications.length.should == 0
   end     
 
-   it "should have a slug" do                  
-     medication = Medication.create!(:name=>"XxX")    
-     medication.slug.should == "xxx"
+  it "should have a slug" do                  
+    medication = Medication.create!(:name=>"XxX")    
+    medication.slug.should == "xxx"
   end
                     
-   it "should not have the same slug" do                  
-     medication = Medication.create!(:name=>"xxx")    
-     medication.slug.should == "xxx-1"
-   end
+  it "should not have the same slug" do     
+    medication = Medication.create!(:name=>"XxX")                 
+    medication = Medication.create!(:name=>"xxx")    
+    medication.slug.should == "xxx-1"
+  end
   
    it "should not allow a second medication with the same name" do                  
+     medication = Medication.create(:name=>"xxx")    
      medication = Medication.create(:name=>"xxx")    
      medication.save.should  == false
   end
 
-   it "should create 18 records" do  
-     _medications_fixture.map{|med|
-       medication = Medication.create(med)    
-       medication.save
-       }                
-     Medication.all.length.should == 18
-  end
+  describe "search engine" do
+    before(:each) do
+      _medications_fixture.map { |med|
+        medication = Medication.create(med)    
+        medication.save
+      }                
+    end
+    
+    it "should create 16 records" do  
+      Medication.all.length.should == _medications_fixture.length
+    end
                       
-   it "it should have 18 records in the search engine" do  
-     medications = Medication.tire.search() do
-       query { string "*" }
-     end    
-     medications.total == 18
+     it "it should have 16 records in the search engine" do  
+       medications = Medication.tire.search() do
+         query { string "*" }
+       end    
+       medications.total == _medications_fixture.length
+    end
   end
-
-   it "should validate there is a name" do                  
-     medication = Medication.create()                        
-     medication.save.should == false
-  end
-
-   it "should still have 18 records" do  
-     _medications_fixture.map{|med|
-       medication = Medication.create(med)    
-       medication.save
-       }                
-     Medication.all.length.should == 18
-  end
-
 end
 
  

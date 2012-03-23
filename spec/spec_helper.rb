@@ -45,7 +45,7 @@ Spork.each_run do
       DatabaseCleaner.orm = "mongoid"                         
     end
 
-    config.before(:suite) do
+    config.before(:each) do
       DatabaseCleaner.clean
     end
 
