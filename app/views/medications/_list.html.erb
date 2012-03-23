@@ -10,7 +10,11 @@
   <tr>
     <td><%= medication.name %></td>
     <td><%= medication.generic_name %></td>
-    <td><%= medication.secondary_effects %></td>
+    <td>
+      <% medication.secondary_effects_array.each do |tag| %>
+        <span class="label label-info"><%= tag %></span>
+      <% end  %>
+    </td>
     <td>
       <%= link_to 'Show', medication_path(medication.slug) %> | 
       <%= link_to 'Edit', edit_medication_path(medication.slug) %> | 

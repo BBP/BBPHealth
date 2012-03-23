@@ -12,18 +12,16 @@ class MedicationsController < ApplicationController
 
     # GET /medications/search
   def elastic_search             
-    q = params[:q].present? ? params[:q] : "*"
+    q = params[:q].present? ? "*#{params[:q]}*" : "*"
     t = params[:terms].present? ? params[:terms].split(',')  : []
     @medications = Medication.tire.search do                    
-        if t!=[] 
+        if t != [] 
           filter :terms, :secondary_effects => t 
         end
         query { string q }
         facet('secondary_effects') { terms :secondary_effects , :global => false}
     end
-
     @facets = _prepare_facets @medications, t             
-     
     respond_to do |format|
        format.html 
        format.json { render json: @medications }

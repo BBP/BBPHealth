@@ -39,7 +39,6 @@ gem "factory_girl_rails", ">= 1.2.0", :group => :test
 gem "cucumber-rails", ">= 1.0.2", :group => :test
 gem "capybara", ">= 1.1.1", :group => :test
 gem "launchy", ">= 2.0.5", :group => :test
-gem "guard", ">= 0.6.2", :group => :development
 # case HOST_OS
 #   when /darwin/i
 #     gem 'rb-fsevent', :group => :development
@@ -52,14 +51,21 @@ gem "guard", ">= 0.6.2", :group => :development
 #     gem 'win32console', :group => :development
 #     gem 'rb-notifu', :group => :development
 # end
-gem 'rb-fsevent', :group => :development
-gem 'growl', :group => :development
+group :development do
+	gem "guard", ">= 0.6.2"
+	gem 'rb-fsevent'
+	gem 'growl'
 
-gem "guard-bundler", ">= 0.1.3", :group => :development
-gem "guard-rails", ">= 0.0.3", :group => :development
-gem "guard-livereload", ">= 0.3.0", :group => :development
-gem "guard-rspec", ">= 0.4.3", :group => :development
-gem "guard-cucumber", ">= 0.6.1", :group => :development
+	gem "guard-bundler", ">= 0.1.3"
+	gem "guard-rails", ">= 0.0.3"
+	gem "guard-livereload", ">= 0.3.0"
+	gem "guard-rspec", ">= 0.4.3"
+	gem "guard-cucumber", ">= 0.6.1"
+	gem 'pry-remote'
+	gem 'pry-nav'
+	gem 'pry-rails'
+end
+
 gem "bson_ext", ">= 1.3.1"
 gem "mongoid", "~> 2.4.3"
 #gem "devise", ">= 1.4.5"
@@ -78,3 +84,5 @@ gem 'spork', '~> 0.9.0.rc'
 
 gem 'less-rails-bootstrap'
 gem 'simple_form'
+
+gem "thin", :group => :production

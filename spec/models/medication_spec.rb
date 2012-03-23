@@ -59,7 +59,6 @@ describe Medication do
     end
   end
 end
-
  
 def _medications_fixture
   [{
