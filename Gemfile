@@ -61,11 +61,11 @@ gem "guard-livereload", ">= 0.3.0", :group => :development
 gem "guard-rspec", ">= 0.4.3", :group => :development
 gem "guard-cucumber", ">= 0.6.1", :group => :development
 gem "bson_ext", ">= 1.3.1"
-gem "mongoid"
+gem "mongoid", "~> 2.4.3"
 #gem "devise", ">= 1.4.5"
 gem 'mongoid_slug', :require => 'mongoid/slug'
 gem "mongoid_taggable"
-gem "mongoid_taggable_with_context", "~> 0.7.2"
+gem "mongoid_taggable_with_context", "~> 0.8.1 "
 gem 'mongoid_search'
 
 #group :production do
