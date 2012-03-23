@@ -4,4 +4,4 @@ test:
   url: 'http://localhost:9200'
 # set these environment variables on your prod server
 production:
-  url: <%= ENV['BONSAI_INDEX_URL'] %>
+  url: "http://index.bonsai.io/g35gaprwbstqvzjthuot"
