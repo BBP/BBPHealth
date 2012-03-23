@@ -17,7 +17,7 @@ module Tire
       document = convert_document_to_json(document)
 
       # Change that to avoid double / in URL, bonsai.io don't like that
-      url  = "#{Configuration.url}#{(id ? "/#{@name}/#{type}/#{id}" : "/#{@name}/#{type}/").squeeze('.')}"
+      url  = "#{Configuration.url}#{(id ? "/#{@name}/#{type}/#{id}" : "/#{@name}/#{type}/").squeeze('/')}"
       url += "?percolate=#{percolate}" if percolate
 
       @response = Configuration.client.post url, document
