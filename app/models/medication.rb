@@ -5,7 +5,10 @@ class Medication
   include Mongoid::TaggableWithContext::AggregationStrategy::RealTime
   include Tire::Model::Search
   include Tire::Model::Callbacks
-  
+
+  # Fix to be able to use bonsai.io on heroku
+  Medication.index_name '' if Rails.env.production?
+
   validates_presence_of :name   
   validates_uniqueness_of :name
   
