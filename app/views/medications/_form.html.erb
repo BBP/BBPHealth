@@ -1,29 +1,10 @@
-<%= form_for(@medication) do |f| %>
-  <% if @medication.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@medication.errors.count, "error") %> prohibited this medication from being saved:</h2>
+<%= simple_form_for(@medication, :html => {:class => 'form-horizontal' }) do |form| %>
 
-      <ul>
-      <% @medication.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="clearfix field">
-    <%= f.label :name %>
-    <div class="input"><%= f.text_field :name %></div>
-  </div>
-  <div class="clearfix field">
-    <%= f.label :generic_name %>
-        <div class="input"><%= f.text_field :generic_name %></div>
-  </div>
-  <div class="clearfix field">
-    <%= f.label :secondary_effects %>
-        <div class="input"><%= f.text_area :secondary_effects %></div>
-  </div>
-  <div class="actions">
-    <%= f.submit :class=>"btn primary"%>
+  <%= form.input :name %>
+  <%= form.input :generic_name %>
+  <%= form.input :secondary_effects, :as => :text %>
+  <div class="form-actions">
+    <%= form.button :submit, :class => 'btn btn-primary' %>
+    <%= link_to 'Back', medications_path , :class=>"btn" %>
   </div>
 <% end %>

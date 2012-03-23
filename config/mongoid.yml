@@ -1,6 +1,7 @@
 development:
-  uri: <%= ENV['MONGOHQ_URL'] %>
-
+  host: localhost
+  database: bbp_health_development
+  
 test:
   host: localhost
   database: bbp_health_test

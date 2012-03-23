@@ -50,6 +50,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.2.0)
+    commonjs (0.2.5)
     cucumber (1.1.9)
       builder (>= 2.1.2)
       diff-lcs (>= 1.1.2)
@@ -99,9 +100,21 @@ GEM
     hike (1.2.1)
     i18n (0.6.0)
     journey (1.0.3)
+    jquery-rails (2.0.1)
+      railties (>= 3.2.0, < 5.0)
+      thor (~> 0.14)
     json (1.6.5)
     launchy (2.1.0)
       addressable (~> 2.2.6)
+    less (2.0.11)
+      commonjs (~> 0.2.0)
+      therubyracer (~> 0.9.9)
+    less-rails (2.1.8)
+      actionpack (>= 3.1)
+      less (~> 2.0.7)
+    less-rails-bootstrap (2.0.8)
+      less-rails (~> 2.1.0)
+    libv8 (3.3.10.4)
     mail (2.4.4)
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
@@ -181,6 +194,9 @@ GEM
       ffi (~> 1.0)
       multi_json (~> 1.0)
       rubyzip
+    simple_form (2.0.1)
+      actionpack (~> 3.0)
+      activemodel (~> 3.0)
     spork (0.9.0)
     sprockets (2.1.2)
       hike (~> 1.2)
@@ -188,6 +204,8 @@ GEM
       tilt (~> 1.1, != 1.3.0)
     stringex (1.3.2)
     term-ansicolor (1.0.7)
+    therubyracer (0.9.10)
+      libv8 (~> 3.3.10)
     thor (0.14.6)
     tilt (1.3.3)
     tire (0.3.12)
@@ -223,7 +241,9 @@ DEPENDENCIES
   guard-livereload (>= 0.3.0)
   guard-rails (>= 0.0.3)
   guard-rspec (>= 0.4.3)
+  jquery-rails
   launchy (>= 2.0.5)
+  less-rails-bootstrap
   mongoid
   mongoid-rspec (>= 1.4.4)
   mongoid_search
@@ -234,6 +254,7 @@ DEPENDENCIES
   rb-fsevent
   rspec-rails (>= 2.6.1)
   sass-rails (~> 3.2.3)
+  simple_form
   spork (~> 0.9.0.rc)
   tire
   uglifier (>= 1.0.3)

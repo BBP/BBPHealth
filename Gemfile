@@ -4,6 +4,7 @@ HOST_OS = Config::CONFIG['host_os']
 source 'http://rubygems.org'
 
 gem "rails", '3.2.2'
+gem 'jquery-rails'
 
 # Bundle edge Rails instead:
 # gem 'rails',     :git => 'git://github.com/rails/rails.git'
@@ -74,3 +75,6 @@ gem 'mongoid_search'
 gem "tire"
 gem "will_paginate", "~> 3.0"
 gem 'spork', '~> 0.9.0.rc'
+
+gem 'less-rails-bootstrap'
+gem 'simple_form'
