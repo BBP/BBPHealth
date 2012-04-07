@@ -31,7 +31,7 @@ class HerokuRestClient < Tire::HTTP::Client::RestClient
 end
 
 Tire.configure do
-   if Rails.env.production.
+   if Rails.env.production?
 	   logger STDERR, :level => 'debug'
 	 else
 	   logger 'log/elasticsearch.log', :level => 'debug' 
