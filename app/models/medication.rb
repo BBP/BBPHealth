@@ -31,7 +31,7 @@ class Medication
   field :generic_name, :type => String
   taggable :secondary_effects, :separator => ','   
 
-  def self.search(params)
+  def self.elastic_search(params)
     query = params[:q].present? ? "*#{params[:q]}*" : "*"
     t = params[:terms].present? ? params[:terms].split(',')  : []
 

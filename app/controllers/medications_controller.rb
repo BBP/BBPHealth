@@ -12,7 +12,7 @@ class MedicationsController < ApplicationController
 
   # GET /medications/search
   def elastic_search             
-    @medications = Medication.search params                   
+    @medications = Medication.elastic_search params                   
     @facets      = @medications.facets['secondary_effects']["terms"]
 
     respond_to do |format|
@@ -22,7 +22,7 @@ class MedicationsController < ApplicationController
   end
      
   def search
-    @medications = Medication.search(params[:q])
+    @medications = Medication.where(:name => params[:q])
         
     respond_to do |format|
       format.html # index.html.erb
