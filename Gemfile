@@ -79,7 +79,7 @@ gem 'mongoid_search'
 #end
 
 gem "tire"
-gem "will_paginate", "~> 3.0"
+gem "kaminari"
 gem 'spork', '~> 0.9.0.rc'
 
 gem 'less-rails-bootstrap'

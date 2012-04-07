@@ -5,3 +5,9 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+index = Tire::Index.new(Rails.env + "medications")
+index.delete
+index.create
+Medication.destroy_all
+Medication.create! name: "ibuprofene", generic_name: "ibuprofene", secondary_effects: "mal au dos, mal à la tête"

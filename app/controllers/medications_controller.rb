@@ -2,7 +2,7 @@ class MedicationsController < ApplicationController
   # GET /medications
   # GET /medications.json
   def index
-    @medications = Medication.all
+    @medications = Medication.page(params[:page]).per(10)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -10,34 +10,16 @@ class MedicationsController < ApplicationController
     end
   end
 
-    # GET /medications/search
+  # GET /medications/search
   def elastic_search             
-    q = params[:q].present? ? "*#{params[:q]}*" : "*"
-    t = params[:terms].present? ? params[:terms].split(',')  : []
-    @medications = Medication.tire.search do                    
-        if t != [] 
-          filter :terms, :secondary_effects => t 
-        end
-        query { string q }
-        facet('secondary_effects') { terms :secondary_effects , :global => false}
-    end
-    @facets = _prepare_facets @medications, t             
+    @medications = Medication.search params                   
+    @facets      = @medications.facets['secondary_effects']["terms"]
+
     respond_to do |format|
        format.html 
        format.json { render json: @medications }
      end
   end
-     
-  def _prepare_facets (meds, t)
-
-    meds.facets['secondary_effects']["terms"].map!{|facet|      
-        facet['selected'] = t.include?(facet['term'])
-        facet['remove_facet'] = (t - [facet["term"]])  * ","
-        facet['add_facet'] = (t + [facet["term"]]) * ","
-        facet
-      } 
-  end
-
      
   def search
     @medications = Medication.search(params[:q])
