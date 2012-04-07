@@ -7,7 +7,7 @@ class Medication
   include Tire::Model::Callbacks
 
   # Fix to be able to use bonsai.io on heroku
-  Medication.index_name '' if Rails.env.production?
+  Medication.index_name "medications_#{Rails.env}"
 
   validates_presence_of :name   
   validates_uniqueness_of :name
