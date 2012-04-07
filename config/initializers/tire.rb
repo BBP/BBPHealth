@@ -31,7 +31,11 @@ class HerokuRestClient < Tire::HTTP::Client::RestClient
 end
 
 Tire.configure do
-   logger STDERR
+   if Rails.env.production.
+	   logger STDERR, :level => 'debug'
+	 else
+	   logger 'log/elasticsearch.log', :level => 'debug' 
+	 end
    url(YAML::load(File.open(Rails.root.join("./config/tire.yml")))[Rails.env]["url"])
    client(HerokuRestClient)
  end
