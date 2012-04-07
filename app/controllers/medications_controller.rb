@@ -1,17 +1,23 @@
 class MedicationsController < ApplicationController
+  before_filter :authenticate, :only => :list 
+
   # GET /medications
   # GET /medications.json
   def index
-    @medications = Medication.page(params[:page]).per(10)
-
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @medications }
     end
   end
 
+  def list
+    @medications = Medication.page(params[:page]).per(10)
+  end
+
+
   # GET /medications/search
   def elastic_search             
+    @search = params[:q]
     @medications = Medication.elastic_search params                   
     @facets      = @medications.facets['secondary_effects']["terms"]
 
@@ -99,6 +105,13 @@ class MedicationsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to medications_url }
       format.json { head :ok }
+    end
+  end
+
+private
+  def authenticate
+    authenticate_or_request_with_http_basic("Documents Realm") do |username, password|
+      username == "admin" && password == "top_secret"
     end
   end
 end

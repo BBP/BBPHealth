@@ -36,7 +36,7 @@ describe MedicationsController do
     it "assigns all medications as @medications" do
       medication = Medication.create! valid_attributes
       get :index
-      assigns(:medications).should eq([medication])
+      response.should be_success
     end
   end
 
@@ -158,5 +158,22 @@ describe MedicationsController do
       response.should redirect_to(medications_url)
     end
   end
+
+  describe "GET list" do
+    it "assigns all medications as @medications if authenticated" do
+      request.env['HTTP_AUTHORIZATION'] = ActionController::HttpAuthentication::Basic.encode_credentials("admin", "top_secret")
+
+      medication = Medication.create! valid_attributes
+      get :list
+      response.should be_success
+      assigns(:medications).should eq([medication])
+    end
+
+    it "doen't assign all medications as @medications if not authenticated" do
+      get :list
+      response.should_not be_success
+    end
+  end
+
 
 end

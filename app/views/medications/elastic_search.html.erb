@@ -1,6 +1,6 @@
-<h1>Elastic Search results medications</h1>
+<h2>Search results for "<%= @search %>"</h2>
 
-<%= render 'list' %>      
+<%= render 'list', admin_mode: false %>      
 <%= render 'elastic_search_facets' %>
 <br />
-<%= link_to 'New Medication', new_medication_path, :class=>"btn" %>
+<%= link_to 'Or add a new medication', new_medication_path, :class=>"link" %>
