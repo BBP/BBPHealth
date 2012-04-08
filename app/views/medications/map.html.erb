@@ -1,0 +1,26 @@
+<h2>Medication listing</h2>
+<ul class="nav nav-tabs">
+  <li>
+    <%= link_to "List", list_medications_path %>
+  </li>
+  <li class="active">
+    <%= link_to "Map", map_medications_path %>
+  </li>
+</ul>
+<div class="container-fluid">
+  <div class="row-fluid">
+    <div class="span2">
+      Filters
+    </div>
+    <div class="span10">
+      <div id='map'><div>
+    </div>
+  </div>
+</div>
+<%= content_for :tail do %>
+  <%= javascript_tag "Map.init(#{@medications.to_json})" %>
+<% end %>
+
+<%= content_for :head do %>
+  <script src="http://maps.googleapis.com/maps/api/js?v=3&amp;sensor=false"></script>
+<% end %>

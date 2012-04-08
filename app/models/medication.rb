@@ -2,6 +2,7 @@ class Medication
   include Mongoid::Document
   include Mongoid::Slug
   include Mongoid::TaggableWithContext
+  include Mongoid::Timestamps
   include Mongoid::TaggableWithContext::AggregationStrategy::RealTime
   include Tire::Model::Search
   include Tire::Model::Callbacks

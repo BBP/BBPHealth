@@ -5,6 +5,7 @@ BBPHealth::Application.routes.draw do
     collection do
       get :search 
       get :list
+      get :map
     end
   end
   

@@ -1,5 +1,5 @@
 class MedicationsController < ApplicationController
-  before_filter :authenticate, :only => :list 
+  before_filter :authenticate, :only => [:list, :map]
 
   # GET /medications
   # GET /medications.json
@@ -14,6 +14,9 @@ class MedicationsController < ApplicationController
     @medications = Medication.page(params[:page]).per(10)
   end
 
+  def map
+    @medications = Medication.where(:position => {"$ne" => nil})
+  end
 
   # GET /medications/search
   def elastic_search             

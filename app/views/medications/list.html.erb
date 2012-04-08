@@ -1,3 +1,12 @@
 <h2>Medication listing</h2>
+<ul class="nav nav-tabs">
+  <li class="active">
+    <%= link_to "List", list_medications_path %>
+  </li>
+  <li>
+    <%= link_to "Map", map_medications_path %>
+  </li>
+</ul>
+
 <%= render 'list', admin_mode: true %>      
 <%= link_to 'Or add a new medication', new_medication_path, :class=>"link" %>
