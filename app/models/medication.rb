@@ -44,7 +44,7 @@ class Medication
     result
   end
 
-  # For Tire
+  # For Tire with kaminari
   def self.paginate(options = {})
     page(options[:page]).per(options[:per_page])
   end

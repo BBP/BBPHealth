@@ -1,2 +1,3 @@
-<h1>Medication listing</h1>
-<%= render 'list' %>      
+<h2>Medication listing</h2>
+<%= render 'list', admin_mode: true %>      
+<%= link_to 'Or add a new medication', new_medication_path, :class=>"link" %>

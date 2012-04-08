@@ -3,9 +3,7 @@
     <th>Name</th>
     <th>Generic name</th>
     <th>Secondary effects</th>
-    <% if admin_mode %>
-      <th></th>
-    <% end %>
+    <th></th>
   </tr>
 
 <% @medications.each do |medication| %>
@@ -17,13 +15,13 @@
         <span class="label label-info"><%= tag %></span>
       <% end  %>
     </td>
-    <% if admin_mode %>
       <td>
-        <%= link_to 'Show', medication_path(medication.slug) %> | 
-        <%= link_to 'Edit', edit_medication_path(medication.slug) %> | 
-        <%= link_to 'Destroy', medication_path(medication.slug), confirm: 'Are you sure?', method: :delete %>
+        <%= link_to 'Show', medication_path(medication.slug) %> -
+        <%= link_to 'Edit', edit_medication_path(medication.slug) %> 
+        <% if admin_mode %>
+          - <%= link_to 'Destroy', medication_path(medication.slug), confirm: 'Are you sure?', method: :delete %>
+        <% end %>
       </td>
-    <% end %>
   </tr>
 <% end %>
 </table>

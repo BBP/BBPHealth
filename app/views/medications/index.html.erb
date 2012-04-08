@@ -1,10 +1,13 @@
 <h2>Search for medications</h2>
                                
-<%= form_tag ("/medications/elastic_search"), :method => 'get', :class => 'searchform' do %>
-  <%= text_field_tag :q, params[:q], :class => "input-medium search-query" %>
-	<%= submit_tag :search, :class => 'searchbutton', :value => "Go" %>
+<div id='search-box'>
+  <%= form_tag ("/medications/elastic_search"), :method => 'get', :class => 'searchform', :id => 'search-form' do %>
+    <%= text_field_tag :q, params[:q], :class => "input-medium search-query", :id => 'search-text', :placeholder => 'Ex: Ibuprofene, Lisopaïne, ...' %>
+    <%= button_tag :id => "search-button", :type => :submit do %>
+      <span>Search</span>
+    <% end %>
 <% end %>
-<br />
+</div>
 <div class="centered">
   <%= link_to 'or add a new medication', new_medication_path, :class=>"link" %>
 <div>
