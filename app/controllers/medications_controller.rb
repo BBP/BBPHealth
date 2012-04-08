@@ -29,7 +29,7 @@ class MedicationsController < ApplicationController
      
   def search
     @medications = Medication.where(:name => params[:q])
-        
+    logger.warn @medications
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @medications }
@@ -67,7 +67,7 @@ class MedicationsController < ApplicationController
   # POST /medications
   # POST /medications.json
   def create
-    @medication = Medication.new(params[:medication])
+    @medication = Medication.new(params[:medication].merge(:useragent => request.user_agent))
 
     respond_to do |format|
       if @medication.save

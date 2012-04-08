@@ -58,6 +58,30 @@ describe Medication do
        medications.total == _medications_fixture.length
     end
   end
+
+  describe "location" do
+    it "should set position from lat/lng" do
+      medication = Medication.create(:name => "name", :lat => 12, :lng => 14)
+      medication.position.should == [14, 12]
+    end
+
+    it "should not set location if lat/lng are empty" do
+      medication = Medication.create(:name => "name")
+      medication.position.should be_nil
+
+      medication = Medication.create(:name => "name 2", :lat => '', :lng => '')
+      medication.position.should be_nil
+    end
+  end
+
+  describe "useragent" do
+    it "should set user agent and detailed info" do
+      useragent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_3) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.151 Safari/535.19"
+      medication = Medication.create(:name => "name", :useragent => useragent)
+      medication.useragent.should == useragent
+      medication.useragent_info.should == {:device=>"Computer", :engine=>"AppleWebKit 535.19", :platform=>"Macintosh", :is_mobile=>false}
+    end
+  end
 end
  
 def _medications_fixture

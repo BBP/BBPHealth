@@ -3,6 +3,12 @@
     <th>Name</th>
     <th>Generic name</th>
     <th>Secondary effects</th>
+    <% if admin_mode %>
+      <th>Position</th>
+      <th>Platform</th>
+      <th>Mobile</th>
+    <% end %>
+
     <th></th>
   </tr>
 
@@ -15,13 +21,25 @@
         <span class="label label-info"><%= tag %></span>
       <% end  %>
     </td>
+    <% if admin_mode %>
       <td>
-        <%= link_to 'Show', medication_path(medication.slug) %> -
-        <%= link_to 'Edit', edit_medication_path(medication.slug) %> 
-        <% if admin_mode %>
-          - <%= link_to 'Destroy', medication_path(medication.slug), confirm: 'Are you sure?', method: :delete %>
-        <% end %>
+        <%= medication.position %>
       </td>
+      <td>
+        <%= medication.useragent_info['platform'] if medication.useragent_info %>
+      </td>
+      <td>
+        <%= medication.useragent_info['is_mobile'] if medication.useragent_info %>
+      </td>
+    <% end %>
+
+    <td>
+      <%= link_to 'Show', medication_path(medication.slug) %> -
+      <%= link_to 'Edit', edit_medication_path(medication.slug) %> 
+      <% if admin_mode %>
+        - <%= link_to 'Destroy', medication_path(medication.slug), confirm: 'Are you sure?', method: :delete %>
+      <% end %>
+    </td>
   </tr>
 <% end %>
 </table>

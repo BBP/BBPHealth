@@ -85,4 +85,6 @@ gem 'spork', '~> 0.9.0.rc'
 gem 'less-rails-bootstrap'
 gem 'simple_form'
 
+gem 'agent_orange'
+
 gem "thin", :group => :production
