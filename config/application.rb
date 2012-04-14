@@ -61,5 +61,10 @@ module BBPHealth
     config.assets.initialize_on_precompile = false
 
     config.assets.paths << Rails.root.join("vendor", "assets", "javascripts")
+
+    config.generators do |g|
+      g.fixture_replacement :factory_girl, :dir => "spec/factories"
+      g.view_specs false
+    end
   end
 end

@@ -1,0 +1,34 @@
+<div class="navbar navbar-fixed-top">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </a>
+      <a class="brand" href="./index.html">BBPHealth</a>
+      <div class="nav-collapse">
+        <ul class="nav">
+          <% if user_signed_in?  %>
+            <li class="">
+               <%= link_to current_user.email, edit_user_registration_path %>
+            </li>
+            <li class="">
+              <%= link_to t('devise.sign_out'), destroy_user_session_path, :method => :delete %>
+            </li>
+          <% else %>
+            <li class="">
+              <%= link_to t('devise.sign_in'), new_user_session_path %>
+            </li>
+            <li class="">
+              <%= link_to t('devise.sign_up'), new_user_registration_path %>
+            </li>
+            <li class="">
+              <%= link_to image_tag('fb_login_icon.gif'), "/users/auth/facebook" %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

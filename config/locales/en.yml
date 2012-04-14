@@ -3,3 +3,7 @@
 
 en:
   hello: "Hello world"
+  devise:
+    remember_me: Remember me
+    sign_in: Sign in
+    loading: Please wait...
