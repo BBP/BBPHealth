@@ -71,6 +71,10 @@ gem "mongoid_taggable"
 gem "mongoid_taggable_with_context", "~> 0.8.1 "
 gem 'mongoid_search'
 
+gem 'devise', "~> 2.0.4 "
+gem "omniauth", "~> 1.1.0"
+gem 'omniauth-facebook'
+
 #group :production do
 #  gem 'therubyracer-heroku', '0.8.1.pre3'
 #end

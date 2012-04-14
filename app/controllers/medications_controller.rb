@@ -1,4 +1,5 @@
 class MedicationsController < ApplicationController
+  before_filter :authenticate_user!, :only => [:create, :update, :new, :edit]
   before_filter :authenticate, :only => [:list, :map]
 
   # GET /medications

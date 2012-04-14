@@ -1,5 +1,10 @@
 BBPHealth::Application.routes.draw do
 
+  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
+  devise_scope :user do
+    get '/users/auth/:provider/setup' => 'users/omniauth_callbacks#setup'
+  end
+
   match "medications/elastic_search" => "medications#elastic_search" 
   resources :medications do
     collection do
