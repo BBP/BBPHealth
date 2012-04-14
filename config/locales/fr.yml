@@ -1,0 +1,5 @@
+en:
+  devise:
+    remember_me: Rester connecté
+    sign_in: Se connecter
+    loading: Veuillez patienter...
