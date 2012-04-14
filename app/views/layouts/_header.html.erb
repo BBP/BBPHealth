@@ -14,14 +14,14 @@
                <%= link_to current_user.email, edit_user_registration_path %>
             </li>
             <li class="">
-              <%= link_to t('devise.sign_out'), destroy_user_session_path, :method => :delete %>
+              <%= link_to t('devise.shared.sign_out'), destroy_user_session_path, :method => :delete %>
             </li>
           <% else %>
             <li class="">
-              <%= link_to t('devise.sign_in'), new_user_session_path %>
+              <%= link_to t('devise.shared.sign_in'), new_user_session_path %>
             </li>
             <li class="">
-              <%= link_to t('devise.sign_up'), new_user_registration_path %>
+              <%= link_to t('devise.shared.sign_up'), new_user_registration_path %>
             </li>
             <li class="">
               <%= link_to image_tag('fb_login_icon.gif'), "/users/auth/facebook" %>

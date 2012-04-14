@@ -12,7 +12,9 @@ en:
     shared:
       sign_in: "Sign in"
       sign_up: "Sign up"
-      forgot_password: "Forgot password ?"
+      forgot_password: "Forgot your password ?"
+      facebook_connect: "Sign in with Facebook"
+
     failure:
       already_authenticated: 'You are already signed in.'
       unauthenticated: 'You need to sign in or sign up before continuing.'
@@ -30,6 +32,8 @@ en:
       updated: 'Your password was changed successfully. You are now signed in.'
       updated_not_active: 'Your password was changed successfully.'
       send_paranoid_instructions: "If your e-mail exists on our database, you will receive a password recovery link on your e-mail"
+      send_reset_password_instructions: "Send me instructions by email"
+
     confirmations:
       send_instructions: 'You will receive an email with instructions about how to confirm your account in a few minutes.'
       send_paranoid_instructions: 'If your e-mail exists on our database, you will receive an email with instructions about how to confirm your account in a few minutes.'

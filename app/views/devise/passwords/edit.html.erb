@@ -1,18 +1,18 @@
-<h2>Change your password</h2>
+<h2><%= t("devise.passwords.change_your_password") %></h2>
 
-<%= simple_form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :put }) do |f| %>
-  <%= f.error_notification %>
-
+<%= simple_form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :put , :class => 'form-horizontal'}) do |f| %>
   <%= f.input :reset_password_token, :as => :hidden %>
   <%= f.full_error :reset_password_token %>
 
   <div class="inputs">
-    <%= f.input :password, :label => "New password", :required => true %>
-    <%= f.input :password_confirmation, :label => "Confirm your new password", :required => true %>
+    <%= f.input :password, :required => true, :label => t('activerecord.attributes.user.password') %>
+    <%= f.input :password_confirmation, :required => true, :label => t('activerecord.attributes.user.password_confirmation') %>
   </div>
 
-  <div class="actions">
-    <%= f.button :submit, "Change my password" %>
+  <div class="control-group">
+    <div class="controls">
+     <%= f.submit t("devise.passwords.change_my_password"), :class => 'btn btn-custom btn-primary', :disable_with => t("devise.loading") %>
+    </div>
   </div>
 <% end %>
 

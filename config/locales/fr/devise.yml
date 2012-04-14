@@ -1,7 +1,6 @@
 fr:
   errors:
     messages:
-     expired: "a expiré, faites une nouvelle demande"
       not_found: "n'a pas été trouvé(e)"
       already_confirmed: "a déjà été validé(e)"
       not_locked: "n'était pas verrouillé(e)"    
@@ -13,6 +12,10 @@ fr:
       sign_in: "Se connecter"
       sign_up: "S'enregistrer"
       forgot_password: "Mot de passe oublié ?"
+      facebook_connect: "Se connecter avec facebook"
+      didnt_receive_confirmation_instructions?: "Email de validation non reçu ?"
+      didnt_receive_unlock_instructions?: "Email de déverrouillage non reçu ?"
+      sign_in_with_omniauth: "Se connecter via %{provider}"
     failure:
       already_authenticated: "Vous êtes déjà connecté !"
       unauthenticated: "Vous devez vous connecter ou vous inscrire pour continuer."

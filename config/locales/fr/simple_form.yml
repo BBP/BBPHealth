@@ -1,4 +1,4 @@
-en:
+fr:
   simple_form:
     "yes": 'Oui'
     "no": 'Non'
@@ -10,14 +10,19 @@ en:
       # html: '<abbr title="required">*</abbr>'
 
     # Labels and hints examples
-    # labels:
-    #   password: 'Password'
-    #   user:
-    #     new:
-    #       email: 'E-mail para efetuar o sign in.'
-    #     edit:
-    #       email: 'E-mail.'
-    # hints:
-    #   username: 'User name to sign in.'
-    #   password: 'No special characters, please.'
+    labels:
+      password: 'Mot de passe'
+      password_confirmation: 'Confirmation'
+      medication:
+        name: Nom
+        generic_name: "Nom générique"
+        secondary_effects: "Effets secondaires"
+      # user:
+      #   new:
+      #     email: 'E-mail para efetuar o sign in.'
+      #   edit:
+      #     email: 'E-mail.'
+    hints:
+      medication:
+        secondary_effects: 'Selectionner ou entrer un nouvel effet secondaire.'
 

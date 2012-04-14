@@ -1,14 +1,12 @@
-<h2>Forgot your password?</h2>
+<h2><%= t("devise.shared.forgot_password") %></h2>
 
-<%= simple_form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post }) do |f| %>
-  <%= f.error_notification %>
+<%= simple_form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post, :class => 'form-horizontal' }) do |f| %>
 
-  <div class="inputs">
-    <%= f.input :email, :required => true %>
-  </div>
-
-  <div class="actions">
-    <%= f.button :submit, "Send me reset password instructions" %>
+  <%= f.input :email, :required => true %>
+  <div class="control-group">
+    <div class="controls">
+     <%= f.submit t("devise.passwords.send_reset_password_instructions"), :class => 'btn btn-custom btn-primary', :disable_with => t("devise.loading") %>
+    </div>
   </div>
 <% end %>
 

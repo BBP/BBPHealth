@@ -1,5 +1,11 @@
 en:
+  cancel: Cancel
   devise:
     remember_me: Remember me
     sign_in: Sign in
     loading: Please wait...
+  medications:
+    title: "Search for medications"
+    search: "Search"
+    add_new: "Or add a new medication"
+    add_title: "Add a new medication"

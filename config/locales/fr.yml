@@ -1,5 +1,14 @@
-en:
+fr:
+  cancel: Annuler
   devise:
     remember_me: Rester connecté
     sign_in: Se connecter
     loading: Veuillez patienter...
+  medications:
+    title: "Rechercher un médicament"
+    search: "Valider"
+    add_new: "Ou ajouter un nouveau médicament"
+    add_title: "Ajouter un médicament"
+  helpers:
+    submit:
+      create: Ajouter
