@@ -1,8 +1,8 @@
 <table class="table table-striped table-bordered table-condensed">
   <tr>
-    <th>Name</th>
-    <th>Generic name</th>
-    <th>Secondary effects</th>
+    <th><%= t('simple_form.labels.medication.name') %></th>
+    <th><%= t('simple_form.labels.medication.generic_name') %></th>
+    <th><%= t('simple_form.labels.medication.secondary_effects') %></th>
     <% if admin_mode %>
       <th>Position</th>
       <th>Platform</th>
@@ -34,8 +34,8 @@
     <% end %>
 
     <td>
-      <%= link_to 'Show', medication_path(medication.slug) %> -
-      <%= link_to 'Edit', edit_medication_path(medication.slug) %> 
+      <%= link_to t(:show), medication_path(medication.slug) %> -
+      <%= link_to t(:edit), edit_medication_path(medication.slug) %> 
       <% if admin_mode %>
         - <%= link_to 'Destroy', medication_path(medication.slug), confirm: 'Are you sure?', method: :delete %>
       <% end %>

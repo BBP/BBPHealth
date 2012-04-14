@@ -1,4 +1,4 @@
-<h3>Secondary Effects</h3>
+<h3><%= t('simple_form.labels.medication.secondary_effects') %></h3>
 <ul>
 <% @facets.each do |term| %>   
    <li><%= link_to term["term"],  :action => "elastic_search",  :q => params[:q],  :terms => term["add_facet"] %> (<%= term["count"] %>) 

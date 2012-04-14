@@ -1,5 +1,7 @@
 fr:
   cancel: Annuler
+  show: Voir
+  edit: Editer
   devise:
     remember_me: Rester connecté
     sign_in: Se connecter
@@ -9,6 +11,10 @@ fr:
     search: "Valider"
     add_new: "Ou ajouter un nouveau médicament"
     add_title: "Ajouter un médicament"
+    edit_title: "Modifier un médicament"
   helpers:
     submit:
       create: Ajouter
+      update: Mettre à jour
+  search:
+    title: "Résutats de recherche pour '%{for}'"

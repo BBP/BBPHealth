@@ -1,6 +1,5 @@
-<h2>Search results for "<%= @search %>"</h2>
-
+<h2><%= t('search.title', :for => @search) %></h2>
 <%= render 'list', admin_mode: false %>      
 <%= render 'elastic_search_facets' %>
 <br />
-<%= link_to 'Or add a new medication', new_medication_path, :class=>"link" %>
+<%= link_to t('medications.add_new'), new_medication_path, :class=>"link" %>

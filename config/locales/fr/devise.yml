@@ -11,6 +11,7 @@ fr:
     shared:
       sign_in: "Se connecter"
       sign_up: "S'enregistrer"
+      sign_out: "Se déconnecté"
       forgot_password: "Mot de passe oublié ?"
       facebook_connect: "Se connecter avec facebook"
       didnt_receive_confirmation_instructions?: "Email de validation non reçu ?"
