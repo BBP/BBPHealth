@@ -3,7 +3,7 @@ HOST_OS = Config::CONFIG['host_os']
 
 source 'http://rubygems.org'
 
-gem "rails", '3.2.2'
+gem "rails", '3.2.3'
 gem 'jquery-rails'
 
 # Bundle edge Rails instead:
@@ -32,11 +32,10 @@ end
 
 # install a Javascript runtime for linux
 
-gem "rspec-rails", ">= 2.6.1", :group => [:development, :test]
+gem "rspec-rails", ">= 2.9.0", :group => [:development, :test]
 gem "database_cleaner", ">= 0.6.7", :group => :test 
 gem "mongoid-rspec", ">= 1.4.4", :group => :test
 gem "factory_girl_rails", ">= 1.2.0", :group => :test
-gem "cucumber-rails", ">= 1.0.2", :group => :test
 gem "capybara", ">= 1.1.1", :group => :test
 gem "launchy", ">= 2.0.5", :group => :test
 # case HOST_OS
@@ -60,10 +59,8 @@ group :development do
 	gem "guard-rails", ">= 0.0.3"
 	gem "guard-livereload", ">= 0.3.0"
 	gem "guard-rspec", ">= 0.4.3"
-	gem "guard-cucumber", ">= 0.6.1"
-	gem 'pry-remote'
-	gem 'pry-nav'
 	gem 'pry-rails'
+  gem 'debugger'
 end
 
 gem "bson_ext", ">= 1.3.1"
