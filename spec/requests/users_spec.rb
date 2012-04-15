@@ -1,7 +1,7 @@
 require 'spec_helper'
 
-describe "USer" do
-  
+describe "User" do
+
   describe "Sign in" do
     before(:each) do
       @user = create(:user)
@@ -70,7 +70,6 @@ describe "USer" do
     
   describe "Cancel account" do
     login
-
     it "should cancel account" do
       lambda {
         visit edit_user_registration_path
@@ -81,7 +80,6 @@ describe "USer" do
       }.should change(User, :count).by(-1)
     end    
   end
-
 
   describe "Edit account" do
     login

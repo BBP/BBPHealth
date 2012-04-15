@@ -39,6 +39,9 @@ class Medication
   field :useragent_info, :type => Hash
   taggable :secondary_effects, :separator => ','   
 
+  field :position, :type => Array
+  index [[ :position, Mongo::GEO2D ]], :min => -180, :max => 180
+
   has_many :prescriptions
 
   def self.elastic_search(params)

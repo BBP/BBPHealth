@@ -7,5 +7,5 @@ $ ->
 
   error= ->
 
-  navigator.geolocation.getCurrentPosition(success, error) if (navigator.geolocation) 
+  navigator.geolocation.getCurrentPosition(success, error) if (navigator.geolocation && $('#medication_lat').length) 
     
