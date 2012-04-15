@@ -1,21 +1,20 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
+<h2><%= t('devise.registrations.edit') %></h2>
 
-<%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
+<%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put, :class => 'form-horizontal'} ) do |f| %>
 
-  <div class="inputs">
-    <%= f.input :email, :required => true, :autofocus => true %>
-    <%= f.input :password, :autocomplete => "off", :hint => "leave it blank if you don't want to change it", :required => false %>
-    <%= f.input :password_confirmation, :required => false %>
-    <%= f.input :current_password, :hint => "we need your current password to confirm your changes", :required => true %>
-  </div>
+  <%= f.input :email, :required => true, :autofocus => true %>
+  <%= f.input :password, :autocomplete => "off", :hint => t('devise.registrations.leave_blank'), :required => false %>
+  <%= f.input :password_confirmation, :required => false %>
+  <%= f.input :current_password, :hint => t('devise.registrations.current_password_label'), :required => true %>
 
-  <div class="actions">
-    <%= f.button :submit, "Update" %>
+  <div class="control-group">
+    <div class="controls">
+     <%= f.submit t("update"), :class => 'btn btn-custom btn-primary', :disable_with => t("devise.loading") %>
+    </div>
   </div>
 <% end %>
 
-<h3>Cancel my account</h3>
-
-<p>Unhappy? <%= link_to "Cancel my account", registration_path(resource_name), :confirm => "Are you sure?", :method => :delete %>.</p>
-
-<%= link_to "Back", :back %>
+<p>
+  <%= t('devise.registrations.unhappy') %>? 
+  <%= link_to t('devise.registrations.cancel_my_account'), registration_path(resource_name), :confirm => t('devise.registrations.confirm'), :method => :delete %>.
+</p>

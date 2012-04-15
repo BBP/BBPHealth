@@ -11,10 +11,12 @@ fr:
 
     # Labels and hints examples
     labels:
-      password: 'Mot de passe'
-      password_confirmation: 'Confirmation'
+      user:
+        current_password: 'Mot de passe actuel'
+        password: 'Mot de passe'
+        password_confirmation: 'Confirmation'
       medication:
-        name: Nom
+        name: Nom 
         generic_name: "Nom générique"
         secondary_effects: "Effets secondaires"
       # user:

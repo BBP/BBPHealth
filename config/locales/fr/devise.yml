@@ -43,7 +43,7 @@ fr:
       confirmed: 'Votre compte a été validé, vous êtes maintenant connecté'
     registrations:
       signed_up: 'Bienvenu, vous êtes connecté'
-      edit: "Editer %{resourcename}"
+      edit: "Editer votre compte"
       leave_blank: "laissez vide si vous ne désirez pas le changer"
       current_password_label: "Nous avons besoin de votre mot de passe actuel pour confirmer les changements"
       update: 'Modifier'
@@ -51,7 +51,6 @@ fr:
       cancel_my_account: "Supprimer mon compte"
       confirm: "Êtes-vous sûr ?"
       back: "Retour"
-      inactive_signed_up: "Votre compte a été trouvé. Cependant, nous n'avons pas pu vous connecter car votre compte est %{reason}."
       updated: 'Votre compte a été modifié avec succès.'
       destroyed: 'Votre compte a été supprimé avec succès. Nous espérons vous revoir bientôt.'
     unlocks:

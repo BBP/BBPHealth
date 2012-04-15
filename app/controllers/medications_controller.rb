@@ -56,7 +56,8 @@ class MedicationsController < ApplicationController
   # GET /medications/new.json
   def new
     @medication = Medication.new
-
+    @medication.prescriptions.build
+    
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @medication }

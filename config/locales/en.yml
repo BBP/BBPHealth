@@ -1,5 +1,8 @@
 en:
   cancel: Cancel
+  show: Show
+  edit: Edit
+  update: Update
   devise:
     remember_me: Remember me
     sign_in: Sign in

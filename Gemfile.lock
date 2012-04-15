@@ -292,7 +292,7 @@ DEPENDENCIES
   kaminari
   launchy (>= 2.0.5)
   less-rails-bootstrap
-  mongoid (~> 2.4.3)
+  mongoid (~> 2.4.8)
   mongoid-rspec (>= 1.4.4)
   mongoid_search
   mongoid_slug

@@ -41,37 +41,34 @@ describe Medication do
 
   describe "search engine" do
     before(:each) do
-      _medications_fixture.map { |med|
-        medication = Medication.create(med)    
-        medication.save
-      }                
+      1.upto(16) { create(:medication) }
     end
     
     it "should create 16 records" do  
-      Medication.all.length.should == _medications_fixture.length
+      Medication.all.length.should == 16
     end
                       
      it "it should have 16 records in the search engine" do  
        medications = Medication.tire.search() do
          query { string "*" }
        end    
-       medications.total == _medications_fixture.length
+       medications.total == 16
     end
   end
 
   describe "location" do
-    it "should set position from lat/lng" do
-      medication = Medication.create(:name => "name", :lat => 12, :lng => 14)
-      medication.position.should == [14, 12]
-    end
+    # it "should set position from lat/lng" do
+    #   medication = Medication.create(:name => "name", :lat => 12, :lng => 14)
+    #   medication.position.should == [14, 12]
+    # end
 
-    it "should not set location if lat/lng are empty" do
-      medication = Medication.create(:name => "name")
-      medication.position.should be_nil
+    # it "should not set location if lat/lng are empty" do
+    #   medication = Medication.create(:name => "name")
+    #   medication.position.should be_nil
 
-      medication = Medication.create(:name => "name 2", :lat => '', :lng => '')
-      medication.position.should be_nil
-    end
+    #   medication = Medication.create(:name => "name 2", :lat => '', :lng => '')
+    #   medication.position.should be_nil
+    # end
   end
 
   describe "useragent" do
@@ -84,96 +81,3 @@ describe Medication do
   end
 end
  
-def _medications_fixture
-  [{
-      :generic_name=> "Aspirine 1",
-      :name=> "Aspergel",
-      :secondary_effects=> "Mal au dos,Yeux rouges,Rougeur,Faim,Mort subite",
-  },
-  {
-      :generic_name=> "Paracetamol 2",
-      :name=> "Doliprane",
-      :secondary_effects=> "Rougeur,Faim,Soif",
-  },
-  {
-
-      :generic_name=> "Dopamine 3",
-      :name=> "Dopaminston",
-      :secondary_effects=> "Soif",
-      :slug=> "im"
-  },
-  {
-
-      :generic_name=> "Histamine 4",
-      :name=> "Vericaridon",
-      :secondary_effects=> "Mort subite,Rougeur",
-      :slug=> "lll"
-  },
-  {
-      :generic_name=> "Ibupropen 5",
-      :name=> "Nurofen",
-      :secondary_effects=> "Faim",
-  },
-  {
-      :generic_name=> "Elasticene 6",
-      :name=> "Similisen",
-      :secondary_effects=> "Gloire",
-  },
-  {
-      :generic_name=> "Elasticene I 7",
-      :name=> "Similisen I",
-      :secondary_effects=> "Gloire",
-  },
-  {
-      :generic_name=> "Elasticene II 8",
-      :name=> "Similisen II",
-      :secondary_effects=> "Gloire",
-  },
-  {
-      :generic_name=> "Elasticene III 9",
-      :name=> "Similisen III",
-      :secondary_effects=> "Gloire",
-  },
-
-  {
-      :generic_name=> "Elasticene IV 10",
-      :name=> "Similisen IV",
-      :secondary_effects=> "Gloire",
-  },
-
-  {
-      :generic_name=> "Elasticene V 11",
-      :name=> "Similisen V",
-      :secondary_effects=> "Gloire",
-  },
-
-  {
-      :generic_name=> "Elasticene VI 12",
-      :name=> "Similisen VI",
-      :secondary_effects=> "Gloire",
-  },
-
-  {
-      :generic_name=> "Elasticene VII 13",
-      :name=> "Similisen VII",
-      :secondary_effects=> "Gloire",
-  },
-
-  {
-      :generic_name=> "Elasticene VIII 14",
-      :name=> "Similisen VIII",
-      :secondary_effects=> "Gloire",
-  },
-
-  {
-      :generic_name=> "Elasticene IX 15",
-      :name=> "Similisen IX",
-      :secondary_effects=> "Gloire",
-  },
-
-  {
-      :generic_name=> "Elasticene X 16",
-      :name=> "Similisen X",
-      :secondary_effects=> "Gloire",
-  }]
-end

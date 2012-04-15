@@ -52,7 +52,7 @@ group :development do
 end
 
 gem "bson_ext", ">= 1.3.1"
-gem "mongoid", "~> 2.4.3"
+gem "mongoid", "~> 2.4.8"
 
 gem 'mongoid_slug', :require => 'mongoid/slug'
 gem "mongoid_taggable"

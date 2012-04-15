@@ -34,14 +34,12 @@ class Medication
     
   field :name, :type => String
   field :generic_name, :type => String
-  field :coordinates, :type => Array
-
-  field :position, :type => Array
-  index [[ :position, Mongo::GEO2D ]], :min => -180, :max => 180
 
   field :useragent, :type => String
   field :useragent_info, :type => Hash
   taggable :secondary_effects, :separator => ','   
+
+  has_many :prescriptions
 
   def self.elastic_search(params)
     query = params[:q].present? ? "*#{params[:q]}*" : "*"

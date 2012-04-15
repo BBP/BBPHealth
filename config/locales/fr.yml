@@ -2,6 +2,7 @@ fr:
   cancel: Annuler
   show: Voir
   edit: Editer
+  update: Mettre à jour
   devise:
     remember_me: Rester connecté
     sign_in: Se connecter
