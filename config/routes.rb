@@ -14,6 +14,7 @@ BBPHealth::Application.routes.draw do
         get :list
         get :map
       end
+      resources :secondary_effects
     end
     
     root :to => "medications#index"
