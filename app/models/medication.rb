@@ -47,9 +47,9 @@ class Medication
       result = tire.search(page: params[:page], per_page: params[:per_page] || 10) do         
         query { string query, default_operator: "AND" } 
         filter :terms, :secondary_effects_array => t if t != [] 
-        facet ("secondary_effects") { terms :secondary_effects_array, :global => false}
+        #facet ("secondary_effects") { terms :secondary_effects_array, :global => false}
       end
-      analyze_facets result, t
+      #analyze_facets result, t
       result
     end
 

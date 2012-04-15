@@ -22,6 +22,7 @@ class Prescription
   taggable :secondary_effects, :separator => ','   
 
   mapping do 
+    indexes :medication_id, type: 'integer'
     # Define correct analyzer for secondary_effects array
     indexes :secondary_effects_array, :analyzer => 'keyword', :type => 'string'
   end
@@ -30,15 +31,31 @@ class Prescription
     self.to_json
   end
 
+  class << self
+    def elastic_search(medication, t = [])
+      result = tire.search(page: params[:page], per_page: params[:per_page] || 0) do   
+        query do
+          boolean do
+            must { terms :secondary_effects_array => t } unless t.blank? 
+            must { term :medication_id, medication.id } if medication
+          end
+        end
+        facet ("secondary_effects") { terms :secondary_effects_array, :global => false}
+      end
+      analyze_facets result, t
+      result
+    end
+  end
+
 private
-  # def self.analyze_facets(result, term)
-  #   result.facets['secondary_effects']["terms"].map! do |facet|
-  #     facet['selected']     = term.include?(facet['term'])
-  #     facet['remove_facet'] = (term - [facet["term"]])  * ","
-  #     facet['add_facet']    = (term + [facet["term"]]) * ","
-  #     facet
-  #   end
-  # end
+  def self.analyze_facets(result, term)
+    result.facets['secondary_effects']["terms"].map! do |facet|
+      facet['selected']     = term.include?(facet['term'])
+      facet['remove_facet'] = (term - [facet["term"]])  * ","
+      facet['add_facet']    = (term + [facet["term"]]) * ","
+      facet
+    end
+  end
 
   def set_position
     self.position = [lng, lat] unless lat.blank? || lng.blank?
