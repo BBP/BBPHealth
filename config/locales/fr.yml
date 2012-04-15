@@ -3,6 +3,8 @@ fr:
   show: Voir
   edit: Editer
   update: Mettre à jour
+  back: Retour
+  add: Ajouter
   devise:
     remember_me: Rester connecté
     sign_in: Se connecter

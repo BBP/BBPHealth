@@ -3,6 +3,8 @@ en:
   show: Show
   edit: Edit
   update: Update
+  back: Back
+  add: Add
   devise:
     remember_me: Remember me
     sign_in: Sign in

@@ -33,7 +33,6 @@ class MedicationsController < ApplicationController
      
   def search
     @medications = Medication.where(:name => params[:q])
-    logger.warn @medications
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @medications }

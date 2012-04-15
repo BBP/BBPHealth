@@ -1,21 +1,21 @@
-<h1>A medication and its secondary effects</h1>
-<p id="notice"><%= notice %></p>
+<h1></h1>
 
 <p>
-  <b>Name:</b>
+  <b><%= t('simple_form.labels.medication.name') %>:</b>
   <%= @medication.name %>
 </p>
 
 <p>
-  <b>Generic name:</b>
+  <b><%= t('simple_form.labels.medication.generic_name') %>:</b>
   <%= @medication.generic_name %>
 </p>
 
 <p>
-  <b>Secondary effects:</b>
-  <%= @medication.secondary_effects %>
+  <b><%= t('simple_form.labels.medication.secondary_effects') %>:</b>
+  <br>
+  <% @medication.secondary_effects_array.each do |tag| %>
+    <span class=""><%= tag %></span><br>
+  <% end  %>
 </p>
 
-
-<%= link_to 'Edit', edit_medication_path(@medication) , :class=>"btn" %> |
-<%= link_to 'Back', medications_path, :class=>"btn" %>
+<%= link_to t(:back), :back, :class=>"btn" %>
