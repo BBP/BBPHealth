@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe "USer" do
+  
   describe "Sign in" do
     before(:each) do
       @user = create(:user)
