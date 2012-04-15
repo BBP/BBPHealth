@@ -2,8 +2,9 @@ $ ->
   success= (position) ->
     window.position = position
     # Set lat/lng hidden field
-    $('#medication_lat').val(position.coords.latitude) if position && position.coords
-    $('#medication_lng').val(position.coords.longitude) if position && position.coords
+    if position && position.coords
+      $('#medication_lat').val(position.coords.latitude)  
+      $('#medication_lng').val(position.coords.longitude)
 
   error= ->
 
