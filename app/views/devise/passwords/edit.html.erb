@@ -4,10 +4,8 @@
   <%= f.input :reset_password_token, :as => :hidden %>
   <%= f.full_error :reset_password_token %>
 
-  <div class="inputs">
-    <%= f.input :password, :required => true, :label => t('activerecord.attributes.user.password') %>
-    <%= f.input :password_confirmation, :required => true, :label => t('activerecord.attributes.user.password_confirmation') %>
-  </div>
+  <%= f.input :password, :required => true %>
+  <%= f.input :password_confirmation, :required => true %>
 
   <div class="control-group">
     <div class="controls">
