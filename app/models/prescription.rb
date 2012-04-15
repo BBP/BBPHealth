@@ -9,7 +9,7 @@ class Prescription
 
   attr_accessor :lat, :lng
   before_save :set_position
-  before_save :set_useragent_info
+  before_save :set_user_agent_info
 
   belongs_to :user
   belongs_to :medication
@@ -17,6 +17,8 @@ class Prescription
   field :position, :type => Array
   index [[ :position, Mongo::GEO2D ]], :min => -180, :max => 180
 
+  field :user_agent, :type => String
+  field :user_agent_info, :type => Hash
   taggable :secondary_effects, :separator => ','   
 
   mapping do 
@@ -42,10 +44,10 @@ private
     self.position = [lng, lat] unless lat.blank? || lng.blank?
   end
 
-  def set_useragent_info
-    if useragent
-      ua = AgentOrange::UserAgent.new(useragent)
-      self.useragent_info = {device: ua.device.to_s, engine: ua.device.engine.to_s, platform: ua.device.platform.to_s, is_mobile: ua.device.is_mobile?}
+  def set_user_agent_info
+    if user_agent
+      ua = AgentOrange::UserAgent.new(user_agent)
+      self.user_agent_info = {device: ua.device.to_s, engine: ua.device.engine.to_s, platform: ua.device.platform.to_s, is_mobile: ua.device.is_mobile?}
     end
   end
 end

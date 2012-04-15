@@ -6,13 +6,20 @@ describe Medication do
     Medication.tire.index.create
   end
 
-  it "should have no records in the beginning" do       
-     Medication.all.length.should == 0
+  it {should validate_presence_of(:name)}
+  it {should validate_uniqueness_of(:name)}
+
+  it "should create a prescription with same secondary effects" do
+    medication = create(:medication, :secondary_effects => "foo,bar")    
+    medication.prescriptions.length.should == 1
+
+    prescription = medication.prescriptions.first
+    prescription.user.should == medication.user
+    prescription.secondary_effects.should == medication.secondary_effects
   end
 
-  it "should validate there is a name" do                  
-    medication = Medication.create()                        
-    medication.save.should == false
+  it "should have no records in the beginning" do       
+     Medication.all.length.should == 0
   end
 
   it "should have no records in the search engine" do  
@@ -23,22 +30,16 @@ describe Medication do
   end     
 
   it "should have a slug" do                  
-    medication = Medication.create!(:name=>"XxX")    
+    medication = create(:medication, :name=>"XxX")    
     medication.slug.should == "xxx"
   end
                     
   it "should not have the same slug" do     
-    medication = Medication.create!(:name=>"XxX")                 
-    medication = Medication.create!(:name=>"xxx")    
+    medication = create(:medication, :name=>"XxX")                 
+    medication = create(:medication, :name=>"xxx")    
     medication.slug.should == "xxx-1"
   end
   
-   it "should not allow a second medication with the same name" do                  
-     medication = Medication.create(:name=>"xxx")    
-     medication = Medication.create(:name=>"xxx")    
-     medication.save.should  == false
-  end
-
   describe "search engine" do
     before(:each) do
       1.upto(16) { create(:medication) }
@@ -71,12 +72,13 @@ describe Medication do
     # end
   end
 
-  describe "useragent" do
+  describe "user_agent" do
     it "should set user agent and detailed info" do
-      useragent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_3) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.151 Safari/535.19"
-      medication = Medication.create(:name => "name", :useragent => useragent)
-      medication.useragent.should == useragent
-      medication.useragent_info.should == {:device=>"Computer", :engine=>"AppleWebKit 535.19", :platform=>"Macintosh", :is_mobile=>false}
+      user_agent   = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_3) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.151 Safari/535.19"
+      medication   = create(:medication, :user_agent => user_agent)
+      prescription = medication.prescriptions.first
+      prescription.user_agent.should == user_agent
+      prescription.user_agent_info.should == {:device=>"Computer", :engine=>"AppleWebKit 535.19", :platform=>"Macintosh", :is_mobile=>false}
     end
   end
 end

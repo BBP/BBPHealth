@@ -14,3 +14,6 @@ en:
     search: "Search"
     add_new: "Or add a new medication"
     add_title: "Add a new medication"
+    edit_title: "Edit a medication"
+    flash:
+      success: "Medication was successfully created"

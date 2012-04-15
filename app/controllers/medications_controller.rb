@@ -1,6 +1,6 @@
 class MedicationsController < ApplicationController
-  before_filter :authenticate_user!, :only => [:create, :update, :new, :edit]
-  before_filter :authenticate, :only => [:list, :map]
+  before_filter :authenticate_user!, :only => [:create, :new]
+  before_filter :authenticate_admin, :only => [:list, :map, :edit, :update, :destroy]
 
   # GET /medications
   # GET /medications.json
@@ -9,14 +9,6 @@ class MedicationsController < ApplicationController
       format.html # index.html.erb
       format.json { render json: @medications }
     end
-  end
-
-  def list
-    @medications = Medication.page(params[:page]).per(10)
-  end
-
-  def map
-    @medications = Medication.where(:position => {"$ne" => nil})
   end
 
   # GET /medications/search
@@ -55,7 +47,6 @@ class MedicationsController < ApplicationController
   # GET /medications/new.json
   def new
     @medication = Medication.new
-    @medication.prescriptions.build
     
     respond_to do |format|
       format.html # new.html.erb
@@ -63,25 +54,27 @@ class MedicationsController < ApplicationController
     end
   end
 
-  # GET /medications/1/edit
-  def edit
-    @medication = Medication.find_by_slug(params[:id])
-  end
-
   # POST /medications
   # POST /medications.json
   def create
-    @medication = Medication.new(params[:medication].merge(:useragent => request.user_agent))
+    @medication = Medication.new(params[:medication].merge(user_agent: request.user_agent, user: current_user))
 
     respond_to do |format|
       if @medication.save
-        format.html { redirect_to @medication, notice: 'Medication was successfully created.' }
+        format.html { redirect_to @medication, notice: t("medications.flash.success") }
         format.json { render json: @medication, status: :created, location: @medication }
       else
         format.html { render action: "new" }
         format.json { render json: @medication.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  ## ADMIN PART ## 
+
+  # GET /medications/1/edit
+  def edit
+    @medication = Medication.find_by_slug(params[:id])
   end
 
   # PUT /medications/1
@@ -112,10 +105,12 @@ class MedicationsController < ApplicationController
     end
   end
 
-private
-  def authenticate
-    authenticate_or_request_with_http_basic("Documents Realm") do |username, password|
-      username == "admin" && password == "top_secret"
-    end
+  def list
+    @medications = Medication.page(params[:page]).per(10)
   end
+
+  def map
+    @medications = Medication.where(:position => {"$ne" => nil})
+  end
+
 end

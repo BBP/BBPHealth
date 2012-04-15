@@ -10,9 +10,10 @@ class Medication
   # Fix to be able to use bonsai.io on heroku
   Medication.index_name "medications_#{Rails.env}"
 
-  validates_presence_of :name   
-  validates_uniqueness_of :name
-  attr_accessor :lat, :lng
+  validates :name, :user, :presence => true
+  validates :name, :uniqueness => true
+
+  attr_accessor :lat, :lng, :user_agent, :user
 
   mapping do 
     indexes :name
@@ -36,22 +37,26 @@ class Medication
 
   has_many :prescriptions
 
-  def self.elastic_search(params)
-    query = params[:q].present? ? "*#{params[:q]}*" : "*"
-    t = params[:terms].present? ? params[:terms].split(',')  : []
+  after_create :create_prescription
 
-    result = tire.search(page: params[:page], per_page: params[:per_page] || 10) do         
-      query { string query, default_operator: "AND" } 
-      filter :terms, :secondary_effects_array => t if t != [] 
-      facet ("secondary_effects") { terms :secondary_effects_array, :global => false}
+  class << self
+    def elastic_search(params)
+      query = params[:q].present? ? "*#{params[:q]}*" : "*"
+      t = params[:terms].present? ? params[:terms].split(',')  : []
+
+      result = tire.search(page: params[:page], per_page: params[:per_page] || 10) do         
+        query { string query, default_operator: "AND" } 
+        filter :terms, :secondary_effects_array => t if t != [] 
+        facet ("secondary_effects") { terms :secondary_effects_array, :global => false}
+      end
+      analyze_facets result, t
+      result
     end
-    analyze_facets result, t
-    result
-  end
 
-  # For Tire with kaminari
-  def self.paginate(options = {})
-    page(options[:page]).per(options[:per_page])
+    # For Tire with kaminari
+    def paginate(options = {})
+      page(options[:page]).per(options[:per_page])
+    end
   end
 
 private
@@ -62,5 +67,9 @@ private
       facet['add_facet']    = (term + [facet["term"]]) * ","
       facet
     end
+  end
+
+  def create_prescription
+    prescriptions.create!(lat: lat, lng: lng, user_agent: user_agent, user: user, secondary_effects: secondary_effects)
   end
 end

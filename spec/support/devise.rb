@@ -6,6 +6,12 @@ module ControllerMacros
       sign_in @user
     end
   end  
+
+  def admin_login
+    before(:each) do
+      request.env['HTTP_AUTHORIZATION'] = ActionController::HttpAuthentication::Basic.encode_credentials("admin", "top_secret")
+    end
+  end
 end
 
 module RequestMacros
