@@ -2,4 +2,4 @@ To initiliaze properly elasticsearch run rake app:bootstrap
 curl -X DELETE "http://localhost:9200/prescriptions"
 curl -X POST "http://localhost:9200/prescriptions" -d '{"mappings":{"prescription":{"properties":{"medication_id":{"type":"string"},"secondary_effects_array":{"analyzer":"keyword","type":"string"},"created_at":{"type":"date"}}}},"settings":{}}'
 curl -X DELETE "http://localhost:9200/medications"
-curl -X POST "http://localhost:9200/medications" -d '{"mappings":{"medication":{"properties":{"secondary_effects_array":{"analyzer":"keyword","type":"string"}}}},"settings":{}}'
+curl -X POST "http://localhost:9200/medications" -d '{"mappings":{"medication":{"properties":{"secondary_effects_array":{"analyzer":"keyword","type":"string"}}}},"settings":{}}' 
