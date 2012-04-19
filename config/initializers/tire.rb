@@ -36,8 +36,8 @@ Tire.configure do
 	 else
 	   logger 'log/elasticsearch.log', :level => 'debug' 
 	 end
-	 logger.warn Rails.env
-	 logger.warn File.open(Rails.root.join("./config/tire.yml")))[Rails.env]["url"]
+	 Rails.logger.warn Rails.env
+	 Rails.logger.warn YAML::load(File.open(Rails.root.join("./config/tire.yml")))[Rails.env]["url"]
    url(YAML::load(File.open(Rails.root.join("./config/tire.yml")))[Rails.env]["url"])
    client(HerokuRestClient)
  end
