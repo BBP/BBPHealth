@@ -35,8 +35,10 @@
 
     <td>
       <%= link_to t(:show), medication_path(medication.slug) %> -
-      <%= link_to t(:edit), edit_medication_path(medication.slug) %> 
+      <%= link_to t(:"medications.add_effects"), new_medication_secondary_effect_path(medication.slug) %> 
+
       <% if admin_mode %>
+        - <%= link_to t(:edit), edit_medication_path(medication.slug) %> 
         - <%= link_to 'Destroy', medication_path(medication.slug), confirm: 'Are you sure?', method: :delete %>
       <% end %>
     </td>

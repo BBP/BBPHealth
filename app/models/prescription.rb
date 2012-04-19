@@ -1,11 +1,11 @@
 class Prescription
   include Mongoid::Document
-  include Tire::Model::Search
-  include Tire::Model::Callbacks
-
   include Mongoid::TaggableWithContext
   include Mongoid::Timestamps
   include Mongoid::TaggableWithContext::AggregationStrategy::RealTime
+
+
+#  Prescription.index_name "bbphealth_#{Rails.env}"
 
   attr_accessor :lat, :lng
   before_save :set_position
@@ -21,26 +21,35 @@ class Prescription
   field :user_agent_info, :type => Hash
   taggable :secondary_effects, :separator => ','   
 
+  include Tire::Model::Search
+  include Tire::Model::Callbacks
   mapping do 
-    indexes :medication_id, type: 'integer'
-    # Define correct analyzer for secondary_effects array
+    indexes :medication_id, type: 'string'
     indexes :secondary_effects_array, :analyzer => 'keyword', :type => 'string'
+    indexes :created_at, type: 'date'
   end
+
   
+  # after_create lambda { |p| 
+  #   p.medication.update_tags! 
+  #   Prescription.tire.index.refresh
+  # }
+
   def to_indexed_json
     self.to_json
   end
 
   class << self
-    def elastic_search(medication, t = [])
+    def elastic_search(medication, params)
+      t = params[:terms].present? ? params[:terms].split(',')  : []
       result = tire.search(page: params[:page], per_page: params[:per_page] || 0) do   
         query do
           boolean do
             must { terms :secondary_effects_array => t } unless t.blank? 
             must { term :medication_id, medication.id } if medication
           end
-        end
-        facet ("secondary_effects") { terms :secondary_effects_array, :global => false}
+        end if medication || t.length > 0
+        facet ("secondary_effects") { terms :secondary_effects_array, :global => false }
       end
       analyze_facets result, t
       result

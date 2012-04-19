@@ -15,8 +15,7 @@ class MedicationsController < ApplicationController
   def elastic_search             
     @search = params[:q]
     @medications = Medication.elastic_search params                   
-    @facets      = @medications.facets['secondary_effects']["terms"]
-
+    @facets      =  @medications.facets['secondary_effects']["terms"]
     respond_to do |format|
        format.html 
        format.json { render json: @medications }
@@ -36,7 +35,8 @@ class MedicationsController < ApplicationController
   # GET /medications/1.json
   def show
     @medication = Medication.find_by_slug(params[:id])
-
+    @prescriptions = Prescription.elastic_search @medication, params                   
+    @facets = @prescriptions.facets['secondary_effects']["terms"]
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @medication }

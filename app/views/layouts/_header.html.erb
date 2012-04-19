@@ -6,9 +6,19 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </a>
-      <a class="brand" href="./index.html">BBPHealth</a>
+      <%= link_to "BBPHealth", root_path, :class => :brand %>
       <div class="nav-collapse">
+
         <ul class="nav">
+          <% if user_signed_in?  && current_user.admin?%>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><%= link_to "Listings", list_medications_path %></li>
+                <li><%= link_to "Map", map_medications_path %></li>
+              </ul>
+            </li>
+          <% end %>
           <% if user_signed_in?  %>
             <li class="">
                <%= link_to current_user.email, edit_user_registration_path %>

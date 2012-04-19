@@ -40,6 +40,8 @@ class User
   ## Token authenticatable
   field :authentication_token, :type => String
 
+  field :admin, :type => Boolean
+  
   has_many :prescriptions
 
   attr_accessible :email, :password, :password_confirmation, :remember_me

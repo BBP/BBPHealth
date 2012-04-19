@@ -15,6 +15,7 @@ fr:
     add_new: "Ou ajouter un nouveau médicament"
     add_title: "Ajouter un médicament"
     edit_title: "Modifier un médicament"
+    add_effects: "Ajouter vos effets secondaires"
     flash:
       success: "Le médicament a été ajouté"
   helpers:

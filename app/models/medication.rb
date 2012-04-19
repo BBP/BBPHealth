@@ -7,20 +7,23 @@ class Medication
   include Tire::Model::Search
   include Tire::Model::Callbacks
 
-  # Fix to be able to use bonsai.io on heroku
-  Medication.index_name "medications_#{Rails.env}"
-
-  validates :name, :user, :presence => true
-  validates :name, :uniqueness => true
-
-  attr_accessor :lat, :lng, :user_agent, :user
-
   mapping do 
     indexes :name
     indexes :generic_name
     # Define correct analyzer for secondary_effects array
     indexes :secondary_effects_array, :analyzer => 'keyword', :type => 'string'
   end
+
+  # Fix to be able to use bonsai.io on heroku
+#  Medication.index_name "bbphealth_#{Rails.env}"
+
+  validates :name, :presence => true, :on => :create
+
+  validates :name, :presence => true
+  validates :name, :uniqueness => true
+
+  attr_accessor :lat, :lng, :user_agent, :user
+
   slug :name, :permanent => true, :index => true
   
   # These Mongo guys sure do some funky stuff with their IDs
@@ -47,9 +50,9 @@ class Medication
       result = tire.search(page: params[:page], per_page: params[:per_page] || 10) do         
         query { string query, default_operator: "AND" } 
         filter :terms, :secondary_effects_array => t if t != [] 
-        #facet ("secondary_effects") { terms :secondary_effects_array, :global => false}
+        facet ("secondary_effects") { terms :secondary_effects_array, :global => false}
       end
-      #analyze_facets result, t
+      analyze_facets result, t
       result
     end
 
@@ -57,6 +60,11 @@ class Medication
     def paginate(options = {})
       page(options[:page]).per(options[:per_page])
     end
+  end
+
+  def update_tags!
+    self.secondary_effects_array = prescriptions.map &:secondary_effects
+    save!
   end
 
 private
@@ -71,5 +79,6 @@ private
 
   def create_prescription
     prescriptions.create!(lat: lat, lng: lng, user_agent: user_agent, user: user, secondary_effects: secondary_effects)
+    # Prescription.tire.index.refresh
   end
 end

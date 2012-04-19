@@ -1,7 +1,7 @@
 $ ->
 
   # Autocomplete the secondary effects in edit form
-  $("#medication_secondary_effects").tagsInput
+  $("#medication_secondary_effects, #prescription_secondary_effects").tagsInput
     autocomplete_url:"/secondary_effects"
     width:'auto'
     height:'auto'
