@@ -23,6 +23,8 @@ class Prescription
 
   include Tire::Model::Search
   include Tire::Model::Callbacks
+  index_name BONSAI_INDEX_NAME if const_defined?(:BONSAI_INDEX_NAME)
+
   mapping do 
     indexes :medication_id, type: 'string'
     indexes :secondary_effects_array, :analyzer => 'keyword', :type => 'string'

@@ -16,6 +16,7 @@ class Medication
 
   # Fix to be able to use bonsai.io on heroku
 #  Medication.index_name "bbphealth_#{Rails.env}"
+  index_name BONSAI_INDEX_NAME if const_defined?(:BONSAI_INDEX_NAME)
 
   validates :name, :presence => true, :on => :create
 
