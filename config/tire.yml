@@ -2,8 +2,6 @@ development:
   url: 'http://localhost:9200'
 test:
   url: 'http://localhost:9201'
-# set these environment variables on your prod server
+
 production:
-  url: "http://home.itseb.com:9200"
-staging:
-  url: "http://index.bonsai.io"
+  url: "http://localhost:9200"
