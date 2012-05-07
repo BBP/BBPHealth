@@ -72,3 +72,4 @@ gem 'simple_form'
 
 gem 'agent_orange'
 gem 'thin', :group => :production
+gem 'unicorn', :group => :production
