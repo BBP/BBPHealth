@@ -79,4 +79,5 @@ after 'deploy:update_code' do
   # run "cd #{release_path}/public; ln -s #{shared_path}/uploads ."
   # # run "cd #{release_path}; RAILS_ENV=production bundle exec rake barista:brew"
   # run "cd #{release_path}; RAILS_ENV=production bundle exec jammit"
+  run "cd #{release_path}; bundle exec rake assets:precompile"
 end

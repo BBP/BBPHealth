@@ -64,7 +64,7 @@ class Medication
   end
 
   def update_tags!
-    self.secondary_effects_array = prescriptions.map &:secondary_effects
+    self.secondary_effects_array = prescriptions.map(&:secondary_effects_array).flatten.uniq
     save!
   end
 
@@ -80,6 +80,6 @@ private
 
   def create_prescription
     prescriptions.create!(lat: lat, lng: lng, user_agent: user_agent, user: user, secondary_effects: secondary_effects)
-    # Prescription.tire.index.refresh
+    Prescription.tire.index.refresh
   end
 end

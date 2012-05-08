@@ -1,9 +1,11 @@
 <%= simple_form_for(@medication, :html => {:class => 'form-horizontal' }) do |form| %>
   <%= form.input :name, :input_html => {:class => :span} %>
   <%= form.input :generic_name, :input_html => {:class => :span} %>
-  <%= form.input :secondary_effects, :as => :text, :input_html => {:class => :span} %>
-  <%= form.input :lat, :as => :hidden %>
-  <%= form.input :lng, :as => :hidden %>
+  <%  if @medication.new_record? %>
+    <%= form.input :secondary_effects, :as => :text, :input_html => {:class => :span} %>
+    <%= form.input :lat, :as => :hidden %>
+    <%= form.input :lng, :as => :hidden %>
+  <% end %>
   <div class="form-actions">
     <%= form.button :submit, :class => 'btn btn-primary' %>
     <%= link_to t(:cancel), :back , :class=>"btn" %>

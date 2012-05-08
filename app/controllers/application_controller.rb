@@ -7,8 +7,11 @@ protected
   end
 
   def authenticate_admin
-    authenticate_or_request_with_http_basic("Documents Realm") do |username, password|
-      username == "admin" && password == "top_secret"
-    end
+    current_user && current_user.admin?
   end
+
+  def admin?
+    current_user && current_user.admin?
+  end
+  helper_method :admin?
 end

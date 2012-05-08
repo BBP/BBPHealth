@@ -4,9 +4,7 @@
     <th><%= t('simple_form.labels.medication.generic_name') %></th>
     <th><%= t('simple_form.labels.medication.secondary_effects') %></th>
     <% if admin_mode %>
-      <th>Position</th>
-      <th>Platform</th>
-      <th>Mobile</th>
+      <th>Nb</th>
     <% end %>
 
     <th></th>
@@ -23,13 +21,7 @@
     </td>
     <% if admin_mode %>
       <td>
-        <%= medication.position %>
-      </td>
-      <td>
-        <%= medication.useragent_info['platform'] if medication.useragent_info %>
-      </td>
-      <td>
-        <%= medication.useragent_info['is_mobile'] if medication.useragent_info %>
+        <%= medication.prescriptions.count %>
       </td>
     <% end %>
 

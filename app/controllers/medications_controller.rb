@@ -110,7 +110,7 @@ class MedicationsController < ApplicationController
   end
 
   def map
-    @medications = Medication.where(:position => {"$ne" => nil})
+    @prescriptions = Prescription.where(:position => {"$ne" => nil})
   end
 
 end

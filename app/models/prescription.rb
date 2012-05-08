@@ -32,10 +32,10 @@ class Prescription
   end
 
   
-  # after_create lambda { |p| 
-  #   p.medication.update_tags! 
-  #   Prescription.tire.index.refresh
-  # }
+  after_create lambda { |p| 
+    p.medication.update_tags! 
+    Prescription.tire.index.refresh
+  }
 
   def to_indexed_json
     self.to_json
