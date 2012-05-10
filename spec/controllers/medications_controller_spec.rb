@@ -60,6 +60,7 @@ describe MedicationsController do
     describe "GET edit" do
       admin_login
       it "assigns the requested medication as @medication" do
+        puts @user.inspect
         medication = create(:medication)
         get :edit, :id => medication.slug
         assigns(:medication).should eq(medication)
@@ -166,20 +167,31 @@ describe MedicationsController do
     end
 
     describe "GET list" do
-      it "assigns all medications as @medications if authenticated" do
-        request.env['HTTP_AUTHORIZATION'] = ActionController::HttpAuthentication::Basic.encode_credentials("admin", "top_secret")
 
-        medication = create(:medication)
-        get :list
-        response.should be_success
-        assigns(:medications).should eq([medication])
+      describe "admin" do
+        admin_login
+        it "assigns all medications as @medications if authenticated as admin" do
+          medication = create(:medication)
+          get :list
+          response.should be_success
+          assigns(:medications).should eq([medication])
+        end
       end
 
-      it "doen't assign all medications as @medications if not authenticated" do
-        get :list
-        response.should_not be_success
+      describe "not admin" do
+        login
+        it "doesn't assign all medications as @medications if authenticated as user" do
+          get :list
+          response.should redirect_to(root_path)
+        end
+      end
+
+      describe "not logged in" do
+        it "doesn't assign all medications as @medications if not authenticated" do
+          get :list
+          response.should redirect_to(root_path)
+        end
       end
     end
   end
-
 end

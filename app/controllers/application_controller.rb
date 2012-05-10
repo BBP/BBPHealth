@@ -7,7 +7,7 @@ protected
   end
 
   def authenticate_admin
-    current_user && current_user.admin?
+    redirect_to root_path unless admin?
   end
 
   def admin?

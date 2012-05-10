@@ -11,7 +11,6 @@ describe "Search" do
   it "should search for a medication" do
     fill_in "search-text", :with => "ibu"
     click_button "search-button"
-
     current_path.should == medications_elastic_search_path
     page.should have_css("td", :text => "ibuprofene")
     page.should_not have_css("td", :text => "asprin")

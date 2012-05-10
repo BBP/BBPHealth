@@ -1,29 +1,34 @@
 module ControllerMacros
-  def login(user = nil)
+  def login(user = :user)
     before(:each) do
       @request.env["devise.mapping"] = Devise.mappings[:user]
-      @user ||= create(:user)
+      @user = create(user)
       sign_in @user
     end
   end  
 
   def admin_login
-    before(:each) do
-      request.env['HTTP_AUTHORIZATION'] = ActionController::HttpAuthentication::Basic.encode_credentials("admin", "top_secret")
-    end
+    login(:admin)
+    # before(:each) do
+    #   request.env['HTTP_AUTHORIZATION'] = ActionController::HttpAuthentication::Basic.encode_credentials("admin", "top_secret")
+    # end
   end
 end
 
 module RequestMacros
   def login(user = :user)
     before(:each) do
-      @user ||= create(user) 
+      @user = create(user) 
       visit new_user_session_path
       fill_in 'user_email', :with => @user.email
       fill_in 'user_password', :with => @user.password
       click_button I18n.t("devise.shared.sign_in")
     end
   end   
+  def admin_login
+    login(:admin)
+  end
+
 end
 
 RSpec.configure do |config|
