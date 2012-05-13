@@ -1,3 +1,4 @@
+module BBPHealth
   class MercatorProjection
     TILE_SIZE_PX       = 256
     MAX_LAT            = 85.05113
@@ -38,3 +39,4 @@
       @earth_half_radius_px * Math.log((1 + x) / (1 - x))
     end
   end
+end

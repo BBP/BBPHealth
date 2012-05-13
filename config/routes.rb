@@ -12,6 +12,8 @@ BBPHealth::Application.routes.draw do
       collection do
         get :search 
         get :list
+      end
+      member do
         get :map
       end
       resources :secondary_effects

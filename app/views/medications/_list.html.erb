@@ -27,6 +27,7 @@
 
     <td>
       <%= link_to t(:show), medication_path(medication.slug) %> -
+      <%= link_to t(:map), map_medication_path(medication.slug) %> -
       <%= link_to t(:"medications.add_effects"), new_medication_secondary_effect_path(medication.slug) %> 
 
       <% if admin_mode %>

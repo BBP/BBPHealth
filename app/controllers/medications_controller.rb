@@ -1,6 +1,6 @@
 class MedicationsController < ApplicationController
   before_filter :authenticate_user!, :only => [:create, :new]
-  before_filter :authenticate_admin, :only => [:list, :map, :edit, :update, :destroy]
+  before_filter :authenticate_admin, :only => [:list, :edit, :update, :destroy]
 
   # GET /medications
   # GET /medications.json
@@ -111,7 +111,8 @@ class MedicationsController < ApplicationController
   end
 
   def map
-    @prescriptions = Prescription.where(:path => {"$ne" => nil})
+    @medication = Medication.find_by_slug(params[:id])
+    @prescriptions = @medication.prescriptions.where(:path => {"$ne" => nil})
   end
 
 end

@@ -1,12 +1,4 @@
-<h2>Medication listing</h2>
-<ul class="nav nav-tabs">
-  <li>
-    <%= link_to "List", list_medications_path %>
-  </li>
-  <li class="active">
-    <%= link_to "Map", map_medications_path %>
-  </li>
-</ul>
+<h2>Medication map of <%= @medication.name %></h2>
 <div class="container-fluid">
   <div class="row-fluid">
     <div class="span2">
