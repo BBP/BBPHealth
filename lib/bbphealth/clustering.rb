@@ -3,10 +3,11 @@ module BBPHealth
   module Clustering
     MAP_METHOD = <<-MAP
       emit(this.path.substr(0, resolution), 
-           {sw_lat: this.lat, 
-            sw_lng: this.lng, 
-            ne_lat: this.lat, 
-            ne_lng: this.lng, 
+           {sw_lat: this.location.latitude, 
+            sw_lng: this.location.longitude, 
+            ne_lat: this.location.latitude, 
+            ne_lng: this.location.longitude, 
+            id: this._id,
             count: 1 });
     MAP
 
@@ -28,7 +29,7 @@ module BBPHealth
     FINALIZE_METHOD = <<-FINALIZE
       function(obj, val) {
         if (val.count == 1) {
-          return {count: 1, id: val.id, lat: val.sw_lat, lng: sw_lng}
+          return {count: 1, id: val.id, lat: val.sw_lat, lng: val.sw_lng}
         } else {
           return {
             lat: (val.sw_lat + val.ne_lat) / 2,
@@ -58,16 +59,23 @@ module BBPHealth
                                                   query: query,
                                                   scope: {resolution: projection.resolution_for(grouping_distance)})
       result["results"].map! { |p| p["value"] }
+      puts query.inspect
+      puts Prescription.where({"lat"=>{"$gte"=>-89.97662, "$lte"=>89.988134}, "lng"=>{"$gte"=>-180.000009, "$lte"=>180.000009}}).count
+      Prescription.all.each {|p| puts p.inspect}
       puts projection.resolution_for(grouping_distance).inspect
       puts result.inspect
-      response = perform_further_grouping(projection, grouping_distance, result["results"])
-      response[:success] = true
+      response = {}
+      response["points"] = perform_further_grouping(projection, grouping_distance, result["results"])
+      response["success"] = true
       response
     end
 
   private
     def bounds_conditions(sw, ne)
-      { "lat" => { "$gte" => sw[0] - 0.00001, "$lte" => ne[0] + 0.00001 }, "lng" => { "$gte" => sw[1] - 0.00001, "$lte" => ne[1] + 0.00001 } }
+      { 
+        "location.latitude"  => { "$gte" => sw[0] - 0.00001, "$lte" => ne[0] + 0.00001 }, 
+        "location.longitude" => { "$gte" => sw[1] - 0.00001, "$lte" => ne[1] + 0.00001 } 
+      }
     end
 
     def perform_further_grouping(projection, distance, data)
@@ -81,7 +89,7 @@ module BBPHealth
           j -= 1
           break if projection.vertical_distance(previous["lat"], current["lat"]) > distance
           next if  projection.horizontal_distance(previous["lng"], current["lng"]) > distance
-          add_marker(current, previous)
+          merge_data(current, previous)
           data.delete(previous)
         end
         i += 1
@@ -89,7 +97,7 @@ module BBPHealth
       data
     end
 
-    def merge_marker(source, dest)
+    def merge_data(source, dest)
       # Update count
       source["count"] += dest["count"]
       source["lat"] = (source["lat"] * source["count"] + dest["lat"] * dest["count"]) / (source["count"] + dest["count"])
