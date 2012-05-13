@@ -57,21 +57,6 @@ describe Medication do
     end
   end
 
-  describe "location" do
-    # it "should set position from lat/lng" do
-    #   medication = Medication.create(:name => "name", :lat => 12, :lng => 14)
-    #   medication.position.should == [14, 12]
-    # end
-
-    # it "should not set location if lat/lng are empty" do
-    #   medication = Medication.create(:name => "name")
-    #   medication.position.should be_nil
-
-    #   medication = Medication.create(:name => "name 2", :lat => '', :lng => '')
-    #   medication.position.should be_nil
-    # end
-  end
-
   describe "user_agent" do
     it "should set user agent and detailed info" do
       user_agent   = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_3) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.151 Safari/535.19"

@@ -60,7 +60,6 @@ describe MedicationsController do
     describe "GET edit" do
       admin_login
       it "assigns the requested medication as @medication" do
-        puts @user.inspect
         medication = create(:medication)
         get :edit, :id => medication.slug
         assigns(:medication).should eq(medication)

@@ -1,11 +1,13 @@
 class Medication
   include Mongoid::Document
   include Mongoid::Slug
-  include Mongoid::TaggableWithContext
   include Mongoid::Timestamps
-  include Mongoid::TaggableWithContext::AggregationStrategy::RealTime
-  include Tire::Model::Search
-  include Tire::Model::Callbacks
+
+  include Concern::SecondaryEffects
+  include Concern::Searchable
+
+  field :name, :type => String
+  field :generic_name, :type => String
 
   mapping do 
     indexes :name
@@ -14,32 +16,15 @@ class Medication
     indexes :secondary_effects_array, :analyzer => 'keyword', :type => 'string'
   end
 
-  # Fix to be able to use bonsai.io on heroku
-#  Medication.index_name "bbphealth_#{Rails.env}"
-  index_name "#{BONSAI_INDEX_NAME}/" if const_defined?(:BONSAI_INDEX_NAME)
-
   validates :name, :presence => true, :on => :create
-
-  validates :name, :presence => true
   validates :name, :uniqueness => true
 
   attr_accessor :lat, :lng, :user_agent, :user
+  attr_accessible :user_agent, :secondary_effects, :name, :generic_name, :lat, :lng
 
   slug :name, :permanent => true, :index => true
-  
-  # These Mongo guys sure do some funky stuff with their IDs
-  # in +serializable_hash+, let's fix it.
-  #
-  def to_indexed_json
-    self.to_json
-  end
-    
-  field :name, :type => String
-  field :generic_name, :type => String
 
-  taggable :secondary_effects, :separator => ','   
-
-  has_many :prescriptions
+  has_many :prescriptions, dependent: :destroy
 
   after_create :create_prescription
 
@@ -53,13 +38,8 @@ class Medication
         filter :terms, :secondary_effects_array => t if t != [] 
         facet ("secondary_effects") { terms :secondary_effects_array, :global => false}
       end
-      analyze_facets result, t
+      analyze_secondary_effect_facets result, t
       result
-    end
-
-    # For Tire with kaminari
-    def paginate(options = {})
-      page(options[:page]).per(options[:per_page])
     end
   end
 
@@ -69,17 +49,7 @@ class Medication
   end
 
 private
-  def self.analyze_facets(result, term)
-    result.facets['secondary_effects']["terms"].map! do |facet|
-      facet['selected']     = term.include?(facet['term'])
-      facet['remove_facet'] = (term - [facet["term"]])  * ","
-      facet['add_facet']    = (term + [facet["term"]]) * ","
-      facet
-    end
-  end
-
   def create_prescription
     prescriptions.create!(lat: lat, lng: lng, user_agent: user_agent, user: user, secondary_effects: secondary_effects)
-    Prescription.tire.index.refresh
   end
 end

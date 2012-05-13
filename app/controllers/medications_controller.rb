@@ -57,7 +57,8 @@ class MedicationsController < ApplicationController
   # POST /medications
   # POST /medications.json
   def create
-    @medication = Medication.new(params[:medication].merge(user_agent: request.user_agent, user: current_user))
+    @medication = Medication.new(params[:medication].merge(user_agent: request.user_agent))
+    @medication.user = current_user
 
     respond_to do |format|
       if @medication.save
@@ -110,7 +111,7 @@ class MedicationsController < ApplicationController
   end
 
   def map
-    @prescriptions = Prescription.where(:position => {"$ne" => nil})
+    @prescriptions = Prescription.where(:path => {"$ne" => nil})
   end
 
 end

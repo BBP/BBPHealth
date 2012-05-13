@@ -44,8 +44,11 @@ group :development do
 	gem "guard-rails", ">= 0.0.3"
 	gem "guard-livereload", ">= 0.3.0"
 	gem "guard-rspec", ">= 0.4.3"
+  gem 'guard-spork'
+
 	gem 'pry-rails'
   gem 'debugger'
+  gem 'quiet_assets'
 end
 
 gem "bson_ext", ">= 1.3.1"
@@ -67,6 +70,7 @@ gem 'spork', '~> 0.9.0.rc'
 gem 'less-rails-bootstrap'
 gem 'simple_form'
 
+gem 'therubyracer'
 gem 'agent_orange'
 gem 'thin', :group => :production
 gem 'unicorn', :group => :production

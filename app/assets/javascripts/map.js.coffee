@@ -10,7 +10,7 @@
     map = new google.maps.Map document.getElementById('map'), mapOptions
 
     markers = for point in points
-      latLng = new google.maps.LatLng(point.position[1], point.position[0])
+      latLng = new google.maps.LatLng(point.location.latitude, point.location.longitude)
       new google.maps.Marker(position: latLng)
   
     markerCluster = new MarkerClusterer(map, markers)
