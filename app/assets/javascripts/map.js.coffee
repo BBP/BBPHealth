@@ -24,8 +24,8 @@
     mapSystem = new com.maptimize.Leaflet(map)
     mapController = new com.maptimize.MapController(new com.maptimize.Leaflet(map), {key: "1", url: "/map/"})
 
-    mapController.refresh();
-
+    mapController.refresh()
+    mapController.fitBounds()
     # mapController = new com.maptimize.MapController(mapSystem, {url: "/map", key: ""})
     # mapController.refresh()
 

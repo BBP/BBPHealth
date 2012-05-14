@@ -112,6 +112,8 @@ class MedicationsController < ApplicationController
 
   def map
     @medication = Medication.find_by_slug(params[:id])
+    @prescriptions = Prescription.elastic_search @medication, params                   
+    @facets = @prescriptions.facets['secondary_effects']["terms"]
     @prescriptions = @medication.prescriptions.where(:path => {"$ne" => nil})
   end
 

@@ -1,8 +1,10 @@
 <h2>Medication map of <%= @medication.name %></h2>
 <div class="container-fluid">
   <div class="row-fluid">
-    <div class="span2">
-      Filters
+    <div class="span2 well">
+  <% @facets.each do |term| %>   
+     <li><%= term["term"] %> (<%= term["count"] %>) </li>
+  <% end %>               
     </div>
     <div class="span10">
       <div id='map'><div>

@@ -15,79 +15,6 @@
 }).call(this);
 (function() {
 
-  com.maptimize.Cache = (function() {
-
-    Cache.name = 'Cache';
-
-    function Cache(map) {
-      this.map = map;
-      this.mapSystem = map.mapSystem;
-      this.bounds = false;
-      this.zoom = false;
-      this.size = 512;
-      this.snap = 256;
-    }
-
-    Cache.prototype.setSizeAndSnap = function(size, snap) {
-      this.size = size;
-      this.snap = snap;
-    };
-
-    Cache.prototype.clusterize = function(params, options) {
-      if (this.cacheAvailable(params)) {
-        return com.maptimize.Util.debug("use cache");
-      } else {
-        this.computeCacheBounds(params);
-        this.zoom = params.zoom;
-        params.sw = this.mapSystem.getUrlValue(this.bounds.getSouthWest());
-        params.ne = this.mapSystem.getUrlValue(this.bounds.getNorthEast());
-        params.action = 'clusterize';
-        return new com.maptimize.Request(this.map.getUrl(params.action), params, options).post();
-      }
-    };
-
-    Cache.prototype.clear = function() {
-      return this.bounds = this.zoom = false;
-    };
-
-    Cache.prototype.cacheAvailable = function(params) {
-      return params.zoom === this.zoom && this.bounds.contains(params.ne) && this.bounds.contains(params.sw);
-    };
-
-    Cache.prototype.computeCacheBounds = function(params) {
-      var ne, snapNE, snapSW, sw, wholeEarth;
-      sw = this.mapSystem.fromLatLngToPixel(params.sw);
-      ne = this.mapSystem.fromLatLngToPixel(params.ne);
-      snapSW = this.expandPoint(sw, -1);
-      snapNE = this.expandPoint(ne, 1);
-      this.viewport = this.mapSystem.buildSize(snapNE.x - snapSW.x, snapSW.y - snapNE.y);
-      sw = this.mapSystem.fromPixelToLatLng(snapSW);
-      ne = this.mapSystem.fromPixelToLatLng(snapNE);
-      wholeEarth = this.mapSystem.getLng(sw) >= this.mapSystem.getLng(ne);
-      if (this.mapSystem.getLng(sw) >= this.mapSystem.getLng(params.sw) || wholeEarth) {
-        sw = this.mapSystem.buildLatLng(this.mapSystem.getLat(sw), -179.999999);
-      }
-      if (this.mapSystem.getLng(ne) <= this.mapSystem.getLng(params.ne) || wholeEarth) {
-        ne = this.mapSystem.buildLatLng(this.mapSystem.getLat(ne), 179.999999);
-      }
-      return this.bounds = this.mapSystem.buildLatLngBounds(sw, ne);
-    };
-
-    Cache.prototype.expandPoint = function(point, factor) {
-      return this.mapSystem.buildPoint(this.snapNumber(point.x + factor * this.size, this.snap), this.snapNumber(point.y - factor * this.size, this.snap));
-    };
-
-    Cache.prototype.snapNumber = function(number, round) {
-      return Math.floor(Math.floor(number / round) * round);
-    };
-
-    return Cache;
-
-  })();
-
-}).call(this);
-(function() {
-
   com.maptimize.Cluster = (function() {
 
     Cluster.name = 'Cluster';
@@ -294,6 +221,79 @@
   })();
 
 }).call(this);
+(function() {
+
+  com.maptimize.Cache = (function() {
+
+    Cache.name = 'Cache';
+
+    function Cache(map) {
+      this.map = map;
+      this.mapSystem = map.mapSystem;
+      this.bounds = false;
+      this.zoom = false;
+      this.size = 512;
+      this.snap = 256;
+    }
+
+    Cache.prototype.setSizeAndSnap = function(size, snap) {
+      this.size = size;
+      this.snap = snap;
+    };
+
+    Cache.prototype.clusterize = function(params, options) {
+      if (this.cacheAvailable(params)) {
+        return com.maptimize.Util.debug("use cache");
+      } else {
+        this.computeCacheBounds(params);
+        this.zoom = params.zoom;
+        params.sw = this.mapSystem.getUrlValue(this.bounds.getSouthWest());
+        params.ne = this.mapSystem.getUrlValue(this.bounds.getNorthEast());
+        params.action = 'clusterize';
+        return new com.maptimize.Request(this.map.getUrl(params.action), params, options).post();
+      }
+    };
+
+    Cache.prototype.clear = function() {
+      return this.bounds = this.zoom = false;
+    };
+
+    Cache.prototype.cacheAvailable = function(params) {
+      return params.zoom === this.zoom && this.bounds.contains(params.ne) && this.bounds.contains(params.sw);
+    };
+
+    Cache.prototype.computeCacheBounds = function(params) {
+      var ne, snapNE, snapSW, sw, wholeEarth;
+      sw = this.mapSystem.fromLatLngToPixel(params.sw);
+      ne = this.mapSystem.fromLatLngToPixel(params.ne);
+      snapSW = this.expandPoint(sw, -1);
+      snapNE = this.expandPoint(ne, 1);
+      this.viewport = this.mapSystem.buildSize(snapNE.x - snapSW.x, snapSW.y - snapNE.y);
+      sw = this.mapSystem.fromPixelToLatLng(snapSW);
+      ne = this.mapSystem.fromPixelToLatLng(snapNE);
+      wholeEarth = this.mapSystem.getLng(sw) >= this.mapSystem.getLng(ne);
+      if (this.mapSystem.getLng(sw) >= this.mapSystem.getLng(params.sw) || wholeEarth) {
+        sw = this.mapSystem.buildLatLng(this.mapSystem.getLat(sw), -179.999999);
+      }
+      if (this.mapSystem.getLng(ne) <= this.mapSystem.getLng(params.ne) || wholeEarth) {
+        ne = this.mapSystem.buildLatLng(this.mapSystem.getLat(ne), 179.999999);
+      }
+      return this.bounds = this.mapSystem.buildLatLngBounds(sw, ne);
+    };
+
+    Cache.prototype.expandPoint = function(point, factor) {
+      return this.mapSystem.buildPoint(this.snapNumber(point.x + factor * this.size, this.snap), this.snapNumber(point.y - factor * this.size, this.snap));
+    };
+
+    Cache.prototype.snapNumber = function(number, round) {
+      return Math.floor(Math.floor(number / round) * round);
+    };
+
+    return Cache;
+
+  })();
+
+}).call(this);
 /** 
  *  class com.maptimize.Map
  *  
@@ -416,8 +416,8 @@
       var params,
         _this = this;
       params = this.paramsForRequest(com.maptimize.MapController.WHOLE_EARTH);
-      params.sw = params.sw.toUrlValue();
-      params.ne = params.ne.toUrlValue();
+      params.sw = this.mapSystem.getUrlValue(params.sw);
+      params.ne = this.mapSystem.getUrlValue(params.ne);
       params.groupingDistance = 999999;
       return new com.maptimize.Request(this.getUrl("clusterize"), params, {
         success: function(response) {
