@@ -59,15 +59,7 @@ module BBPHealth
                                                   query: query,
                                                   scope: {resolution: projection.resolution_for(grouping_distance)})
       result["results"].map! { |p| p["value"] }
-      puts query.inspect
-      puts Prescription.where({"lat"=>{"$gte"=>-89.97662, "$lte"=>89.988134}, "lng"=>{"$gte"=>-180.000009, "$lte"=>180.000009}}).count
-      Prescription.all.each {|p| puts p.inspect}
-      puts projection.resolution_for(grouping_distance).inspect
-      puts result.inspect
-      response = {}
-      response["points"] = perform_further_grouping(projection, grouping_distance, result["results"])
-      response["success"] = true
-      response
+      build_maptimize_response perform_further_grouping(projection, grouping_distance, result["results"])
     end
 
   private
@@ -110,5 +102,19 @@ module BBPHealth
 
       source.delete("id")
     end
+
+    def build_maptimize_response(results)
+      maptimize = {:clusters => [], :markers => [], :success => true}
+      results.each do |point|
+        if point["count"] == 1 
+          maptimize[:markers] << {:id => point["id"], :coords => "#{point["lat"]}, #{point["lng"]}"}
+        else
+         maptimize[:clusters] << {:coords => "#{point["lat"]}, #{point["lng"]}", :count => point["count"],
+                                  :bounds => {:ne => "#{point["ne_lat"]}, #{point["ne_lng"]}", :sw => "#{point["sw_lat"]}, #{point["sw_lng"]}"}}
+        end
+      end
+      maptimize
+    end
+
   end
 end

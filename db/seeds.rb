@@ -5,7 +5,12 @@ user.admin = true
 user.save!
 
 Medication.destroy_all
-Prescription.destroy_all
-m = Medication.new name: "ibuprofene", generic_name: "ibuprofene", secondary_effects: "mal au dos, fatigue"
+m = Medication.new name: "ibuprofene", generic_name: "ibuprofene"
+
 m.user = user
 m.save!
+
+effects = %["mal au dos", "fatigue", "vomissement"]
+1.upto(10) do
+  m.prescriptions.create! lat: 46 + 2 + rand(100)/100.0, lng: 0 + 2 + rand(100)/100.0, secondary_effects: effects[rand(effects.length)]
+end

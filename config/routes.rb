@@ -22,4 +22,6 @@ BBPHealth::Application.routes.draw do
     root :to => "medications#index"
     match "secondary_effects" =>"secondary_effects#index" 
   end
+
+  get '/map/1/clusterize' => 'map#clusterize'
 end
