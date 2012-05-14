@@ -24,4 +24,5 @@ BBPHealth::Application.routes.draw do
   end
 
   get '/map/1/clusterize' => 'map#clusterize'
+  get '/map/1/select'     => 'map#select'
 end

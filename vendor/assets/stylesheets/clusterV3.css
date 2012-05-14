@@ -78,7 +78,7 @@
 /* Info Window */
 .maptimize_window {
   width: 200px;
-  height: 200px;
+  height: 75px;
   overflow: auto;
 }
 
