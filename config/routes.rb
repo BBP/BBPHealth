@@ -3,7 +3,7 @@ BBPHealth::Application.routes.draw do
   scope "(:locale)", :locale => /en|fr/,  :defaults => {:locale => ""} do
     devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
     devise_scope :user do
-      get '/users/auth/:provider/setup' => 'users/omniauth_callbacks#setup'
+      get '/users/auth/:provider/setup'   => 'users/omniauth_callbacks#setup'
       get '/users/auth/facebook/callback' => 'users/omniauth_callbacks#facebook'
     end
 
@@ -23,6 +23,6 @@ BBPHealth::Application.routes.draw do
     match "secondary_effects" =>"secondary_effects#index" 
   end
 
-  get '/map/1/clusterize' => 'map#clusterize'
-  get '/map/1/select'     => 'map#select'
+  get '/map/:id/clusterize' => 'map#clusterize'
+  get '/map/:id/select'     => 'map#select'
 end

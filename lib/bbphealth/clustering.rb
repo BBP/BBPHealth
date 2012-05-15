@@ -44,7 +44,7 @@ module BBPHealth
       }
     FINALIZE
 
-    def clusterize_response(params)
+    def clusterize_response(params, collection)
       viewport = params["viewport"].split(',').map &:to_i
       ne       = params["ne"].split(',').map &:to_f 
       sw       = params["sw"].split(',').map &:to_f 
@@ -53,14 +53,13 @@ module BBPHealth
       grouping_distance = (params["groupingDistance"] || 20).to_i
       query             = bounds_conditions(sw, ne)
       query.merge!(Rack::Utils.parse_nested_query(params["condition"]))
-      Rails.logger.warn query.inspect
-
-      result = Prescription.collection.map_reduce(MAP_METHOD, REDUCE_METHOD, 
-                                                  finalize: FINALIZE_METHOD, 
-                                                  out: {inline: true}, 
-                                                  raw: true, 
-                                                  query: query,
-                                                  scope: {resolution: projection.resolution_for(grouping_distance)})
+      query.merge!(params["mongo_condition"])
+      result = collection.map_reduce(MAP_METHOD, REDUCE_METHOD, 
+                                     finalize: FINALIZE_METHOD, 
+                                     out: {inline: true}, 
+                                     raw: true, 
+                                     query: query,
+                                     scope: {resolution: projection.resolution_for(grouping_distance)})
       result["results"].map! { |p| p["value"] }
       build_maptimize_response perform_further_grouping(projection, grouping_distance, result["results"])
     end

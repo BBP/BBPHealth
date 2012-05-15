@@ -1,6 +1,7 @@
 @Map = (->
 
-  init= (points) ->
+  init= (slug) ->
+    console.log slug
     # Create Leaflet Map object
     map = new L.Map('map', scrollWheelZoom: false)
 
@@ -14,7 +15,7 @@
 
     # Create maptimize controller 
     mapSystem = new com.maptimize.Leaflet(map)
-    mapController = new com.maptimize.MapController(new com.maptimize.Leaflet(map), {key: "1", url: "/map/"})
+    mapController = new com.maptimize.MapController(new com.maptimize.Leaflet(map), {key: slug, url: "/map/"})
 
     # Create a condition object for live filtering
     condition = new Condition($('#filters'))

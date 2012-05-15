@@ -17,7 +17,7 @@
   </div>
 </div>
 <%= content_for :tail do %>
-  <%= javascript_tag "Map.init(#{@prescriptions.to_json})" %>
+  <%= javascript_tag "Map.init('#{@medication.slug}')" %>
 <% end %>
 
 <%= content_for :head do %>
