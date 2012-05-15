@@ -1,3 +1,4 @@
+require 'bbphealth/clustering'
 class MapController < ApplicationController
   include BBPHealth::Clustering
 

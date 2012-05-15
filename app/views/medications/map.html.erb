@@ -1,10 +1,15 @@
 <h2>Medication map of <%= @medication.name %></h2>
 <div class="container-fluid">
   <div class="row-fluid">
-    <div class="span2 well">
-  <% @facets.each do |term| %>   
-     <li><%= term["term"] %> (<%= term["count"] %>) </li>
-  <% end %>               
+    <div class="span2 well" id="filters">
+      <div data-condition="secondary_effects_array.all">
+        <% @facets.each do |term| %>   
+          <label class="checkbox">
+            <input type="checkbox" value="<%= term["term"] %>">
+            <%= term["term"] %> (<%= term["count"] %>)
+          </label>
+        <% end %>               
+      </div>
     </div>
     <div class="span10">
       <div id='map'><div>

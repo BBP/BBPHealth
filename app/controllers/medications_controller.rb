@@ -1,7 +1,7 @@
 class MedicationsController < ApplicationController
   before_filter :authenticate_user!, :only => [:create, :new]
   before_filter :authenticate_admin, :only => [:list, :edit, :update, :destroy]
-
+  before_filter :get_medication_and_facets, :only => [:show, :map]
   # GET /medications
   # GET /medications.json
   def index
@@ -34,13 +34,13 @@ class MedicationsController < ApplicationController
   # GET /medications/1
   # GET /medications/1.json
   def show
-    @medication = Medication.find_by_slug(params[:id])
-    @prescriptions = Prescription.elastic_search @medication, params                   
-    @facets = @prescriptions.facets['secondary_effects']["terms"]
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @medication }
     end
+  end
+
+  def map
   end
 
   # GET /medications/new
@@ -110,11 +110,12 @@ class MedicationsController < ApplicationController
     @medications = Medication.page(params[:page]).per(10)
   end
 
-  def map
+
+private
+  def get_medication_and_facets
     @medication = Medication.find_by_slug(params[:id])
     @prescriptions = Prescription.elastic_search @medication, params                   
     @facets = @prescriptions.facets['secondary_effects']["terms"]
-    @prescriptions = @medication.prescriptions.where(:path => {"$ne" => nil})
   end
 
 end

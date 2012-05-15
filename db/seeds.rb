@@ -12,5 +12,6 @@ m.save!
 
 effects = ["mal au dos", "fatigue", "vomissement"]
 1.upto(10) do
-  m.prescriptions.create! lat: 46 + 2 + rand(100)/100.0, lng: 0 + 2 + rand(100)/100.0, secondary_effects: effects[rand(effects.length)]
+  fx = [effects[rand(effects.length)], effects[rand(effects.length)]].uniq
+  m.prescriptions.create! lat: 46 + 2 + rand(100)/100.0, lng: 0 + 2 + rand(100)/100.0, secondary_effects_array: fx
 end

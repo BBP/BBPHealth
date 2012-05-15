@@ -52,6 +52,9 @@ module BBPHealth
       projection        = MercatorProjection.new(MercatorProjection.zoom_for(ne[1] - sw[1], viewport[0]))
       grouping_distance = (params["groupingDistance"] || 20).to_i
       query             = bounds_conditions(sw, ne)
+      query.merge!(Rack::Utils.parse_nested_query(params["condition"]))
+      Rails.logger.warn query.inspect
+
       result = Prescription.collection.map_reduce(MAP_METHOD, REDUCE_METHOD, 
                                                   finalize: FINALIZE_METHOD, 
                                                   out: {inline: true}, 
@@ -115,6 +118,5 @@ module BBPHealth
       end
       maptimize
     end
-
   end
 end
