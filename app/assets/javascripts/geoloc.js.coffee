@@ -3,7 +3,6 @@ $ ->
     window.position = position
     # Set lat/lng hidden field
     if position && position.coords
-      console.log 'ok'
       $('#prescription_lat, #medication_lat').val(position.coords.latitude)  
       $('#prescription_lng, #medication_lng').val(position.coords.longitude)
 
