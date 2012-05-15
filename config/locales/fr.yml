@@ -10,6 +10,8 @@ fr:
     remember_me: Rester connecté
     sign_in: Se connecter
     loading: Veuillez patienter...
+  maps:
+    title: "Carte du médicament: %{name}"
   medications:
     title: "Rechercher un médicament"
     search: "Valider"

@@ -30,6 +30,7 @@
       <th><%= t('simple_form.labels.medication.generic_name') %></th>
       <th>Platform</th>
       <th>Mobile</th>
+      <th>Location</th>
       <th></th>
     </tr>
     <% @medication.prescriptions.each do |prescription| %>
@@ -42,6 +43,7 @@
         </td>
         <td><%= prescription.user_agent_info['platform'] if prescription.user_agent_info %></td>
         <td><%= prescription.user_agent_info['is_mobile'] if prescription.user_agent_info %></td>
+        <td><%= prescription.location %></td>
         <td>
           <%#= link_to 'Destroy', medication_path(medication.slug), confirm: 'Are you sure?', method: :delete %>
         </td>

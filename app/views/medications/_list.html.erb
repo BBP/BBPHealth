@@ -26,13 +26,16 @@
     <% end %>
 
     <td>
-      <%= link_to t(:show), medication_path(medication.slug) %> -
-      <%= link_to t(:map), map_medication_path(medication.slug) %> -
-      <%= link_to t(:"medications.add_effects"), new_medication_secondary_effect_path(medication.slug) %> 
+      <i class="icon-eye-open"></i> <%= link_to t(:show), medication_path(medication.slug) %> -
+      <% if medication.has_geo_data? %>
+        <i class="icon-map-marker"></i>
+        <%= link_to t(:map), map_medication_path(medication.slug) %> -
+      <% end %>
+      <i class="icon-plus"></i> <%= link_to t(:"medications.add_effects"), new_medication_secondary_effect_path(medication.slug) %> 
 
       <% if admin_mode %>
-        - <%= link_to t(:edit), edit_medication_path(medication.slug) %> 
-        - <%= link_to 'Destroy', medication_path(medication.slug), confirm: 'Are you sure?', method: :delete %>
+        - <i class="icon-edit"></i> <%= link_to t(:edit), edit_medication_path(medication.slug) %> 
+        - <i class="icon-remove"></i> <%= link_to 'Destroy', medication_path(medication.slug), confirm: 'Are you sure?', method: :delete %>
       <% end %>
     </td>
   </tr>

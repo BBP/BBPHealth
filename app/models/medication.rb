@@ -33,7 +33,7 @@ class Medication
       query = params[:q].present? ? "*#{params[:q]}*" : "*"
       t = params[:terms].present? ? params[:terms].split(',')  : []
 
-      result = tire.search(page: params[:page], per_page: params[:per_page] || 10) do         
+      result = tire.search(page: params[:page], per_page: params[:per_page] || 10, load: true) do         
         query { string query, default_operator: "AND" } 
         filter :terms, :secondary_effects_array => t if t != [] 
         facet ("secondary_effects") { terms :secondary_effects_array, :global => false}
@@ -46,6 +46,10 @@ class Medication
   def update_tags!
     self.secondary_effects_array = prescriptions.map(&:secondary_effects_array).flatten.uniq
     save!
+  end
+
+  def has_geo_data?
+    prescriptions.where( location: {"$ne" => nil}).count > 0
   end
 
 private

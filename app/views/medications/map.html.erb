@@ -1,4 +1,4 @@
-<h2>Medication map of <%= @medication.name %></h2>
+<h2><%= t(:'maps.title', name: "#{@medication.name}/#{@medication.generic_name}") %></h2>
 <div class="container-fluid">
   <div class="row-fluid">
     <div class="span2 well" id="filters">
