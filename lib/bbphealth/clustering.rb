@@ -53,7 +53,7 @@ module BBPHealth
       grouping_distance = (params["groupingDistance"] || 20).to_i
       query             = bounds_conditions(sw, ne)
       query.merge!(Rack::Utils.parse_nested_query(params["condition"]))
-      query.merge!(params["mongo_condition"])
+      query.merge!(params["mongo_condition"]) if params["mongo_condition"].present?
       result = collection.map_reduce(MAP_METHOD, REDUCE_METHOD, 
                                      finalize: FINALIZE_METHOD, 
                                      out: {inline: true}, 

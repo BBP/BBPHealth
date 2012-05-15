@@ -39,6 +39,16 @@ describe Medication do
     medication = create(:medication, :name=>"xxx")    
     medication.slug.should == "xxx-1"
   end
+
+  it "should not have gea data without localized prescription" do
+    create(:medication).should_not have_geo_data
+  end
+
+  it "should have gea data with localized prescription" do
+    medication = create(:medication)
+    create(:prescription, medication: medication, lat: 10, lng: 10)
+    medication.should have_geo_data
+  end
   
   describe "search engine" do
     before(:each) do

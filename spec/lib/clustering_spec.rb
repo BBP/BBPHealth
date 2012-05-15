@@ -14,17 +14,18 @@ describe BBPHealth::Clustering do
 
       @engine = Engine.new
       @params = {"ne"=>"89.988124,179.999999", "sw"=>"-89.97661,-179.999999", "viewport" => "300,300", "callback"=>"com.maptimize.callbacks._0", "groupingDistance"=>"30"}
+      @collection = Prescription.collection
     end
 
     it "should clusterize data and create a cluster" do
-      response = @engine.clusterize_response @params
+      response = @engine.clusterize_response @params, @collection
       response[:success].should  be_true
       response[:markers].should be_empty
       response[:clusters].should == [{:coords=>"11.0, 11.0", :count=>2.0, :bounds=>{:ne=>"12.0, 12.0", :sw=>"10.0, 10.0"}}]
     end
     
     it "should clusterize data and keep 2 markers" do
-      response = @engine.clusterize_response @params.merge("sw"=>"9,9", "ne"=>"13, 13")
+      response = @engine.clusterize_response @params.merge("sw"=>"9,9", "ne"=>"13, 13"), @collection
       response[:success].should  be_true
       response[:markers].should  =~ [{:coords => "10.0, 10.0", :id => @prescription1.id},
                                      {:coords => "12.0, 12.0", :id => @prescription2.id}]
