@@ -27,12 +27,12 @@
     </div>
   </div>
 
-  <%= form.input :secondary_effects, :as => :text, :input_html => {:class => :span} %>
+  <%= form.input :secondary_effects, :as => :text, :input_html => {:class => :span, :id => :secondary_effects_field} %>
   <%= form.input :lat, :as => :hidden %>
   <%= form.input :lng, :as => :hidden %>
 
   <div class="form-actions">
-    <%= form.button :submit, :class => 'btn btn-primary' %>
+    <%= form.button :submit, :class => 'btn btn-primary', :id => :submit_with_secondary_effect %>
     <%= link_to t(:cancel), :back , :class=>"btn" %>
   </div>
 <% end %>

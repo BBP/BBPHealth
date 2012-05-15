@@ -3,10 +3,10 @@ $ ->
     window.position = position
     # Set lat/lng hidden field
     if position && position.coords
-      $('#prescription_lat').val(position.coords.latitude)  
-      $('#prescription_lng').val(position.coords.longitude)
+      $('#prescription_lat, #medication_lat').val(position.coords.latitude)  
+      $('#prescription_lng, #medication_lng').val(position.coords.longitude)
 
   error= ->
 
-  navigator.geolocation.getCurrentPosition(success, error) if (navigator.geolocation && $('#prescription_lat').length) 
+  navigator.geolocation.getCurrentPosition(success, error) if (navigator.geolocation && $('#prescription_lat, #medication_lat').length) 
     
