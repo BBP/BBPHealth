@@ -6,6 +6,8 @@ fr:
   update: Mettre à jour
   back: Retour
   add: Ajouter
+  from: Du 
+  to: Au
   devise:
     remember_me: Rester connecté
     sign_in: Se connecter

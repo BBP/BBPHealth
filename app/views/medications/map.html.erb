@@ -1,17 +1,25 @@
 <h2><%= t(:'maps.title', name: "#{@medication.name}/#{@medication.generic_name}") %></h2>
 <div class="container-fluid">
   <div class="row-fluid">
-    <div class="span2 well" id="filters">
+    <div class="span4 well form-search" id="filters">
       <div data-condition="secondary_effects_array.all">
+        <h3><%= t(:'simple_form.labels.medication.secondary_effects') %></h3>
         <% @facets.each do |term| %>   
           <label class="checkbox">
             <input type="checkbox" value="<%= term["term"] %>">
             <%= term["term"] %> (<%= term["count"] %>)
-          </label>
+          </label><br/>
         <% end %>               
       </div>
+      <h3><%= t(:'simple_form.labels.medication.timing') %></h3>
+      <div data-condition="created_at.gte">
+        <%= t(:from) %> <input id="from" type="date" class="datepicker"/><br/>
+      </div>
+      <div data-condition="created_at.lte">
+        <%= t(:to) %> <input id="to" type="date"  class="datepicker"/><br/>
+      </div>
     </div>
-    <div class="span10">
+    <div class="span8">
       <div id='map'><div>
     </div>
   </div>

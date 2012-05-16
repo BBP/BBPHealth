@@ -1,7 +1,6 @@
 @Map = (->
 
   init= (slug) ->
-    console.log slug
     # Create Leaflet Map object
     map = new L.Map('map', scrollWheelZoom: false)
 
@@ -25,6 +24,8 @@
     # Refresh and update bounds to see all data
     mapController.refresh()
     mapController.fitBounds()
+
+    $('.datepicker').datepicker(dateFormat: "dd/mm/yy") if $('.datepicker')[0].type != "date"
 
   init:init
 )()

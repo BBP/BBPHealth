@@ -20,6 +20,8 @@ fr:
         generic_name: "Nom générique"
         secondary_effects: "Effets secondaires"
         nb_users: "Nombre de personnes ayant mentionné des effets secondaires"
+        timing: Temps 
+
       prescription:
         kwon_secondary_effects: "Effets secondaires déja répertoriés"
         secondary_effects: "Effets secondaires non répertoriés"

@@ -52,7 +52,11 @@ module BBPHealth
       projection        = MercatorProjection.new(MercatorProjection.zoom_for(ne[1] - sw[1], viewport[0]))
       grouping_distance = (params["groupingDistance"] || 20).to_i
       query             = bounds_conditions(sw, ne)
-      query.merge!(Rack::Utils.parse_nested_query(params["condition"]))
+      additional_query = Rack::Utils.parse_nested_query(params["condition"])
+      Rails.logger.warn additional_query
+      convert_date additional_query
+      Rails.logger.warn additional_query
+      query.merge!(additional_query)
       query.merge!(params["mongo_condition"]) if params["mongo_condition"].present?
       result = collection.map_reduce(MAP_METHOD, REDUCE_METHOD, 
                                      finalize: FINALIZE_METHOD, 
@@ -116,6 +120,16 @@ module BBPHealth
         end
       end
       maptimize
+    end
+
+    def convert_date(query_hash)
+      query_hash.each do |key, value|
+        if value.is_a? Hash
+          convert_date(value)
+        elsif value.is_a?(String) && value =~ /^\d\d\d\d-\d\d-\d\d$/
+          query_hash[key] = DateTime.parse(value).to_time.utc
+        end
+      end
     end
   end
 end

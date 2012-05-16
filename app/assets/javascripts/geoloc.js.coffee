@@ -9,6 +9,5 @@ $ ->
   error= (error)->
     alert error.message
 
-  console.log $('#prescription_lat, #medication_lat').length
   navigator.geolocation.getCurrentPosition(success, error) if (navigator.geolocation && $('#prescription_lat, #medication_lat').length > 0) 
     
