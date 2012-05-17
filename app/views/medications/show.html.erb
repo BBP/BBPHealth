@@ -1,21 +1,44 @@
-<h1>A medication and its secondary effects</h1>
-<p id="notice"><%= notice %></p>
+<div class="medication_show">
+  <h2>
+    <%= @medication.name %>
+    <% unless @medication.generic_name.blank? %>
+      <small> - <%= @medication.generic_name %></small>
+    <% end %>
+  </h2>
 
-<p>
-  <b>Name:</b>
-  <%= @medication.name %>
-</p>
-
-<p>
-  <b>Generic name:</b>
-  <%= @medication.generic_name %>
-</p>
-
-<p>
-  <b>Secondary effects:</b>
-  <%= @medication.secondary_effects %>
-</p>
-
-
-<%= link_to 'Edit', edit_medication_path(@medication) , :class=>"btn" %> |
-<%= link_to 'Back', medications_path, :class=>"btn" %>
+  <p>
+    <b><%= t('simple_form.labels.medication.nb_users') %>:</b>
+    <%= @medication.prescriptions.count %>
+  </p>
+  <p>
+    <b><%= t('simple_form.labels.medication.secondary_effects') %>:</b>
+  	<% @facets.each do |term| %>   
+      <span class="label label-info"><%= term["term"] %> (<%= term["count"] %>) </span>&nbsp;
+  	<% end %>               
+  	</ul>
+  </p>
+  <% if admin? %>
+    <% @prescriptions.each do |prescription| %>
+      <div class="row well">
+        <%= prescription.user.nickname.blank? ? t(:anonymous) : prescription.user.nickname %>
+        <% prescription.secondary_effects_array.each do |tag| %>
+          <span class="label label-info"><%= tag %></span>
+        <% end %>
+        <br/>
+        <% if prescription.user_agent_info %>
+          <span class="label label">
+            <%= prescription.user_agent_info['platform']  %>
+          </span>&nbsp;
+        <% end %>
+        <% if prescription.user_agent_info && prescription.user_agent_info['is_mobile'] %>
+          <span class="label label-success">
+            <%= t(:mobile) %>
+          </span>
+        <% end %>
+      </div>
+    <% end %>
+    <br/>
+    <%= paginate @prescriptions %>
+  <% end %>
+  <%= render "actions", medication: @medication, with_show: false %>
+</div>

@@ -43,7 +43,7 @@ BBPHealth::Application.configure do
   # config.action_controller.asset_host = "http://assets.example.com"
 
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
-  config.assets.precompile += %w( vendor.js )
+  config.assets.precompile += %w( application.css vendor.css application.js vendor.js )
 
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false
@@ -65,5 +65,10 @@ BBPHealth::Application.configure do
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = false
   config.action_mailer.default :charset => "utf-8"
+
+  config.action_mailer.default_url_options = { :host => 'bbphealth.xilinus.com' }
+
+  config.clusterer_url = "http://clusterer.xilinus.com"
+  config.clusterer_key = "f5591a74bd5f099d327535ad9dfdbae61eccaf38"
 
 end

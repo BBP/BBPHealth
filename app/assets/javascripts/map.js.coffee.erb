@@ -1,0 +1,32 @@
+@Map = (->
+
+  init= (slug) ->
+    # Create Leaflet Map object
+    map = new L.Map('map', scrollWheelZoom: false)
+
+    # Leaflet's settingd to use OpenStreetMap tiles
+    mapquestUrl    = 'http://{s}.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.png'
+    subDomains     = ['otile1','otile2','otile3','otile4']
+    mapquestAttrib = 'Data, imagery and map information provided by <a href="http://open.mapquest.co.uk" target="_blank">MapQuest</a>,
+                      <a href="http://www.openstreetmap.org/" target="_blank">OpenStreetMap</a> and contributors.'
+
+    tileLayer = new L.TileLayer(mapquestUrl, maxZoom: 18, attribution: mapquestAttrib, subdomains: subDomains)
+    map.setView(new L.LatLng(25, 0), 1).addLayer(tileLayer)
+
+    # Create maptimize controller 
+    mapSystem = new com.maptimize.Leaflet(map)
+    mapController = new com.maptimize.MapController(new com.maptimize.Leaflet(map), {key: "<%= BBPHealth::Application.config.clusterer_key %>", url: "<%= BBPHealth::Application.config.clusterer_url%>/map/"})
+
+    # Create a condition object for live filtering
+    condition = new Condition($('#filters'))
+    mapController.setCondition(condition)
+    $(condition).bind("changed", ->  mapController.refresh())
+
+    # Refresh and update bounds to see all data
+    mapController.refresh()
+    mapController.fitBounds()
+
+    $('.datepicker').datepicker(dateFormat: "dd/mm/yy") if $('.datepicker')[0].type != "date"
+
+  init:init
+)()

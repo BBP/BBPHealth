@@ -1,0 +1,36 @@
+fr:
+  simple_form:
+    "yes": 'Oui'
+    "no": 'Non'
+    required:
+      text: 'obligatoire'
+      mark: '*'
+      # You can uncomment the line below if you need to overwrite the whole required html.
+      # When using html, text and mark won't be used.
+      # html: '<abbr title="required">*</abbr>'
+
+    # Labels and hints examples
+    labels:
+      user:
+        current_password: 'Mot de passe actuel'
+        password: 'Mot de passe'
+        password_confirmation: 'Confirmation'
+      medication:
+        name: Nom 
+        generic_name: "Nom générique"
+        secondary_effects: "Effets secondaires"
+        nb_users: "Nombre de personnes ayant mentionné des effets secondaires"
+        timing: Temps 
+
+      prescription:
+        kwon_secondary_effects: "Effets secondaires déja répertoriés"
+        secondary_effects: "Effets secondaires non répertoriés"
+      # user:
+      #   new:
+      #     email: 'E-mail para efetuar o sign in.'
+      #   edit:
+      #     email: 'E-mail.'
+    hints:
+      medication:
+        secondary_effects: 'Selectionner ou entrer un nouvel effet secondaire.'
+

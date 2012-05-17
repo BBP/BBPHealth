@@ -1,0 +1,35 @@
+fr:
+  cancel: Annuler
+  show: Détail
+  edit: Editer
+  delete: Supprimer
+  map: Carte
+  update: Mettre à jour
+  back: Retour
+  add: Ajouter
+  from: Du 
+  to: Au
+  male: Homme
+  female: Femme
+  anonymous: Anonyme
+  devise:
+    remember_me: Rester connecté
+    sign_in: Se connecter
+    loading: Veuillez patienter...
+  maps:
+    title: "Carte du médicament: %{name}"
+  medications:
+    title: "Rechercher un médicament"
+    search: "Valider"
+    add_new: "Ou ajouter un nouveau médicament"
+    add_title: "Ajouter un médicament"
+    edit_title: "Modifier un médicament"
+    add_effects: "Effets secondaires"
+    flash:
+      success: "Le médicament a été ajouté"
+  helpers:
+    submit:
+      create: Ajouter
+      update: Mettre à jour
+  search:
+    title: "Résutats de recherche pour '%{for}'"

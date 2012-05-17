@@ -1,0 +1,84 @@
+/* Marker */
+.maptimize_marker_0, .maptimize_marker_1, .maptimize_marker_2, .maptimize_marker_3 {
+  font-weight: bold;
+  text-align:center;  
+  cursor: pointer;
+  color:#FFFFFF;
+  font-size:11px  !important;
+  font-family: arial;
+  height: 27px;
+  padding-top: 4px;
+}
+
+.maptimize_marker_0 {
+  width: 25px;
+  background: url(/assets/marker8.png);
+}
+
+.maptimize_marker_1 {
+  width: 25px;
+  background: url(/assets/marker88.png);
+}
+
+.maptimize_marker_2 {
+  width: 29px;
+  background: url(/assets/marker888.png);
+}
+
+.maptimize_marker_3 {
+  width: 33px;
+  background: url(/assets/marker8888.png);
+}
+
+/* Cluster */
+.maptimize_cluster_0, .maptimize_cluster_1, .maptimize_cluster_2, .maptimize_cluster_3, .maptimize_cluster_4 {
+  font-weight: bold;
+  text-align:center;  
+  cursor: pointer;
+  color:#FFFFFF;
+  font-size:11px !important;
+  font-family: arial;
+}
+
+.maptimize_cluster_0 {
+  width: 53px;
+  height: 53px;
+  line-height: 53px;
+  background: url(/assets/1.png);
+}
+
+.maptimize_cluster_1 {
+  width: 56px;
+  height: 56px;
+  line-height: 56px;
+  background: url(/assets/2.png);
+}
+
+.maptimize_cluster_2 {
+  width: 66px;
+  height: 66px;
+  line-height: 66px;
+  background: url(/assets/3.png);
+}
+
+.maptimize_cluster_3 {
+  width: 78px;
+  height: 78px;
+  line-height: 78px;
+  background: url(/assets/4.png);
+}
+
+.maptimize_cluster_4 {
+  width: 90px;
+  height: 90px;
+  line-height: 90px;
+  background: url(/assets/5.png);
+}
+
+/* Info Window */
+.maptimize_window {
+  width: 200px;
+  height: 75px;
+  overflow: auto;
+}
+

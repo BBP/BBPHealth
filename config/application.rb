@@ -29,7 +29,7 @@ module BBPHealth
     # -- all .rb files in that directory are automatically loaded.
 
     # Custom directories with classes and modules you want to be autoloadable.
-    # config.autoload_paths += %W(#{config.root}/extras)
+    config.autoload_paths += %W(#{config.root}/lib/bbphealth)
 
     # Only load the plugins named here, in the order given (default is alphabetical).
     # :all can be used as a placeholder for all plugins not explicitly named.
@@ -61,5 +61,10 @@ module BBPHealth
     config.assets.initialize_on_precompile = false
 
     config.assets.paths << Rails.root.join("vendor", "assets", "javascripts")
+
+    config.generators do |g|
+      g.fixture_replacement :factory_girl, :dir => "spec/factories"
+      g.view_specs false
+    end
   end
 end

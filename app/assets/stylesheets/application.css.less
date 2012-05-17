@@ -8,6 +8,13 @@
 @import "twitter/bootstrap";
 @import "twitter/bootstrap/responsive";
 
+.admin_nav, .admin_nav .navbar-inner {
+  background: #910401;
+}
+.admin_nav .nav > li > a {
+  color: #EEE
+}
+
 #map img {
   max-width: none;
 }
@@ -17,7 +24,7 @@ h1,h2,h3,h4,h5 {font-family: 'Convergence', sans-serif;}
 
 .form-horizontal .help-block  {
   font-style: italic;
-  margin-top: -5px;
+  margin-top: 0px;
   color: #888;
 }
 
@@ -35,9 +42,84 @@ h2 {
   line-height: 11px
 }
 
+.link {
+  font-size: 24px;
+}
 #map {
   width: 100%;
   height: 400px;
   border:1px solid #ddd;
+}
 
+#container {
+  margin-top: 40px;
+}
+
+@media (max-width: 979px) {
+  #container {
+    margin-top: -25px;
+  }
+}
+
+.known_facet {
+  float:left;
+  width: 100%;
+  label, input {
+    float: left
+  }
+  input {
+    margin-right: 5px
+  }
+}
+
+.known_facet:first-child {
+  margin-top: 8px
+}
+
+@media (max-width: 979px) {
+  .navbar .nav {
+    float:none
+  }
+}
+p.text {
+  margin-top: 5px;
+}
+.control-label {
+  font-weight: bold
+}
+
+
+.actions {
+  margin: 5px 0 10px -20px;
+}
+
+@media (min-width: 1200px) {
+  .actions {
+    margin: 5px 0 10px -30px;
+  }
+}
+
+@media (max-width: 767px) {
+  .actions {
+    margin: 5px 0 10px 0px;
+  }
+}
+
+.medication_list .row {
+  margin-left: 10px
+}
+.medication_list.well {
+  padding:0
+}
+.medication_show .row {
+  margin:0
+}
+.medication_show .well {
+  padding:2px 5px;
+  margin-bottom: 5px
+}
+/* Filters  */
+.datepicker {
+  width: 100px;
+  margin: 2px
 }

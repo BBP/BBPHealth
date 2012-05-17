@@ -1,21 +1,13 @@
 class Medication
   include Mongoid::Document
   include Mongoid::Slug
-  include Mongoid::TaggableWithContext
   include Mongoid::Timestamps
-  include Mongoid::TaggableWithContext::AggregationStrategy::RealTime
-  include Tire::Model::Search
-  include Tire::Model::Callbacks
 
-  # Fix to be able to use bonsai.io on heroku
-  Medication.index_name "medications_#{Rails.env}"
+  include Concern::SecondaryEffects
+  include Concern::Searchable
 
-  validates_presence_of :name   
-  validates_uniqueness_of :name
-
-  attr_accessor :lat, :lng
-  before_save :set_position
-  before_save :set_useragent_info
+  field :name, :type => String
+  field :generic_name, :type => String
 
   mapping do 
     indexes :name
@@ -23,62 +15,45 @@ class Medication
     # Define correct analyzer for secondary_effects array
     indexes :secondary_effects_array, :analyzer => 'keyword', :type => 'string'
   end
+
+  validates :name, :presence => true, :on => :create
+  validates :name, :uniqueness => true
+
+  attr_accessor :lat, :lng, :user_agent, :user
+  attr_accessible :user_agent, :secondary_effects, :name, :generic_name, :lat, :lng
+
   slug :name, :permanent => true, :index => true
-  
-  # These Mongo guys sure do some funky stuff with their IDs
-  # in +serializable_hash+, let's fix it.
-  #
-  def to_indexed_json
-    self.to_json
-  end
-    
-  field :name, :type => String
-  field :generic_name, :type => String
-  field :coordinates, :type => Array
 
-  field :position, :type => Array
-  index [[ :position, Mongo::GEO2D ]], :min => -180, :max => 180
+  has_many :prescriptions, dependent: :destroy
 
-  field :useragent, :type => String
-  field :useragent_info, :type => Hash
-  taggable :secondary_effects, :separator => ','   
+  after_create :create_prescription
 
-  def self.elastic_search(params)
-    query = params[:q].present? ? "*#{params[:q]}*" : "*"
-    t = params[:terms].present? ? params[:terms].split(',')  : []
+  class << self
+    def elastic_search(params)
+      query = params[:q].present? ? "*#{params[:q]}*" : "*"
+      t = params[:terms].present? ? params[:terms].split(',')  : []
 
-    result = tire.search(page: params[:page], per_page: params[:per_page] || 10) do         
-      query { string query, default_operator: "AND" } 
-      filter :terms, :secondary_effects_array => t if t != [] 
-      facet ("secondary_effects") { terms :secondary_effects_array, :global => false}
+      result = tire.search(page: params[:page], per_page: params[:per_page] || 10, load: true) do         
+        query { string query, default_operator: "AND" } 
+        filter :terms, :secondary_effects_array => t if t != [] 
+        facet ("secondary_effects") { terms :secondary_effects_array, :global => false}
+      end
+      analyze_secondary_effect_facets result, t
+      result
     end
-    analyze_facets result, t
-    result
   end
 
-  # For Tire with kaminari
-  def self.paginate(options = {})
-    page(options[:page]).per(options[:per_page])
+  def update_tags!
+    self.secondary_effects_array = prescriptions.map(&:secondary_effects_array).flatten.uniq
+    save!
+  end
+
+  def has_geo_data?
+    prescriptions.where( location: {"$ne" => nil}).count > 0
   end
 
 private
-  def self.analyze_facets(result, term)
-    result.facets['secondary_effects']["terms"].map! do |facet|
-      facet['selected']     = term.include?(facet['term'])
-      facet['remove_facet'] = (term - [facet["term"]])  * ","
-      facet['add_facet']    = (term + [facet["term"]]) * ","
-      facet
-    end
-  end
-
-  def set_position
-    self.position = [lng, lat] unless lat.blank? || lng.blank?
-  end
-
-  def set_useragent_info
-    if useragent
-      ua = AgentOrange::UserAgent.new(useragent)
-      self.useragent_info = {device: ua.device.to_s, engine: ua.device.engine.to_s, platform: ua.device.platform.to_s, is_mobile: ua.device.is_mobile?}
-    end
+  def create_prescription
+    prescriptions.create!(lat: lat, lng: lng, user_agent: user_agent, user: user, secondary_effects: secondary_effects)
   end
 end

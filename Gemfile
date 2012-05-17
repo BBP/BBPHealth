@@ -1,15 +1,7 @@
-require 'rbconfig'
-HOST_OS = Config::CONFIG['host_os']
-
 source 'http://rubygems.org'
 
-gem "rails", '3.2.2'
+gem "rails", '3.2.3'
 gem 'jquery-rails'
-
-# Bundle edge Rails instead:
-# gem 'rails',     :git => 'git://github.com/rails/rails.git'
-
-
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -19,26 +11,18 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
+gem "rspec-rails", ">= 2.9.0", :group => [:development, :test]
 
-
-# Use unicorn as the web server
-# gem 'unicorn'
-
-# Deploy with Capistrano
-# gem 'capistrano'
-
-# To use debugger
-# gem 'ruby-debug19', :require => 'ruby-debug'
-
-# install a Javascript runtime for linux
-
-gem "rspec-rails", ">= 2.6.1", :group => [:development, :test]
-gem "database_cleaner", ">= 0.6.7", :group => :test 
-gem "mongoid-rspec", ">= 1.4.4", :group => :test
-gem "factory_girl_rails", ">= 1.2.0", :group => :test
-gem "cucumber-rails", ">= 1.0.2", :group => :test
-gem "capybara", ">= 1.1.1", :group => :test
-gem "launchy", ">= 2.0.5", :group => :test
+group :test do 
+  gem "database_cleaner", ">= 0.6.7"
+  gem "mongoid-rspec", ">= 1.4.4"
+  gem "factory_girl_rails", "~> 3.0"
+  gem 'shoulda-matchers', '~> 1.1.0'
+  gem "capybara", ">= 1.1.1"
+  gem "launchy", ">= 2.0.5"
+  gem 'simplecov', :require => false
+  gem 'ffaker', '~> 1.14.0'
+end
 # case HOST_OS
 #   when /darwin/i
 #     gem 'rb-fsevent', :group => :development
@@ -60,23 +44,24 @@ group :development do
 	gem "guard-rails", ">= 0.0.3"
 	gem "guard-livereload", ">= 0.3.0"
 	gem "guard-rspec", ">= 0.4.3"
-	gem "guard-cucumber", ">= 0.6.1"
-	gem 'pry-remote'
-	gem 'pry-nav'
+  gem 'guard-spork'
+
 	gem 'pry-rails'
+  gem 'debugger'
+  gem 'quiet_assets'
 end
 
 gem "bson_ext", ">= 1.3.1"
-gem "mongoid", "~> 2.4.3"
-#gem "devise", ">= 1.4.5"
+gem "mongoid", "~> 2.4.8"
+
 gem 'mongoid_slug', :require => 'mongoid/slug'
 gem "mongoid_taggable"
 gem "mongoid_taggable_with_context", "~> 0.8.1 "
 gem 'mongoid_search'
 
-#group :production do
-#  gem 'therubyracer-heroku', '0.8.1.pre3'
-#end
+gem 'devise', "~> 2.0.4 "
+gem "omniauth", "~> 1.1.0"
+gem 'omniauth-facebook'
 
 gem "tire"
 gem "kaminari"
@@ -85,6 +70,7 @@ gem 'spork', '~> 0.9.0.rc'
 gem 'less-rails-bootstrap'
 gem 'simple_form'
 
+gem 'therubyracer'
 gem 'agent_orange'
-
-gem "thin", :group => :production
+gem 'thin', :group => :production
+gem 'unicorn', :group => :production

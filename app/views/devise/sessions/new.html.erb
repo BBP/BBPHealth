@@ -1,0 +1,17 @@
+<h2><%= t("devise.shared.sign_in") %></h2>
+
+<%= simple_form_for(resource, :as => resource_name, :url => session_path(:user), :html => {:class => 'form-horizontal'}) do |f| %>
+  <%= f.input :email, :input_html => {:class => "input-xlarge"} %>
+  <%= f.input :password, :input_html => {:class => "input-xlarge"}, :label => t('activerecord.attributes.user.password') %>
+  <div class="control-group">
+    <div class="controls">
+      <label class="checkbox">
+      <input type="checkbox" value="user[remember_me]" id="user_remember_me">
+      <%= t("devise.remember_me") %> 
+      </label>
+      <%= f.submit t("devise.shared.sign_in"), :class => 'btn btn-custom btn-primary', :disable_with => t("devise.loading") %>
+    </div>
+  </div>
+<% end %>
+
+<%= render "links" %>

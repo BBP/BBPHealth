@@ -1,13 +1,9 @@
 <table class="table table-striped table-bordered table-condensed">
   <tr>
-    <th>Name</th>
-    <th>Generic name</th>
-    <th>Secondary effects</th>
-    <% if admin_mode %>
-      <th>Position</th>
-      <th>Platform</th>
-      <th>Mobile</th>
-    <% end %>
+    <th><%= t('simple_form.labels.medication.name') %></th>
+    <th><%= t('simple_form.labels.medication.generic_name') %></th>
+    <th><%= t('simple_form.labels.medication.secondary_effects') %></th>
+    <th>Nb</th>
 
     <th></th>
   </tr>
@@ -21,23 +17,21 @@
         <span class="label label-info"><%= tag %></span>
       <% end  %>
     </td>
-    <% if admin_mode %>
-      <td>
-        <%= medication.position %>
-      </td>
-      <td>
-        <%= medication.useragent_info['platform'] if medication.useragent_info %>
-      </td>
-      <td>
-        <%= medication.useragent_info['is_mobile'] if medication.useragent_info %>
-      </td>
-    <% end %>
+    <td>
+      <%= medication.prescriptions.count %>
+    </td>
 
     <td>
-      <%= link_to 'Show', medication_path(medication.slug) %> -
-      <%= link_to 'Edit', edit_medication_path(medication.slug) %> 
+      <i class="icon-eye-open"></i> <%= link_to t(:show), medication_path(medication.slug), class: :action %> -
+      <% if medication.has_geo_data? %>
+        <i class="icon-map-marker"></i>
+        <%= link_to t(:map), map_medication_path(medication.slug), class: :action %> -
+      <% end %>
+      <i class="icon-plus"></i> <%= link_to t(:"medications.add_effects"), new_medication_secondary_effect_path(medication.slug), class: :action%> 
+
       <% if admin_mode %>
-        - <%= link_to 'Destroy', medication_path(medication.slug), confirm: 'Are you sure?', method: :delete %>
+        - <i class="icon-edit"></i> <%= link_to t(:edit), edit_medication_path(medication.slug), class: :action %> 
+        - <i class="icon-remove"></i> <%= link_to 'Destroy', medication_path(medication.slug), confirm: 'Are you sure?', method: :delete , class: :action %>
       <% end %>
     </td>
   </tr>

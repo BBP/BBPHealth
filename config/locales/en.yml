@@ -1,5 +1,20 @@
-# Sample localization file for English. Add more files in this directory for other locales.
-# See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
-
 en:
-  hello: "Hello world"
+  cancel: Cancel
+  show: Show
+  edit: Edit
+  update: Update
+  back: Back
+  add: Add
+  devise:
+    remember_me: Remember me
+    sign_in: Sign in
+    loading: Please wait...
+  medications:
+    title: "Search for medications"
+    search: "Search"
+    add_new: "Or add a new medication"
+    add_title: "Add a new medication"
+    edit_title: "Edit a medication"
+    add_effects: "Add your secondary effects"
+    flash:
+      success: "Medication was successfully created"

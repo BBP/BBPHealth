@@ -2,18 +2,22 @@
 <html>
 <head>
   <title>BBPHealth</title>
-  <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Convergence|Open+Sans">
+<!--   <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Convergence|Open+Sans"> -->
   <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;"/>
-  <%= stylesheet_link_tag    "application" %>
+  <%= stylesheet_link_tag  "application", "vendor" %>
+  <!--[if lte IE 8]><link rel="stylesheet" href="/leaflet.ie.css" /><![endif]-->
+
   <%= csrf_meta_tags %>
   <%= yield :head %>
 </head>
 <body>
-  <div class="container">
-    <%= yield %>
+  <%= render '/layouts/header' %>
+  <div class="container" id="container">
+   <%= render '/layouts/flash_messages' %>
+   <%= yield %>
   </div>
-  <%= javascript_include_tag "application" %>
-  <%= javascript_include_tag "vendor" %>
+  <%= javascript_include_tag "application", "vendor" %>
+  <%= javascript_include_tag BBPHealth::Application.config.clusterer_url + "/assets/v1/leaflet_clusterer.js" %>
   <%= yield :tail %>
 </body>
 </html>

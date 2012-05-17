@@ -30,12 +30,15 @@ class HerokuRestClient < Tire::HTTP::Client::RestClient
 	end
 end
 
+if ENV['BONSAI_INDEX_URL']
+  BONSAI_INDEX_NAME = ENV['BONSAI_INDEX_URL'][/[^\/]+$/]
+end
 Tire.configure do
-   if Rails.env.production?
-	   logger STDERR, :level => 'debug'
-	 else
-	   logger 'log/elasticsearch.log', :level => 'debug' 
-	 end
-   url(YAML::load(File.open(Rails.root.join("./config/tire.yml")))[Rails.env]["url"])
-   client(HerokuRestClient)
+  if Rails.env.production? || Rails.env.staging?
+    logger STDERR, :level => 'debug'
+  else
+    logger 'log/elasticsearch.log', :level => 'debug' 
+  end
+  url(YAML::load(File.open(Rails.root.join("./config/tire.yml")))[Rails.env]["url"])
+  client(HerokuRestClient)
  end

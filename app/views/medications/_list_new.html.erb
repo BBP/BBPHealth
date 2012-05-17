@@ -1,0 +1,20 @@
+<% @medications.each do |medication| %>
+  <div class="container well medication_list">
+    <div class="row">
+      <h3>
+        <%= medication.name %>
+        <% unless medication.generic_name.blank? %>
+          <small> - <%= medication.generic_name %></small>
+        <% end %>
+        <em>(<%= medication.prescriptions.count %>)</em>
+      </h3>
+    </div>
+    <div class="row">
+      <span class="hidden-phone"><%= t('simple_form.labels.medication.secondary_effects') %> : </span></span>
+      <% medication.secondary_effects_array.each do |tag| %>
+        <span class="label label-info"><%= tag %></span>
+      <% end  %>
+    </div>
+    <%= render "actions", medication: medication, with_show: true %>
+  </div>
+<% end %>
