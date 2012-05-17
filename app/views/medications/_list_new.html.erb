@@ -1,0 +1,48 @@
+<% @medications.each do |medication| %>
+  <div class="container well medication_list">
+    <div class="row">
+      <h3>
+        <%= medication.name %>
+        <% unless medication.generic_name.blank? %>
+          <small> - <%= medication.generic_name %></small>
+        <% end %>
+        <em>(<%= medication.prescriptions.count %>)</em>
+      </h3>
+    </div>
+    <div class="row">
+      <span class="hidden-phone"><%= t('simple_form.labels.medication.secondary_effects') %> : </span></span>
+      <% medication.secondary_effects_array.each do |tag| %>
+        <span class="label label-info"><%= tag %></span>
+      <% end  %>
+    </div>
+
+    <div class="row actions">
+      <div class='pull-left'>
+
+        <%= link_to medication_path(medication.slug), class: "btn btn-small btn-info"  do %>
+          <i class="icon-info-sign icon-white"></i> <span class="hidden-phone"><%= t(:show) %></span>
+        <% end %>
+        <%= link_to new_medication_secondary_effect_path(medication.slug), class: "btn btn-small btn-primary"  do %>
+          <i class="icon-plus icon-white"></i> <span class="hidden-phone"><%= t(:'medications.add_effects') %></span>
+        <% end %>
+
+        <% if medication.has_geo_data? %>
+          <%= link_to map_medication_path(medication.slug), class: "btn btn-small btn-success"  do %>
+            <i class="icon-map-marker icon-white"></i> <span class="hidden-phone"><%= t(:map) %></span>
+          <% end %>
+        <% end %>
+      </div>
+
+      <% if admin? %>
+        <div class='pull-right' style="padding-right:10px">
+          <%= link_to edit_medication_path(medication.slug), class: "btn"  do %>
+            <i class="icon-cog"></i> <span class="hidden-phone"><%= t(:edit) %></span>
+          <% end %>
+          <%= link_to medication_path(medication.slug), confirm: 'Are you sure?', method: :delete, class: "btn btn-danger"  do %>
+            <i class="icon-trash icon-white"></i> <span class="hidden-phone"><%= t(:delete) %></span>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+<% end %>

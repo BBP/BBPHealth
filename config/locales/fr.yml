@@ -2,6 +2,7 @@ fr:
   cancel: Annuler
   show: Détail
   edit: Editer
+  delete: Supprimer
   map: Carte
   update: Mettre à jour
   back: Retour
@@ -20,7 +21,7 @@ fr:
     add_new: "Ou ajouter un nouveau médicament"
     add_title: "Ajouter un médicament"
     edit_title: "Modifier un médicament"
-    add_effects: "Ajouter vos effets secondaires"
+    add_effects: "Effets secondaires"
     flash:
       success: "Le médicament a été ajouté"
   helpers:
