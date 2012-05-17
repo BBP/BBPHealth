@@ -1,16 +1,10 @@
+<h2>
+  <%= @medication.name %>
+  <% unless @medication.generic_name.blank? %>
+    <small> - <%= @medication.generic_name %></small>
+  <% end %>
+</h2>
 <%= simple_form_for(@prescription, :url => medication_secondary_effects_path(@medication), :html => {:class => 'form-horizontal' }) do |form| %>
-  <div class="control-group text optional">
-    <label class="text optional control-label"><%= t('simple_form.labels.medication.name') %>:</label>
-    <div class="controls">
-      <p class="text"><%= @medication.name %></p>
-    </div>
-  </div>
-  <div class="control-group text optional">
-    <label class="text optional control-label"><%= t('simple_form.labels.medication.generic_name') %>:</label>
-    <div class="controls">
-      <p class="text"><%= @medication.generic_name %></p>
-    </div>
-  </div>
   <div class="control-group text optional">
     <label class="text optional control-label" for="prescription_secondary_effects"> 
       <%= t('simple_form.labels.prescription.kwon_secondary_effects') %>

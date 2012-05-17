@@ -24,7 +24,7 @@ class Prescription
   class << self
     def elastic_search(medication, params)
       t = params[:terms].present? ? params[:terms].split(',')  : []
-      result = tire.search(page: params[:page], per_page: params[:per_page] || 0) do   
+      result = tire.search(page: params[:page], per_page: params[:per_page] || 10) do   
         query do
           boolean do
             must { terms :secondary_effects_array => t } unless t.blank? 
