@@ -15,7 +15,7 @@
 
     # Create maptimize controller 
     mapSystem = new com.maptimize.Leaflet(map)
-    mapController = new com.maptimize.MapController(new com.maptimize.Leaflet(map), {key: "<%= BBPHealth::Application.config.clusterer_key %>", url: "<%= BBPHealth::Application.config.clusterer_url%>"})
+    mapController = new com.maptimize.MapController(new com.maptimize.Leaflet(map), {key: "<%= BBPHealth::Application.config.clusterer_key %>", url: "<%= BBPHealth::Application.config.clusterer_url%>/map/"})
 
     # Create a condition object for live filtering
     condition = new Condition($('#filters'))

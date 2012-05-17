@@ -17,6 +17,7 @@
    <%= yield %>
   </div>
   <%= javascript_include_tag "application", "vendor" %>
+  <%= javascript_include_tag BBPHealth::Application.config.clusterer_url + "/assets/v1/leaflet_clusterer.js" %>
   <%= yield :tail %>
 </body>
 </html>
