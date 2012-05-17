@@ -66,5 +66,9 @@ BBPHealth::Application.configure do
   config.action_mailer.raise_delivery_errors = false
   config.action_mailer.default :charset => "utf-8"
 
-  config.action_mailer.default_url_options = { :host => 'bbphealth.herokuapp.com' }
+  config.action_mailer.default_url_options = { :host => 'bbphealth.xilinus.com' }
+
+  config.clusterer_url = "http://clusterer.xilinus.com/map/"
+  config.clusterer_key = "f5591a74bd5f099d327535ad9dfdbae61eccaf38"
+
 end

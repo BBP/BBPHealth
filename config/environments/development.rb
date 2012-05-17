@@ -13,8 +13,6 @@ BBPHealth::Application.configure do
   config.consider_all_requests_local       = true
   config.action_controller.perform_caching = false
 
-  # ActionMailer Config
-  config.action_mailer.default_url_options = { :host => 'localhost:3000' }
   # A dummy setup for development - no deliveries, but logged
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.perform_deliveries = false
@@ -33,7 +31,10 @@ BBPHealth::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
-  config.action_mailer.default_url_options = { :host => 'localhost:3000' }
+  config.action_mailer.default_url_options = { :host => 'bbphealth.dev' }
+
+  config.clusterer_url = "http://clusterer.dev/map/"
+  config.clusterer_key = "27026e2801c1d395177be39c8eb341ddf5715b59"
 end
 
 ActionMailer::Base.smtp_settings = {

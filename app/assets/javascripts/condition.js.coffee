@@ -14,8 +14,11 @@ class @Condition
       element = $(this)
       condition = element.data('condition')
       # In condition: field.in, get selected input
-      if matched = condition.match(/(.*)\.(in|all|lte|gte)$/)
+      if matched = condition.match(/(.*)\.(in|all|lte|gte|eq)$/)
         conditions = conditions.concat(self[matched[2]].apply(@, [element, matched]))
+
+    # Set collection name
+    conditions.push("collection=prescriptions")
 
     # Return a query string
     conditions.join("&")
@@ -47,3 +50,10 @@ class @Condition
   # Alias for gte condition
   gte: Condition::lte
 
+  eq: (element, matched) ->
+    input = $(element).find('input').first()
+    value = input.val()
+    conditions = []
+    if value.length
+      conditions.push("#{matched[1]}=#{value}")
+    conditions
