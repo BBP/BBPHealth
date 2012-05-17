@@ -40,19 +40,39 @@ class User
   ## Token authenticatable
   field :authentication_token, :type => String
 
-  field :admin, :type => Boolean
+  field :admin,     :type => Boolean
+  field :nickname,  :type => String
+  field :birthdate, :type => Date
+  field :gender,    :type => String
   
   has_many :prescriptions
 
-  attr_accessible :email, :password, :password_confirmation, :remember_me
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :birthdate, :nickname, :gender
 
   def self.find_for_facebook_oauth(access_token, signed_in_resource=nil)
     data = access_token.extra.raw_info
+    logger.warn  data.inspect
+    if data.birthday
+      m, d, y = data.birthday.split("/")
+      birthday = data.birthday ? Date.parse("#{y}-#{m}-#{d}") : nil
+    else
+      birthday = nil
+    end
+    username = data.username ? data.username : nil
+    gender   = data.gender   ? data.gender   : nil 
+    logger.warn  data.username
+    logger.warn  username
+
     if user = User.where(:email => data.email).first
+      # Update user info if need be
+      user.nickname  ||= username    if username
+      user.birthdate ||= birthday    if birthday
+      user.gender    ||= data.gender if gender
+      user.save
       user
     else # Create a user with a stub password. 
       password = Devise.friendly_token[0,20]
-      User.create!(:email => data.email, :password => password, :password_confirmation => password) 
+      User.create!(:email => data.email, :password => password, :password_confirmation => password, :gender => gender, :nickname => username, :birthdate => birthday) 
     end
   end
 end

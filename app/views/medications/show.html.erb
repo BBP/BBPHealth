@@ -20,7 +20,7 @@
   <% if admin? %>
     <% @prescriptions.each do |prescription| %>
       <div class="row well">
-        <%= prescription.user.email %>
+        <%= prescription.user.nickname.blank? ? t(:anonymous) : prescription.user.nickname %>
         <% prescription.secondary_effects_array.each do |tag| %>
           <span class="label label-info"><%= tag %></span>
         <% end %>

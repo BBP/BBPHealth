@@ -9,6 +9,9 @@ fr:
   add: Ajouter
   from: Du 
   to: Au
+  male: Homme
+  female: Femme
+  anonymous: Anonyme
   devise:
     remember_me: Rester connecté
     sign_in: Se connecter
