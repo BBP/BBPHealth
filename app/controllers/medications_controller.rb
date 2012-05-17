@@ -35,7 +35,7 @@ class MedicationsController < ApplicationController
   # GET /medications/1
   # GET /medications/1.json
   def show
-    @prescriptions = @medication.prescriptions.page(params[:page]).per(10)
+    @prescriptions = @medication.prescriptions.order_by([:created_at, :desc]).page(params[:page]).per(10)
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @medication }
