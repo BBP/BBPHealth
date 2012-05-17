@@ -5,6 +5,7 @@ class MedicationsController < ApplicationController
   # GET /medications
   # GET /medications.json
   def index
+    @home_page = true
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @medications }

@@ -3,9 +3,7 @@
     <th><%= t('simple_form.labels.medication.name') %></th>
     <th><%= t('simple_form.labels.medication.generic_name') %></th>
     <th><%= t('simple_form.labels.medication.secondary_effects') %></th>
-    <% if admin_mode %>
-      <th>Nb</th>
-    <% end %>
+    <th>Nb</th>
 
     <th></th>
   </tr>
@@ -19,11 +17,9 @@
         <span class="label label-info"><%= tag %></span>
       <% end  %>
     </td>
-    <% if admin_mode %>
-      <td>
-        <%= medication.prescriptions.count %>
-      </td>
-    <% end %>
+    <td>
+      <%= medication.prescriptions.count %>
+    </td>
 
     <td>
       <i class="icon-eye-open"></i> <%= link_to t(:show), medication_path(medication.slug), class: :action %> -

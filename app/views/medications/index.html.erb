@@ -1,7 +1,7 @@
 <h2><%= t('medications.title') %></h2>
                                
 <div id='search-box'>
-  <%= form_tag ("/medications/elastic_search"), :method => 'get', :class => 'searchform', :id => 'search-form' do %>
+  <%= form_tag elastic_search_medications_path, :method => 'get', :class => 'searchform', :id => 'search-form' do %>
     <%= text_field_tag :q, params[:q], :class => "input-medium search-query", :id => 'search-text', :placeholder => 'Ex: Ibuprofene, Lisopaïne, ...' %>
     <%= button_tag :id => "search-button", :type => :submit do %>
       <span><%= t('medications.search') %></span>

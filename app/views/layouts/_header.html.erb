@@ -8,8 +8,13 @@
       </a>
       <%= link_to "BBPHealth", root_path, :class => :brand %>
       <div class="nav-collapse">
+        <% unless @home_page %>
+          <%= form_tag elastic_search_medications_path, :method => 'get', :class => "navbar-search pull-left" do %>
+            <%= text_field_tag :q, params[:q], :class => "search-query span4", :type => :search, :placeholder => t('medications.title') %>
+          <% end %>
+        <% end %>
 
-        <ul class="nav">
+        <ul class="nav pull-right">
           <% if user_signed_in?  && current_user.admin? %>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin <b class="caret"></b></a>

@@ -7,11 +7,11 @@ BBPHealth::Application.routes.draw do
       get '/users/auth/facebook/callback' => 'users/omniauth_callbacks#facebook'
     end
 
-    match "medications/elastic_search" => "medications#elastic_search" 
     resources :medications do
       collection do
         get :search 
         get :list
+        get :elastic_search
       end
       member do
         get :map
