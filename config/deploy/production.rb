@@ -33,7 +33,7 @@ set :deploy_via,  :remote_cache
 set :scm_verbose, true
 set :use_sudo,    false
 
-set :repository, "git@github.com:xilinus/bbphealth.git"
+set :repository, "git@github.com:BBP/BBPHealth.git"
 set :branch,     'master'
 
 set :rake,     '$HOME/.rbenv/shims/rake'
