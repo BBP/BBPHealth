@@ -25,7 +25,7 @@
           <% end %>
           <% if user_signed_in?  %>
             <li class="">
-               <%= link_to current_user.email, edit_user_registration_path %>
+               <%= link_to  current_user.email, edit_user_registration_path%>
             </li>
             <li class="">
               <%= link_to t('devise.shared.sign_out'), destroy_user_session_path, :method => :delete %>

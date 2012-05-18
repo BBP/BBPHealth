@@ -1,40 +1,20 @@
-<table class="table table-striped table-bordered table-condensed">
-  <tr>
-    <th><%= t('simple_form.labels.medication.name') %></th>
-    <th><%= t('simple_form.labels.medication.generic_name') %></th>
-    <th><%= t('simple_form.labels.medication.secondary_effects') %></th>
-    <th>Nb</th>
-
-    <th></th>
-  </tr>
-
 <% @medications.each do |medication| %>
-  <tr>
-    <td><%= medication.name %></td>
-    <td><%= medication.generic_name %></td>
-    <td>
+  <div class="container well medication_list">
+    <div class="row">
+      <h3>
+        <%= medication.name %>
+        <% unless medication.generic_name.blank? %>
+          <small> - <%= medication.generic_name %></small>
+        <% end %>
+        <em>(<%= medication.prescriptions.count %>)</em>
+      </h3>
+    </div>
+    <div class="row">
+      <span class="hidden-phone"><%= t('simple_form.labels.medication.secondary_effects') %> : </span></span>
       <% medication.secondary_effects_array.each do |tag| %>
         <span class="label label-info"><%= tag %></span>
       <% end  %>
-    </td>
-    <td>
-      <%= medication.prescriptions.count %>
-    </td>
-
-    <td>
-      <i class="icon-eye-open"></i> <%= link_to t(:show), medication_path(medication.slug), class: :action %> -
-      <% if medication.has_geo_data? %>
-        <i class="icon-map-marker"></i>
-        <%= link_to t(:map), map_medication_path(medication.slug), class: :action %> -
-      <% end %>
-      <i class="icon-plus"></i> <%= link_to t(:"medications.add_effects"), new_medication_secondary_effect_path(medication.slug), class: :action%> 
-
-      <% if admin_mode %>
-        - <i class="icon-edit"></i> <%= link_to t(:edit), edit_medication_path(medication.slug), class: :action %> 
-        - <i class="icon-remove"></i> <%= link_to 'Destroy', medication_path(medication.slug), confirm: 'Are you sure?', method: :delete , class: :action %>
-      <% end %>
-    </td>
-  </tr>
+    </div>
+    <%= render "actions", medication: medication, with_show: true %>
+  </div>
 <% end %>
-</table>
-<%= paginate @medications %>
