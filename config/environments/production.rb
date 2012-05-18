@@ -69,5 +69,10 @@ BBPHealth::Application.configure do
 
   config.clusterer_url = "http://clusterer.xilinus.com"
   config.clusterer_key = "f5591a74bd5f099d327535ad9dfdbae61eccaf38"
-
+  config.action_mailer.smtp_settings = {
+    :address => "localhost",
+    :port => 25,
+    :domain => "bbphealth.xilinus.com",
+    :openssl_verify_mode => 'none'
+  }
 end
