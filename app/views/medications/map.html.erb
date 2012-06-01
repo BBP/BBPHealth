@@ -1,23 +1,23 @@
 <h2><%= t(:'maps.title', name: "#{@medication.name}/#{@medication.generic_name}") %></h2>
 <div class="container-fluid">
   <div class="row-fluid">
-    <div class="span4 well form-search" id="filters">
-      <div data-condition="medication_id=<%= @medication.id %>">
-      </div>
-
-      <div>
-        <h3><%= t(:'simple_form.labels.medication.secondary_effects') %></h3>
-        <% @facets.each do |term| %>   
-          <label class="checkbox">
-            <input type="checkbox" value="<%= term["term"] %>" data-condition='secondary_effects:"<%= term["term"] %>"'>
-            <%= term["term"] %> (<%= term["count"] %>)
-          </label><br/>
-        <% end %>               
-      </div>
-      <h3><%= t(:'simple_form.labels.medication.timing') %></h3>
-      <div data-condition="created_at:[? TO ?]" data-condition-type="range">
-        <%= t(:from) %> <input id="from" type="date" class="datepicker from"/><br/>
-        <%= t(:to) %> <input id="to" type="date" class="datepicker to"/><br/>
+    <div class="span4  form-search" id="filters">
+      <div class="well">
+        <div data-condition="medication_id=<%= @medication.id %>"></div>
+        <div>
+          <h3><%= t(:'simple_form.labels.medication.secondary_effects') %></h3>
+          <% @facets.each do |term| %>   
+            <label class="checkbox">
+              <input type="checkbox" value="<%= term["term"] %>" data-condition='secondary_effects:"<%= term["term"] %>"'>
+              <%= term["term"] %> (<%= term["count"] %>)
+            </label><br/>
+          <% end %>               
+        </div>
+        <h3><%= t(:'simple_form.labels.medication.timing') %></h3>
+        <div data-condition="created_at:[? TO ?]" data-condition-type="range">
+          <%= t(:from) %> <input id="from" type="date" class="datepicker from"/><br/>
+          <%= t(:to) %> <input id="to" type="date" class="datepicker to"/><br/>
+        </div>
       </div>
       <%= link_to new_medication_secondary_effect_path(@medication.slug), class: "btn btn-small btn-primary" do %>
         <i class="icon-plus icon-white"></i> <span><%= t(:'medications.add_effects') %></span>
