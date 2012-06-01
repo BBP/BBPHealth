@@ -12,6 +12,7 @@ describe "Search" do
     @medications << create(:medication, :name => "ibuprofene", :generic_name => "ibuprofene")
     @medications << create(:medication, :name => "asprin", :generic_name => "asprin")
 
+    Medication.tire.index.refresh
     visit root_path
   end
 
@@ -19,6 +20,7 @@ describe "Search" do
     fill_in "search-text", :with => "ibu"
     find("#search-button").click
     current_path.should == elastic_search_medications_path
+
 
     page.should have_css("h3", :text => "ibuprofene")
     page.should_not have_css("h3", :text => "asprin")

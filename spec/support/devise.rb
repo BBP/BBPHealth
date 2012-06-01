@@ -9,9 +9,6 @@ module ControllerMacros
 
   def admin_login
     login(:admin)
-    # before(:each) do
-    #   request.env['HTTP_AUTHORIZATION'] = ActionController::HttpAuthentication::Basic.encode_credentials("admin", "top_secret")
-    # end
   end
 end
 
@@ -25,10 +22,10 @@ module RequestMacros
       click_button I18n.t("devise.shared.sign_in")
     end
   end   
+
   def admin_login
     login(:admin)
   end
-
 end
 
 RSpec.configure do |config|

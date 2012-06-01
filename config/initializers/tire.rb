@@ -1,5 +1,6 @@
 require 'tire'
 
+
 Tire.configure do
   if Rails.env.production? || Rails.env.staging?
     logger STDERR, :level => 'debug'

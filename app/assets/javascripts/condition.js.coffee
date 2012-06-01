@@ -36,3 +36,4 @@ class @Condition
       value += 86400 if input.hasClass('to')
     value = default_value if value.length == 0
     value
+

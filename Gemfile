@@ -22,7 +22,6 @@ group :test do
   gem "launchy", ">= 2.0.5"
   gem 'simplecov', :require => false
   gem 'ffaker', '~> 1.14.0'
-  gem 'mocha'
 end
 # case HOST_OS
 #   when /darwin/i

@@ -19,6 +19,9 @@
         <%= t(:from) %> <input id="from" type="date" class="datepicker from"/><br/>
         <%= t(:to) %> <input id="to" type="date" class="datepicker to"/><br/>
       </div>
+      <%= link_to new_medication_secondary_effect_path(@medication.slug), class: "btn btn-small btn-primary" do %>
+        <i class="icon-plus icon-white"></i> <span><%= t(:'medications.add_effects') %></span>
+      <% end %>
     </div>
     <div class="span8">
       <div id='map'><div>

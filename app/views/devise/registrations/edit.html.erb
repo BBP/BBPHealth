@@ -4,11 +4,10 @@
 
   <%= f.input :email, :required => true, :autofocus => true %>
   <%= f.input :nickname, :input_html => {:autocomplete => :off} %>
-  <%#= f.input :birthdate, :as => :date %>
+  <%= f.input :birthdate, :as => :date, :start_year => Date.today.year - 120, :end_year => Date.today.year %>
   <%= f.input :gender, :as => :radio_buttons,  :collection => {"#{t :male}" => "male", "#{t :female}" => "female"} %>
   <%= f.input :password, :input_html => {:autocomplete => :off}, :hint => t('devise.registrations.leave_blank'), :required => false %>
   <%= f.input :password_confirmation, :required => false , :input_html => {:autocomplete => :off} %>
-  <%= f.input :current_password, :hint => t('devise.registrations.current_password_label'), :required => true , :input_html => {:autocomplete => :off}%>
 
   <div class="control-group">
     <div class="controls">

@@ -33,7 +33,7 @@ set :deploy_via,  :remote_cache
 set :scm_verbose, true
 set :use_sudo,    false
 
-set :repository, "git@github.com:xilinus/bbphealth.git"
+set :repository, "git@github.com:BBP/BBPHealth.git"
 set :branch,     'master'
 
 set :rake,     '$HOME/.rbenv/shims/rake'
@@ -70,7 +70,11 @@ after 'deploy:finalize_update', 'bundle:install'
 
 namespace :bundle do
   task :install do
+<<<<<<< HEAD
     run "cd #{release_path}; bundle install --deployment --binstubs --shebang ruby-local-exec --without test:development:cucumber --path #{shared_path}/bundle"
+=======
+    run "cd #{release_path}; bundle install --deployment --binstubs --shebang ruby-local-exec --without test:development --path #{shared_path}/bundle"
+>>>>>>> 99de982f38953f782d0d60e4749576d2ae21b7c6
   end
 end
 

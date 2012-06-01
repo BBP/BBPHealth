@@ -1,5 +1,4 @@
 require 'spec_helper'
-
 describe Prescription do
   it "should create a simple prescription" do
     prescription = create(:prescription)

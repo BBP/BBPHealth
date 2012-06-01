@@ -1,5 +1,7 @@
 class User
   include Mongoid::Document
+  include Mongoid::MultiParameterAttributes
+
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -74,5 +76,20 @@ class User
       password = Devise.friendly_token[0,20]
       User.create!(:email => data.email, :password => password, :password_confirmation => password, :gender => gender, :nickname => username, :birthdate => birthday) 
     end
+  end
+
+  ## Override devise methods to remove the "current_password", I hate that behavior
+  def update_with_password(params={})
+    current_password = params.delete(:current_password)
+
+    if params[:password].blank?
+      params.delete(:password)
+      params.delete(:password_confirmation) if params[:password_confirmation].blank?
+    end
+
+    result = update_attributes(params)
+
+    clean_up_passwords
+    result
   end
 end

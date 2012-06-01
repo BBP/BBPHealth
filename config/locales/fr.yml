@@ -33,3 +33,10 @@ fr:
       update: Mettre à jour
   search:
     title: "Résutats de recherche pour '%{for}'"
+  views:
+    pagination:
+      first: "&laquo; Début"
+      last: "Fin &raquo;"
+      previous: "&lsaquo; Précédent"
+      next: "Suivant &rsaquo;"
+      truncate: "..."

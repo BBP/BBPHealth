@@ -58,17 +58,21 @@ BBPHealth::Application.configure do
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
 
-  config.action_mailer.default_url_options = { :host => 'yourhost.com' }
   # ActionMailer Config
   # Setup for production - deliveries, no errors raised
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.perform_deliveries = true
-  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.raise_delivery_errors = true
   config.action_mailer.default :charset => "utf-8"
 
   config.action_mailer.default_url_options = { :host => 'bbphealth.xilinus.com' }
 
   config.clusterer_url = "http://clusterer.xilinus.com"
   config.clusterer_key = "f5591a74bd5f099d327535ad9dfdbae61eccaf38"
-
+  config.action_mailer.smtp_settings = {
+    :address => "localhost",
+    :port => 25,
+    :domain => "bbphealth.xilinus.com",
+    :openssl_verify_mode => 'none'
+  }
 end

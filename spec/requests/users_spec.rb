@@ -86,7 +86,6 @@ describe "User" do
     it "should edit my account with valid info"  do
       visit edit_user_registration_path
       fill_in 'user_email', :with => "foo@bar.com"
-      fill_in 'user_current_password', :with => "secret"
       click_button I18n.t("update")
 
       @user.reload.email.should == "foo@bar.com"
@@ -95,6 +94,7 @@ describe "User" do
     it "should not edit my account with invalid info" do
       visit edit_user_registration_path
       fill_in 'user_email', :with => "foo@bar.com"
+      fill_in 'user_password', :with => "bad pass"
       click_button I18n.t("update")
 
       @user.reload.email.should_not == "foo@bar.com"

@@ -23,7 +23,6 @@ effects = ["mal au dos", "fatigue", "vomissement"]
   p.save!
 end
 
-
 m = Medication.new name: "corgard", generic_name: "nadolol"
 
 m.user = user

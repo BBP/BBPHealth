@@ -13,7 +13,6 @@ describe Medication do
   it "should create a prescription with same secondary effects" do
     medication = create(:medication, :secondary_effects => "foo,bar")    
     medication.prescriptions.length.should == 1
-
     prescription = medication.prescriptions.first
     prescription.user.should == medication.user
     prescription.secondary_effects.should == medication.secondary_effects
