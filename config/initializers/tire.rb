@@ -1,38 +1,5 @@
 require 'tire'
 
-# Monkey-patch for bonsai.io on heroku
-class HerokuRestClient < Tire::HTTP::Client::RestClient
-	class << self
-		def cleanup_url(url) 
-			# remove duplicated // but not the one in http://
-			url[0...7] + url[7..-1].squeeze('/')
-		end
-
-	  def get(url, data=nil)
-	  	super(cleanup_url(url), data)
-	  end
-
-	  def post(url, data)
-	  	super(cleanup_url(url), data)
-	  end
-
-	  def put(url, data)
-	  	super(cleanup_url(url), data)
-	  end
-
-	  def delete(url)
-	  	super(cleanup_url(url))
-	  end
-
-	  def head(url)
-	  	super(cleanup_url(url))
-	  end
-	end
-end
-
-if ENV['BONSAI_INDEX_URL']
-  BONSAI_INDEX_NAME = ENV['BONSAI_INDEX_URL'][/[^\/]+$/]
-end
 Tire.configure do
   if Rails.env.production? || Rails.env.staging?
     logger STDERR, :level => 'debug'
@@ -40,5 +7,4 @@ Tire.configure do
     logger 'log/elasticsearch.log', :level => 'debug' 
   end
   url(YAML::load(File.open(Rails.root.join("./config/tire.yml")))[Rails.env]["url"])
-  client(HerokuRestClient)
- end
+end

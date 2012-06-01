@@ -15,7 +15,8 @@ class MedicationsController < ApplicationController
   # GET /medications/search
   def elastic_search             
     @search = params[:q]
-    @medications = Medication.elastic_search params                   
+    @medications = Medication.elastic_search params        
+
     @facets      =  @medications.facets['secondary_effects']["terms"]
     respond_to do |format|
        format.html 

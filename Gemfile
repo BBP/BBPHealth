@@ -22,6 +22,7 @@ group :test do
   gem "launchy", ">= 2.0.5"
   gem 'simplecov', :require => false
   gem 'ffaker', '~> 1.14.0'
+  gem 'mocha'
 end
 # case HOST_OS
 #   when /darwin/i
@@ -66,6 +67,7 @@ gem 'omniauth-facebook'
 gem "tire"
 gem "kaminari"
 gem 'spork', '~> 0.9.0.rc'
+gem 'httparty'
 
 gem 'less-rails-bootstrap'
 gem 'simple_form'

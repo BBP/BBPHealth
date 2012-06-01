@@ -1,6 +1,6 @@
 class @Condition 
   constructor: (@el) -> 
-    @el.on('change', '[data-condition] input', @update)
+    @el.on('change', 'input[data-condition]', @update)
     @el.on('blur', '[data-condition] input[type="date"]', @update)
 
   update: =>
@@ -13,47 +13,26 @@ class @Condition
     @el.find("[data-condition]").each (element) ->
       element = $(this)
       condition = element.data('condition')
-      # In condition: field.in, get selected input
-      if matched = condition.match(/(.*)\.(in|all|lte|gte|eq)$/)
-        conditions = conditions.concat(self[matched[2]].apply(@, [element, matched]))
 
-    # Set collection name
-    conditions.push("collection=prescriptions")
+      return if element.attr("type") == "checkbox" and not element.is(":checked")
+      if type = element.data("condition-type")
+        condition = self[type].apply(self, [this, condition])
+
+      conditions.push(condition) unless condition.length == 0
 
     # Return a query string
-    conditions.join("&")
+    conditions.join(" AND ")
 
-   all: (element, matched) ->
-    values = element.find('input:checked')
-    conditions = []
-    if values.length
-      $.map values, (element) -> 
-        conditions.push("#{matched[1]}[$#{matched[2]}][]=#{$(element).val()}")
-    conditions
+  range: (element, condition) ->
+    from = @valueOf($(element).find('.from'))
+    to   = @valueOf($(element).find('.to'))
 
-  # Alias for in condition
-  in: Condition::all
+    condition.replace(/\?/, from).replace(/\?/, to)
 
-  lte: (element, matched) ->
-    input = $(element).find('input').first()
+  valueOf: (input, default_value = '*') ->
     value = input.val()
-
-    conditions = []
-    if value.length
-      # Format date if it's a date with datepicker
-      if input.hasClass('datepicker') && date = input.datepicker("getDate")
-        value = moment(date).format('YYYY-MM-DD')
-
-      conditions.push("#{matched[1]}[$#{matched[2]}]=#{value}")
-    conditions
-
-  # Alias for gte condition
-  gte: Condition::lte
-
-  eq: (element, matched) ->
-    input = $(element).find('input').first()
-    value = input.val()
-    conditions = []
-    if value.length
-      conditions.push("#{matched[1]}=#{value}")
-    conditions
+    if value.length > 0 and input.hasClass('datepicker') and (date = input.datepicker("getDate"))
+      value  = moment(date).toDate().getTime() / 1000
+      value += 86400 if input.hasClass('to')
+    value = default_value if value.length == 0
+    value

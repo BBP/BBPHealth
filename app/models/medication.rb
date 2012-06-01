@@ -1,4 +1,5 @@
 class Medication
+
   include Mongoid::Document
   include Mongoid::Slug
   include Mongoid::Timestamps
@@ -49,11 +50,13 @@ class Medication
   end
 
   def has_geo_data?
-    prescriptions.where( location: {"$ne" => nil}).count > 0
+    prescriptions.where( "location.latitude" => {"$ne" => nil}).count > 0
   end
 
 private
   def create_prescription
+    lat = self.lat.nil? ? nil : self.lat.to_f
+    lng = self.lng.nil? ? nil : self.lng.to_f
     prescriptions.create!(lat: lat, lng: lng, user_agent: user_agent, user: user, secondary_effects: secondary_effects)
   end
 end

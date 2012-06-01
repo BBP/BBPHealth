@@ -1,6 +1,7 @@
 require 'spec_helper'
+
 describe Medication do
-  ##Fixme must be a cleaner way to do this in spec_helper.rb (is there a before (:models..?) ) We should probably contribute something to https://github.com/bmabey/database_cleaner
+
   before :each do
     Medication.tire.index.delete
     Medication.tire.index.create
@@ -18,17 +19,6 @@ describe Medication do
     prescription.secondary_effects.should == medication.secondary_effects
   end
 
-  it "should have no records in the beginning" do       
-     Medication.all.length.should == 0
-  end
-
-  it "should have no records in the search engine" do  
-    medications = Medication.tire.search() do
-      query { string "*" }
-    end           
-    medications.length.should == 0
-  end     
-
   it "should have a slug" do                  
     medication = create(:medication, :name=>"XxX")    
     medication.slug.should == "xxx"
@@ -44,9 +34,8 @@ describe Medication do
     create(:medication).should_not have_geo_data
   end
 
-  it "should have gea data with localized prescription" do
-    medication = create(:medication)
-    create(:prescription, medication: medication, lat: 10, lng: 10)
+  it "should have geo data with localized prescription", wip: true do
+    medication = create(:medication, lat: 10, lng: 10)
     medication.should have_geo_data
   end
   
@@ -60,7 +49,7 @@ describe Medication do
     end
                       
      it "it should have 16 records in the search engine" do  
-       medications = Medication.tire.search() do
+       medications = Medication.tire.search do
          query { string "*" }
        end    
        medications.total == 16

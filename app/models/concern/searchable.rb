@@ -6,7 +6,7 @@ module Concern
       include Tire::Model::Search
       include Tire::Model::Callbacks
     
-      index_name "#{BONSAI_INDEX_NAME}/" if const_defined?(:BONSAI_INDEX_NAME)
+      #index_name "#{self.to_s.tableize}_#{Rails.env}" unless Rails.env.production?
     end
 
     def to_indexed_json

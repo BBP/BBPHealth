@@ -2,25 +2,22 @@
 <div class="container-fluid">
   <div class="row-fluid">
     <div class="span4 well form-search" id="filters">
-      <div data-condition="medication_id.eq">
-        <%= hidden_field_tag :id, @medication.id %>
+      <div data-condition="medication_id=<%= @medication.id %>">
       </div>
 
-      <div data-condition="secondary_effects_array.all">
+      <div>
         <h3><%= t(:'simple_form.labels.medication.secondary_effects') %></h3>
         <% @facets.each do |term| %>   
           <label class="checkbox">
-            <input type="checkbox" value="<%= term["term"] %>">
+            <input type="checkbox" value="<%= term["term"] %>" data-condition='secondary_effects:"<%= term["term"] %>"'>
             <%= term["term"] %> (<%= term["count"] %>)
           </label><br/>
         <% end %>               
       </div>
       <h3><%= t(:'simple_form.labels.medication.timing') %></h3>
-      <div data-condition="created_at.gte">
-        <%= t(:from) %> <input id="from" type="date" class="datepicker"/><br/>
-      </div>
-      <div data-condition="created_at.lte">
-        <%= t(:to) %> <input id="to" type="date"  class="datepicker"/><br/>
+      <div data-condition="created_at:[? TO ?]" data-condition-type="range">
+        <%= t(:from) %> <input id="from" type="date" class="datepicker from"/><br/>
+        <%= t(:to) %> <input id="to" type="date" class="datepicker to"/><br/>
       </div>
     </div>
     <div class="span8">

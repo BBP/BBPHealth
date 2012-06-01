@@ -5,6 +5,7 @@ class Prescription
   include Concern::SecondaryEffects
   include Concern::Geolocalized
   include Concern::Searchable
+  include Concern::Clusterer
 
   field :user_agent, :type => String
   field :user_agent_info, :type => Hash
@@ -36,6 +37,13 @@ class Prescription
       analyze_secondary_effect_facets result, t
       result
     end
+  end
+
+  def to_clusterer_json
+    {
+      id: id, lat: lat, lng: lng, created_at: created_at.to_i, secondary_effects: secondary_effects_array,
+      user_id: user_id, medication_id: medication_id
+    }
   end
 
 private
