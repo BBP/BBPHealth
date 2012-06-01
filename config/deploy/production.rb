@@ -70,11 +70,7 @@ after 'deploy:finalize_update', 'bundle:install'
 
 namespace :bundle do
   task :install do
-<<<<<<< HEAD
-    run "cd #{release_path}; bundle install --deployment --binstubs --shebang ruby-local-exec --without test:development:cucumber --path #{shared_path}/bundle"
-=======
     run "cd #{release_path}; bundle install --deployment --binstubs --shebang ruby-local-exec --without test:development --path #{shared_path}/bundle"
->>>>>>> 99de982f38953f782d0d60e4749576d2ae21b7c6
   end
 end
 
