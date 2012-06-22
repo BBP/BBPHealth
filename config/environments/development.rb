@@ -33,7 +33,8 @@ BBPHealth::Application.configure do
   config.assets.debug = true
   config.action_mailer.default_url_options = { :host => 'bbphealth.dev' }
 
-  config.clusterer_url = "http://clusterer.dev"
+#  config.clusterer_url = "http://clusterer.dev"
+  config.clusterer_url = "http://clusterer.xilinus.com"
   config.clusterer_key = "27026e2801c1d395177be39c8eb341ddf5715b59"
 end
 

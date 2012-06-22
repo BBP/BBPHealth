@@ -6,18 +6,22 @@ module Concern
       include HTTParty
       base_uri BBPHealth::Application.config.clusterer_url
 
+      def initialize
+        @auth = {:username => "JwvyJsu6hLAxzDp9N8jS", :password => "X"}
+      end
+      
       def post(point)
-        options = { :query => {point: point.to_json } }
+        options = { :query => {point: point.to_json } , :basic_auth => @auth}
         self.class.post("/api/maps/#{BBPHealth::Application.config.clusterer_key}/points.json", options)
       end
 
       def update(point)
-        options = { :query => {point: point.to_json } }
+        options = { :query => {point: point.to_json } , :basic_auth => @auth}
         self.class.put("/api/maps/#{BBPHealth::Application.config.clusterer_key}/points/#{point[:id]}.json", options)
       end
 
       def destroy(id)
-        self.class.delete("/api/maps/#{BBPHealth::Application.config.clusterer_key}/points/#{id}.json")
+        self.class.delete("/api/maps/#{BBPHealth::Application.config.clusterer_key}/points/#{id}.json", :basic_auth => @auth)
       end
     end
 
