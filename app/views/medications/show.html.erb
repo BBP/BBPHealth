@@ -8,7 +8,7 @@
 
   <p>
     <b><%= t('simple_form.labels.medication.nb_users') %>:</b>
-    <%= @prescriptions.with_secondary_effects.count %>
+    <%= @secondary_effects.count %>
   </p>
   <p>
     <b><%= t('simple_form.labels.medication.secondary_effects') %>:</b>
@@ -17,7 +17,7 @@
   	<% end %>
   	</ul>
   </p>
-  <% @prescriptions.with_secondary_effects.each do |prescription| %>
+  <% @secondary_effects.each do |prescription| %>
     <div class="row well">
       <%= prescription.user.nickname.blank? ? t(:anonymous) : prescription.user.nickname %>
       <% prescription.secondary_effects_array.each do |tag| %>
@@ -37,10 +37,10 @@
     </div>
   <% end %>
   <br/>
-  <%= paginate @prescriptions.with_secondary_effects %>
-  <% if @prescriptions.with_experience.count > 0 %>
+  <%= paginate @secondary_effects %>
+  <% if @experiences.count > 0 %>
     <h3>Experience</h3>
-    <% @prescriptions.with_experience.each do |prescription| %>
+    <% @experiences.each do |prescription| %>
       <div class="row well">
         <%= prescription.experience %>
       </div>

@@ -20,7 +20,7 @@ fr:
     title: "Carte du médicament: %{name}"
   medications:
     title: "Rechercher un médicament"
-    last_added: "Derniers ajouts"
+    last_added: "Les 10 derniers ajouts"
     search: "Valider"
     add_new: "Ou ajouter un nouveau médicament"
     add_title: "Ajouter un médicament"
