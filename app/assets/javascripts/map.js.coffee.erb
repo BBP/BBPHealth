@@ -13,7 +13,7 @@
     tileLayer = new L.TileLayer(mapquestUrl, maxZoom: 14, attribution: mapquestAttrib, subdomains: subDomains)
     map.setView(new L.LatLng(25, 0), 1).addLayer(tileLayer)
 
-    # Create maptimize controller 
+    # Create maptimize controller
     mapSystem = new com.maptimize.Leaflet(map)
     mapController = new com.maptimize.MapController(new com.maptimize.Leaflet(map), {key: "<%= BBPHealth::Application.config.clusterer_key %>", url: "<%= BBPHealth::Application.config.clusterer_url%>/map/"})
 

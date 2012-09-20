@@ -7,21 +7,22 @@ module Concern
       base_uri BBPHealth::Application.config.clusterer_url
 
       def initialize
-        @auth = {:username => "JwvyJsu6hLAxzDp9N8jS", :password => "X"}
+        @auth = {:username => "M1v5cefH6ci9fFWubT1K", :password => "X"}
       end
-      
+
       def post(point)
-        options = { :query => {point: point.to_json } , :basic_auth => @auth}
+        options = { :query => {point: point.to_json }, :basic_auth => @auth}
         self.class.post("/api/maps/#{BBPHealth::Application.config.clusterer_key}/points.json", options)
       end
 
       def update(point)
-        options = { :query => {point: point.to_json } , :basic_auth => @auth}
+        options = { :query => {point: point.to_json }, :basic_auth => @auth }
         self.class.put("/api/maps/#{BBPHealth::Application.config.clusterer_key}/points/#{point[:id]}.json", options)
       end
 
       def destroy(id)
-        self.class.delete("/api/maps/#{BBPHealth::Application.config.clusterer_key}/points/#{id}.json", :basic_auth => @auth)
+        options = { :basic_auth => @auth }
+        self.class.delete("/api/maps/#{BBPHealth::Application.config.clusterer_key}/points/#{id}.json", options)
       end
     end
 
@@ -32,14 +33,14 @@ module Concern
     end
 
   private
-    def resource 
+    def resource
       @@resource ||= PointResource.new
     end
 
     def create_clusterer
       resource.post to_clusterer_json
     end
-    
+
     def update_clusterer
       resource.update to_clusterer_json
     end
