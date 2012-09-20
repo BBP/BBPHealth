@@ -6,22 +6,24 @@
 </h2>
 <%= simple_form_for(@prescription, :url => medication_secondary_effects_path(@medication), :html => {:class => 'form-horizontal' }) do |form| %>
   <div class="control-group text optional">
-    <label class="text optional control-label" for="prescription_secondary_effects"> 
+    <label class="text optional control-label" for="prescription_secondary_effects">
       <%= t('simple_form.labels.prescription.kwon_secondary_effects') %>
     </label>
     <div class="controls">
-        <% @facets.each_with_index do |term, index| %>   
+        <% @facets.each_with_index do |term, index| %>
         <div class="known_facet">
           <%= check_box_tag "term_#{index}", term["term"], false, :name => "known_effects[]" %>
           <label for="term_<%= index %>">
-            <%= term["term"] %> (<%= term["count"] %>) 
+            <%= term["term"] %> (<%= term["count"] %>)
           <label>
         </div>
-        <% end %>               
+        <% end %>
     </div>
   </div>
 
   <%= form.input :secondary_effects, :as => :text, :input_html => {:class => :span, :id => :secondary_effects_field} %>
+
+  <%= form.input :experience, :as => :text %>
   <%= form.input :lat, :as => :hidden %>
   <%= form.input :lng, :as => :hidden %>
 

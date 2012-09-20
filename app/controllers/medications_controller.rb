@@ -6,6 +6,7 @@ class MedicationsController < ApplicationController
   # GET /medications.json
   def index
     @home_page = true
+    @last_added_medications = Medication.order_by([[:updated_at, :desc]]).limit(10)
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @medications }
@@ -13,17 +14,17 @@ class MedicationsController < ApplicationController
   end
 
   # GET /medications/search
-  def elastic_search             
+  def elastic_search
     @search = params[:q]
-    @medications = Medication.elastic_search params        
+    @medications = Medication.elastic_search params
 
     @facets      =  @medications.facets['secondary_effects']["terms"]
     respond_to do |format|
-       format.html 
+       format.html
        format.json { render json: @medications }
      end
   end
-     
+
   def search
     @medications = Medication.where(:name => params[:q])
     respond_to do |format|
@@ -50,7 +51,7 @@ class MedicationsController < ApplicationController
   # GET /medications/new.json
   def new
     @medication = Medication.new
-    
+
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @medication }
@@ -74,7 +75,7 @@ class MedicationsController < ApplicationController
     end
   end
 
-  ## ADMIN PART ## 
+  ## ADMIN PART ##
 
   # GET /medications/1/edit
   def edit
@@ -117,7 +118,7 @@ class MedicationsController < ApplicationController
 private
   def get_medication_and_facets
     @medication = Medication.find_by_slug(params[:id])
-    @prescriptions = Prescription.elastic_search @medication, params                   
+    @prescriptions = Prescription.elastic_search @medication, params
     @facets = @prescriptions.facets['secondary_effects']["terms"]
   end
 

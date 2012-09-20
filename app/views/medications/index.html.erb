@@ -1,5 +1,5 @@
 <h2><%= t('medications.title') %></h2>
-                               
+
 <div id='search-box'>
   <%= form_tag elastic_search_medications_path, :method => 'get', :class => 'searchform', :id => 'search-form' do %>
     <%= text_field_tag :q, params[:q], :class => "input-medium search-query", :id => 'search-text', :placeholder => 'Ex: Ibuprofene, Lisopaïne, ...' %>
@@ -11,3 +11,7 @@
 <div class="centered">
   <%= link_to t('medications.add_title'), new_medication_path, :class=>"link" %>
 <div>
+<h2><%= t('medications.last_added') %></h2>
+- <% @last_added_medications.each do |medication| %>
+  <%= link_to medication.name, medication_path(medication) %> -
+<% end %>

@@ -1,5 +1,5 @@
-class @Condition 
-  constructor: (@el) -> 
+class @Condition
+  constructor: (@el) ->
     @el.on('change', 'input[data-condition]', @update)
     @el.on('blur', '[data-condition] input[type="date"]', @update)
 

@@ -18,6 +18,6 @@ $ ->
   $('form#new_medication #medication_name, form#new_medication #medication_generic_name').change ->
     $.ajax
       url: "/medications/search.json?q=" + $("form#new_medication #medication_name").val()
-      success: (data) -> 
+      success: (data) ->
         $.each data, (index, value) ->
-          $('#search_result').append("<div>There is already a medication called " + value.name + " ("+  value.generic_name + "), you can visit it here: " + '<a href="/medications/' + value.name.toLowerCase() + '">' + value.name + "</a></div>" );  
+          $('#search_result').append("<div>There is already a medication called " + value.name + " ("+  value.generic_name + "), you can visit it here: " + '<a href="/medications/' + value.name.toLowerCase() + '">' + value.name + "</a></div>" );

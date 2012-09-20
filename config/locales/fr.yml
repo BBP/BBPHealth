@@ -7,7 +7,7 @@ fr:
   update: Mettre à jour
   back: Retour
   add: Ajouter
-  from: Du 
+  from: Du
   to: Au
   male: Homme
   female: Femme
@@ -20,6 +20,7 @@ fr:
     title: "Carte du médicament: %{name}"
   medications:
     title: "Rechercher un médicament"
+    last_added: "Derniers ajouts"
     search: "Valider"
     add_new: "Ou ajouter un nouveau médicament"
     add_title: "Ajouter un médicament"

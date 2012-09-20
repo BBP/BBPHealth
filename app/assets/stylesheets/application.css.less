@@ -3,7 +3,7 @@
  * and any sub-directories. You're free to add application-wide styles to this file and they'll appear at
  * the top of the compiled file, but it's generally better to create a new file per style scope.
  *= require_self
- *= require_tree . 
+ *= require_tree .
 */
 @import "twitter/bootstrap";
 @import "twitter/bootstrap/responsive";
@@ -26,6 +26,16 @@ h1,h2,h3,h4,h5 {font-family: 'Convergence', sans-serif;}
   font-style: italic;
   margin-top: 0px;
   color: #888;
+}
+#prescription_experience, #medication_experience {
+  height: 100px;
+  width: 95%;
+}
+#secondary_effects_field {
+  height:20px;
+  width: 95%;
+  margin-bottom: 5px;
+
 }
 select.date {
   width: auto

@@ -10,7 +10,7 @@ class Medication
   field :name, :type => String
   field :generic_name, :type => String
 
-  mapping do 
+  mapping do
     indexes :name
     indexes :generic_name
     # Define correct analyzer for secondary_effects array
@@ -20,8 +20,8 @@ class Medication
   validates :name, :presence => true, :on => :create
   validates :name, :uniqueness => true
 
-  attr_accessor :lat, :lng, :user_agent, :user
-  attr_accessible :user_agent, :secondary_effects, :name, :generic_name, :lat, :lng
+  attr_accessor :lat, :lng, :user_agent, :user, :experience
+  attr_accessible :user_agent, :secondary_effects, :name, :generic_name, :lat, :lng, :experience
 
   slug :name, :permanent => true, :index => true
 
@@ -34,9 +34,9 @@ class Medication
       query = params[:q].present? ? "*#{params[:q]}*" : "*"
       t = params[:terms].present? ? params[:terms].split(',')  : []
 
-      result = tire.search(page: params[:page], per_page: params[:per_page] || 10, load: true) do         
-        query { string query, default_operator: "AND" } 
-        filter :terms, :secondary_effects_array => t if t != [] 
+      result = tire.search(page: params[:page], per_page: params[:per_page] || 10, load: true) do
+        query { string query, default_operator: "AND" }
+        filter :terms, :secondary_effects_array => t if t != []
         facet ("secondary_effects") { terms :secondary_effects_array, :global => false}
       end
       analyze_secondary_effect_facets result, t
@@ -57,6 +57,6 @@ private
   def create_prescription
     lat = self.lat.nil? ? nil : self.lat.to_f
     lng = self.lng.nil? ? nil : self.lng.to_f
-    prescriptions.create!(lat: lat, lng: lng, user_agent: user_agent, user: user, secondary_effects: secondary_effects)
+    prescriptions.create!(lat: lat, lng: lng, user_agent: user_agent, user: user, secondary_effects: secondary_effects, experience: experience)
   end
 end

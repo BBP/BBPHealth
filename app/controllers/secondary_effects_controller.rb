@@ -1,14 +1,14 @@
 class SecondaryEffectsController < ApplicationController
   before_filter :authenticate_user!, :only => [:create, :update, :new, :edit]
   before_filter :find_medication, :only => [:create, :new]
-  def index                          
+  def index
     @se = Medication.secondary_effects
     respond_to do |format|
       format.html {}
-      format.json { render json: @se.map {|se|  
-       if (params[:term].present? && se.downcase.include?(params[:term].downcase))  then        
-         {'id'=> se.downcase, 'label'=> se, 'value'=> se}     
-         end  
+      format.json { render json: @se.map {|se|
+       if (params[:term].present? && se.downcase.include?(params[:term].downcase))  then
+         {'id'=> se.downcase, 'label'=> se, 'value'=> se}
+         end
       }.compact.sort_by { |my_item| my_item[:id] }}
     end
   end
@@ -39,7 +39,7 @@ protected
 
   def find_medication
      @medication = Medication.find_by_slug(params[:medication_id])
-     @prescriptions = Prescription.elastic_search @medication, params                   
+     @prescriptions = Prescription.elastic_search @medication, params
      @facets = @prescriptions.facets['secondary_effects']["terms"]
   end
 
