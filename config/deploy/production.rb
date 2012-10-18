@@ -12,18 +12,18 @@ default_run_options[:pty] = true
 ssh_options[:forward_agent] = true
 set :use_sudo, true
 set :scm_verbose, true
-set :rails_env, "production" 
+set :rails_env, "production"
 
 #############################################################
 # Servers
 #############################################################
 
-set :user,     'bbphealth' 
+set :user,     'bbphealth'
 set :port,     22
 
-role :web, "178.33.230.51"      
-role :app, "178.33.230.51"      
-role :db,  "178.33.230.51", :primary => true  
+role :web, "178.33.230.51"
+role :app, "178.33.230.51"
+role :db,  "178.33.230.51", :primary => true
 
 #############################################################
 # Git
@@ -44,10 +44,10 @@ set :unicorn_config, "#{current_path}/config/unicorn.rb"
 set :unicorn_pid, "#{current_path}/tmp/pids/unicorn.pid"
 
 namespace :deploy do
-  task :start, :roles => :app, :except => { :no_release => true } do 
+  task :start, :roles => :app, :except => { :no_release => true } do
     run "cd #{current_path} && bundle exec #{unicorn_binary} -c #{unicorn_config} -E #{rails_env} -D"
   end
-  task :stop, :roles => :app, :except => { :no_release => true } do 
+  task :stop, :roles => :app, :except => { :no_release => true } do
     run "kill `cat #{unicorn_pid}`"
   end
   task :graceful_stop, :roles => :app, :except => { :no_release => true } do
@@ -75,7 +75,7 @@ namespace :bundle do
 end
 
 after 'deploy:update_code' do
-  # run "cp #{shared_path}/resources/database.yml #{release_path}/config/"  
+  # run "cp #{shared_path}/resources/database.yml #{release_path}/config/"
   # run "cd #{release_path}/public; ln -s #{shared_path}/uploads ."
   # # run "cd #{release_path}; RAILS_ENV=production bundle exec rake barista:brew"
   # run "cd #{release_path}; RAILS_ENV=production bundle exec jammit"

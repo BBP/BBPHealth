@@ -6,17 +6,17 @@
         <div data-condition="medication_id=<%= @medication.id %>"></div>
         <div>
           <h3><%= t(:'simple_form.labels.medication.secondary_effects') %></h3>
-          <% @facets.each do |term| %>   
+          <% @facets.each do |term| %>
             <label class="checkbox">
               <input type="checkbox" value="<%= term["term"] %>" data-condition='secondary_effects:"<%= term["term"] %>"'>
               <%= term["term"] %> (<%= term["count"] %>)
             </label><br/>
-          <% end %>               
+          <% end %>
         </div>
         <h3><%= t(:'simple_form.labels.medication.timing') %></h3>
         <div data-condition="created_at:[? TO ?]" data-condition-type="range">
-          <%= t(:from) %> <input id="from" type="date" class="datepicker from"/><br/>
-          <%= t(:to) %> <input id="to" type="date" class="datepicker to"/><br/>
+          <%= t(:from) %> <input id="from" type="text" class="datepicker from"/><br/>
+          <%= t(:to) %> <input id="to" type="text" class="datepicker to"/><br/>
         </div>
       </div>
       <%= link_to new_medication_secondary_effect_path(@medication.slug), class: "btn btn-small btn-primary" do %>
